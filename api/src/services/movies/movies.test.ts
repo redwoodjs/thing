@@ -1,5 +1,7 @@
+import { parseISO } from 'date-fns'
+
 import { movies, movie, createMovie, updateMovie, deleteMovie } from './movies'
-import type { StandardScenario } from './movies.scenarios'
+import type { StandardScenario as MovieStandardScenario } from './movies.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -8,44 +10,45 @@ import type { StandardScenario } from './movies.scenarios'
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('movies', () => {
-  scenario('returns all movies', async (scenario: StandardScenario) => {
+  scenario('returns all movies', async (scenario: MovieStandardScenario) => {
     const result = await movies()
 
     expect(result.length).toEqual(Object.keys(scenario.movie).length)
   })
 
-  scenario('returns a single movie', async (scenario: StandardScenario) => {
-    const result = await movie({ id: scenario.movie.one.id })
+  scenario(
+    'returns a single movie',
+    async (scenario: MovieStandardScenario) => {
+      const result = await movie({ id: scenario.movie.trouble.id })
 
-    expect(result).toEqual(scenario.movie.one)
-  })
+      expect(result).toEqual(scenario.movie.trouble)
+    }
+  )
 
   scenario('creates a movie', async () => {
     const result = await createMovie({
       input: {
-        updatedAt: '2022-02-19T22:17:55Z',
-        name: 'String',
-        releasedOn: '2022-02-19T22:17:55Z',
+        name: 'The Fog',
+        releasedOn: '1980-01-01T00:00:00Z',
       },
     })
 
-    expect(result.updatedAt).toEqual('2022-02-19T22:17:55Z')
-    expect(result.name).toEqual('String')
-    expect(result.releasedOn).toEqual('2022-02-19T22:17:55Z')
+    expect(result.name).toEqual('The Fog')
+    expect(result.releasedOn).toEqual(parseISO('1980-01-01T00:00:00Z'))
   })
 
-  scenario('updates a movie', async (scenario: StandardScenario) => {
-    const original = await movie({ id: scenario.movie.one.id })
+  scenario('updates a movie', async (scenario: MovieStandardScenario) => {
+    const original = await movie({ id: scenario.movie.precinct.id })
     const result = await updateMovie({
       id: original.id,
-      input: { updatedAt: '2022-02-20T22:17:55Z' },
+      input: { name: 'Assault On Precinct Thirteen' },
     })
 
-    expect(result.updatedAt).toEqual('2022-02-20T22:17:55Z')
+    expect(result.name).toEqual('Assault On Precinct Thirteen')
   })
 
-  scenario('deletes a movie', async (scenario: StandardScenario) => {
-    const original = await deleteMovie({ id: scenario.movie.one.id })
+  scenario('deletes a movie', async (scenario: MovieStandardScenario) => {
+    const original = await deleteMovie({ id: scenario.movie.escape.id })
     const result = await movie({ id: original.id })
 
     expect(result).toEqual(null)

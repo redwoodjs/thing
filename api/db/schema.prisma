@@ -14,20 +14,23 @@ model Movie {
   updatedAt      DateTime        @updatedAt
   name           String
   releasedOn     DateTime
-  plays          Play[]
   possibleMovies PossibleMovie[]
+  correctPlays   Play[]          @relation("correctMovie")
+  answeredPlays  Play[]          @relation("answeredMovie")
 }
 
 model Play {
-  id             String          @id @default(uuid())
-  createdAt      DateTime        @default(now())
-  updatedAt      DateTime        @updatedAt
-  playerId       String
-  player         Player          @relation(fields: [playerId], references: [id])
-  correctMovie   Movie?          @relation(fields: [correctMovieId], references: [id])
-  correctMovieId String?         @unique
-  possibleMovies PossibleMovie[]
-  correctness    Boolean
+  id              String          @id @default(uuid())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  playerId        String
+  player          Player          @relation(fields: [playerId], references: [id])
+  correctMovie    Movie           @relation("correctMovie", fields: [correctMovieId], references: [id])
+  correctMovieId  String          @unique
+  possibleMovies  PossibleMovie[]
+  answeredMovie   Movie           @relation("answeredMovie", fields: [answeredMovieId], references: [id])
+  answeredMovieId String          @unique
+  correctness     Boolean?
 }
 
 model Player {

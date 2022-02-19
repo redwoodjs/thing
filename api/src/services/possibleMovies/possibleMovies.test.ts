@@ -32,13 +32,13 @@ describe('possibleMovies', () => {
   scenario('creates a possibleMovie', async (scenario: StandardScenario) => {
     const result = await createPossibleMovie({
       input: {
-        updatedAt: '2022-02-19T22:18:13Z',
+        updatedAt: '2022-02-19T23:28:39Z',
         playId: scenario.possibleMovie.two.playId,
         movieId: scenario.possibleMovie.two.movieId,
       },
     })
 
-    expect(result.updatedAt).toEqual('2022-02-19T22:18:13Z')
+    expect(result.updatedAt).toEqual('2022-02-19T23:28:39Z')
     expect(result.playId).toEqual(scenario.possibleMovie.two.playId)
     expect(result.movieId).toEqual(scenario.possibleMovie.two.movieId)
   })
@@ -47,10 +47,10 @@ describe('possibleMovies', () => {
     const original = await possibleMovie({ id: scenario.possibleMovie.one.id })
     const result = await updatePossibleMovie({
       id: original.id,
-      input: { updatedAt: '2022-02-20T22:18:13Z' },
+      input: { updatedAt: '2022-02-20T23:28:39Z' },
     })
 
-    expect(result.updatedAt).toEqual('2022-02-20T22:18:13Z')
+    expect(result.updatedAt).toEqual('2022-02-20T23:28:39Z')
   })
 
   scenario('deletes a possibleMovie', async (scenario: StandardScenario) => {

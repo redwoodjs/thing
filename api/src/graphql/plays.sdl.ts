@@ -5,10 +5,12 @@ export const schema = gql`
     updatedAt: DateTime!
     playerId: String!
     player: Player!
-    correctMovie: Movie
-    correctMovieId: String
+    correctMovie: Movie!
+    correctMovieId: String!
     possibleMovies: [PossibleMovie]!
-    correctness: Boolean!
+    answeredMovie: Movie!
+    answeredMovieId: String!
+    correctness: Boolean
   }
 
   type Query {
@@ -17,15 +19,11 @@ export const schema = gql`
   }
 
   input CreatePlayInput {
-    playerId: String!
-    correctMovieId: String
-    correctness: Boolean!
+    answeredMovieId: String!
   }
 
   input UpdatePlayInput {
-    playerId: String
-    correctMovieId: String
-    correctness: Boolean
+    answeredMovieId: String
   }
 
   type Mutation {
