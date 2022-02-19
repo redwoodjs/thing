@@ -1,16 +1,7 @@
-import { Fragment } from 'react'
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { useAuth } from '@redwoodjs/auth'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
-const navigation = [
-  { name: 'Rules', page: 'rules' },
-  { name: 'Leader board', page: 'home' },
-  { name: 'Marketplace', page: 'home' },
-  { name: 'Company', page: 'home' },
-]
+import { SignInButton } from '@clerk/clerk-react'
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth()
@@ -106,12 +97,11 @@ const HomePage = () => {
             {!isAuthenticated && (
               <div className="text-right">
                 <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
-                  <Link
-                    to={routes.home()}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
-                  >
-                    Log In
-                  </Link>
+                  <SignInButton mode="modal">
+                    <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                      Log In
+                    </button>
+                  </SignInButton>
                 </span>
               </div>
             )}
@@ -126,13 +116,13 @@ const HomePage = () => {
                   <span className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
                     <span className="block text-gray-900">(thing)</span>
                     <span className="block text-indigo-600">
-                      to keep you entertained all day long
+                      keeping you entertained all day long
                     </span>
                   </span>
                 </h1>
                 <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Click &quot;Start Playing&quot; to start a new game. Or log in
-                  to see your user profile and be able to...
+                  to see your user profile and be able to... blah... blah...
                 </p>
                 <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
@@ -144,12 +134,11 @@ const HomePage = () => {
                     </Link>
                   </div>
                   <div className="mt-3 rounded-md shadow ring-1 ring-black ring-opacity-5 sm:mt-0 sm:ml-3">
-                    <Link
-                      to={routes.rules()}
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
-                    >
-                      Log In
-                    </Link>
+                    <SignInButton mode="modal">
+                      <button className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                        Log In
+                      </button>
+                    </SignInButton>
                   </div>
                 </div>
               </div>
