@@ -44,7 +44,6 @@ export default () => (
             `,
       }}
     />
-
     <section>
       <h1>
         <span>Something went wrong</span>
