@@ -5,8 +5,9 @@ export const schema = gql`
     updatedAt: DateTime!
     name: String!
     releasedOn: DateTime!
-    plays: [Play]!
     possibleMovies: [PossibleMovie]!
+    correctPlays: [Play]!
+    answeredPlays: [Play]!
   }
 
   type Query {

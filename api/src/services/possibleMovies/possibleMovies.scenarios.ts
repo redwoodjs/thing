@@ -4,42 +4,68 @@ export const standard = defineScenario<Prisma.PossibleMovieCreateArgs>({
   possibleMovie: {
     one: {
       data: {
-        updatedAt: '2022-02-19T22:18:13Z',
+        updatedAt: '2022-02-19T23:28:39Z',
         play: {
           create: {
-            updatedAt: '2022-02-19T22:18:13Z',
-            correctness: true,
+            updatedAt: '2022-02-19T23:28:39Z',
             player: {
-              create: { updatedAt: '2022-02-19T22:18:13Z', name: 'String' },
+              create: { updatedAt: '2022-02-19T23:28:39Z', name: 'String' },
+            },
+            correctMovie: {
+              create: {
+                updatedAt: '2022-02-19T23:28:39Z',
+                name: 'String',
+                releasedOn: '2022-02-19T23:28:39Z',
+              },
+            },
+            answeredMovie: {
+              create: {
+                updatedAt: '2022-02-19T23:28:39Z',
+                name: 'String',
+                releasedOn: '2022-02-19T23:28:39Z',
+              },
             },
           },
         },
         movie: {
           create: {
-            updatedAt: '2022-02-19T22:18:13Z',
+            updatedAt: '2022-02-19T23:28:39Z',
             name: 'String',
-            releasedOn: '2022-02-19T22:18:13Z',
+            releasedOn: '2022-02-19T23:28:39Z',
           },
         },
       },
     },
     two: {
       data: {
-        updatedAt: '2022-02-19T22:18:13Z',
+        updatedAt: '2022-02-19T23:28:39Z',
         play: {
           create: {
-            updatedAt: '2022-02-19T22:18:13Z',
-            correctness: true,
+            updatedAt: '2022-02-19T23:28:39Z',
             player: {
-              create: { updatedAt: '2022-02-19T22:18:13Z', name: 'String' },
+              create: { updatedAt: '2022-02-19T23:28:39Z', name: 'String' },
+            },
+            correctMovie: {
+              create: {
+                updatedAt: '2022-02-19T23:28:39Z',
+                name: 'String',
+                releasedOn: '2022-02-19T23:28:39Z',
+              },
+            },
+            answeredMovie: {
+              create: {
+                updatedAt: '2022-02-19T23:28:39Z',
+                name: 'String',
+                releasedOn: '2022-02-19T23:28:39Z',
+              },
             },
           },
         },
         movie: {
           create: {
-            updatedAt: '2022-02-19T22:18:13Z',
+            updatedAt: '2022-02-19T23:28:39Z',
             name: 'String',
-            releasedOn: '2022-02-19T22:18:13Z',
+            releasedOn: '2022-02-19T23:28:39Z',
           },
         },
       },

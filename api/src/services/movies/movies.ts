@@ -41,8 +41,10 @@ export const deleteMovie = ({ id }: Prisma.MovieWhereUniqueInput) => {
 }
 
 export const Movie = {
-  plays: (_obj, { root }: ResolverArgs<ReturnType<typeof movie>>) =>
-    db.movie.findUnique({ where: { id: root.id } }).plays(),
   possibleMovies: (_obj, { root }: ResolverArgs<ReturnType<typeof movie>>) =>
     db.movie.findUnique({ where: { id: root.id } }).possibleMovies(),
+  correctPlays: (_obj, { root }: ResolverArgs<ReturnType<typeof movie>>) =>
+    db.movie.findUnique({ where: { id: root.id } }).correctPlays(),
+  answeredPlays: (_obj, { root }: ResolverArgs<ReturnType<typeof movie>>) =>
+    db.movie.findUnique({ where: { id: root.id } }).answeredPlays(),
 }

@@ -47,4 +47,6 @@ export const Play = {
     db.play.findUnique({ where: { id: root.id } }).correctMovie(),
   possibleMovies: (_obj, { root }: ResolverArgs<ReturnType<typeof play>>) =>
     db.play.findUnique({ where: { id: root.id } }).possibleMovies(),
+  answeredMovie: (_obj, { root }: ResolverArgs<ReturnType<typeof play>>) =>
+    db.play.findUnique({ where: { id: root.id } }).answeredMovie(),
 }
