@@ -1,16 +1,6 @@
-import { Fragment } from 'react'
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { useAuth } from '@redwoodjs/auth'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
-const navigation = [
-  { name: 'Rules', page: 'rules' },
-  { name: 'Leader board', page: 'home' },
-  { name: 'Marketplace', page: 'home' },
-  { name: 'Company', page: 'home' },
-]
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth()
