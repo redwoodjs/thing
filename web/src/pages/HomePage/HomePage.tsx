@@ -1,6 +1,7 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import { useAuth } from '@redwoodjs/auth'
+import { SignInButton } from '@clerk/clerk-react'
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth()
@@ -96,12 +97,11 @@ const HomePage = () => {
             {!isAuthenticated && (
               <div className="text-right">
                 <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
-                  <Link
-                    to={routes.home()}
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
-                  >
-                    Log In
-                  </Link>
+                  <SignInButton mode="modal">
+                    <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                      Log In
+                    </button>
+                  </SignInButton>
                 </span>
               </div>
             )}
@@ -134,12 +134,11 @@ const HomePage = () => {
                     </Link>
                   </div>
                   <div className="mt-3 rounded-md shadow ring-1 ring-black ring-opacity-5 sm:mt-0 sm:ml-3">
-                    <Link
-                      to={routes.rules()}
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
-                    >
-                      Log In
-                    </Link>
+                    <SignInButton mode="modal">
+                      <button className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                        Log In
+                      </button>
+                    </SignInButton>
                   </div>
                 </div>
               </div>
