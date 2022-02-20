@@ -41,10 +41,10 @@ describe('players', () => {
     const original = await player({ id: scenario.player.kurt.id })
     const result = await updatePlayer({
       id: original.id,
-      input: { name: 'Snake Plisken' },
+      input: { name: 'Snake Plissken' },
     })
 
-    expect(result.name).toEqual('Snake Plisken')
+    expect(result.name).toEqual('Snake Plissken')
   })
 
   scenario('deletes a player', async (scenario: PlayerStandardScenario) => {

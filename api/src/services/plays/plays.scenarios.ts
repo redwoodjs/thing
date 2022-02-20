@@ -5,22 +5,20 @@ export const standard = defineScenario<Prisma.PlayCreateArgs>({
     one: {
       data: {
         player: {
-          create: { name: 'String' },
+          create: { name: 'Jack Burton' },
         },
         correctMovie: {
           create: {
-            updatedAt: '2022-02-20T00:22:28Z',
             tmdbId: 1250121,
-            title: 'String',
+            title: 'They Live',
             releasedOn: '2022-02-20T00:22:28Z',
             posterPath: 'String',
           },
         },
         answeredMovie: {
           create: {
-            updatedAt: '2022-02-20T00:22:28Z',
             tmdbId: 22581,
-            title: 'String',
+            title: 'Escape From L.A.',
             releasedOn: '2022-02-20T00:22:28Z',
             posterPath: 'String',
           },
@@ -30,22 +28,20 @@ export const standard = defineScenario<Prisma.PlayCreateArgs>({
     two: {
       data: {
         player: {
-          create: { name: 'String' },
+          create: { name: 'Laurie Strode' },
         },
         correctMovie: {
           create: {
-            updatedAt: '2022-02-20T00:22:28Z',
             tmdbId: 8205318,
-            title: 'String',
+            title: 'Halloween',
             releasedOn: '2022-02-20T00:22:28Z',
             posterPath: 'String',
           },
         },
         answeredMovie: {
           create: {
-            updatedAt: '2022-02-20T00:22:28Z',
             tmdbId: 5490791,
-            title: 'String',
+            title: 'Prince of Darkness',
             releasedOn: '2022-02-20T00:22:28Z',
             posterPath: 'String',
           },
