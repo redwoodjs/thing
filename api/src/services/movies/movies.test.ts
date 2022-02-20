@@ -28,12 +28,14 @@ describe('movies', () => {
   scenario('creates a movie', async () => {
     const result = await createMovie({
       input: {
-        name: 'The Fog',
+        title: 'The Fog',
+        tmdbId: 1,
+        posterPath: 'jhpg',
         releasedOn: '1980-01-01T00:00:00Z',
       },
     })
 
-    expect(result.name).toEqual('The Fog')
+    expect(result.title).toEqual('The Fog')
     expect(result.releasedOn).toEqual(parseISO('1980-01-01T00:00:00Z'))
   })
 
@@ -41,10 +43,10 @@ describe('movies', () => {
     const original = await movie({ id: scenario.movie.precinct.id })
     const result = await updateMovie({
       id: original.id,
-      input: { name: 'Assault On Precinct Thirteen' },
+      input: { title: 'Assault On Precinct Thirteen' },
     })
 
-    expect(result.name).toEqual('Assault On Precinct Thirteen')
+    expect(result.title).toEqual('Assault On Precinct Thirteen')
   })
 
   scenario('deletes a movie', async (scenario: MovieStandardScenario) => {

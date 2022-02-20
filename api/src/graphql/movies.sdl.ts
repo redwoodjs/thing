@@ -3,8 +3,11 @@ export const schema = gql`
     id: String!
     createdAt: DateTime!
     updatedAt: DateTime!
-    name: String!
+    tmdbId: Int!
+    title: String!
     releasedOn: DateTime!
+    posterPath: String!
+    tagline: String
     possibleMovies: [PossibleMovie]!
     correctPlays: [Play]!
     answeredPlays: [Play]!
@@ -16,13 +19,19 @@ export const schema = gql`
   }
 
   input CreateMovieInput {
-    name: String!
+    tmdbId: Int!
+    title: String!
     releasedOn: DateTime!
+    posterPath: String!
+    tagline: String
   }
 
   input UpdateMovieInput {
-    name: String
+    tmdbId: Int
+    title: String
     releasedOn: DateTime
+    posterPath: String
+    tagline: String
   }
 
   type Mutation {
