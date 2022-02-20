@@ -5,9 +5,36 @@
  * to inject Tailwind's styles into your CSS.
  * For more information, see: https://tailwindcss.com/docs/installation#include-tailwind-in-your-css
  */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 /**
  * END --- SETUP TAILWINDCSS EDIT
  */
+
+.cl-modal-backdrop .cl-modal-container {
+  width: 500px;
+}
+
+/**
+ * On my computer, when the browser auto-filled the email field for sign up/log
+ * in a password field would also show up. Probably because the browser already
+ * had a password associated with that email. Since we're only doing magiclink
+ * logins that password field is not used for anything. So these css statements
+ * hides the password stuff.
+ */
+#password {
+  display: none;
+}
+
+#password + span {
+  display: none;
+}
+
+label[for=password] {
+  display: none;
+}
+
+label[for=password] + span {
+  display: none;
+}
