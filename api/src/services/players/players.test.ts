@@ -31,7 +31,7 @@ describe('players', () => {
 
   scenario('creates a player', async () => {
     const result = await createPlayer({
-      input: { updatedAt: '2022-02-19T22:17:48Z', name: 'Donald Moffat' },
+      input: { name: 'Donald Moffat' },
     })
 
     expect(result.name).toEqual('Donald Moffat')

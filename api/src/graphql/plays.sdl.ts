@@ -19,11 +19,17 @@ export const schema = gql`
   }
 
   input CreatePlayInput {
+    playerId: String!
+    correctMovieId: String!
     answeredMovieId: String!
+    correctness: Boolean
   }
 
   input UpdatePlayInput {
+    playerId: String
+    correctMovieId: String
     answeredMovieId: String
+    correctness: Boolean
   }
 
   type Mutation {

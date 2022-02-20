@@ -12,8 +12,11 @@ model Movie {
   id             String          @id @default(uuid())
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
-  name           String
+  tmdbId         Int             @unique
+  title          String
   releasedOn     DateTime
+  posterPath     String
+  tagline        String?
   possibleMovies PossibleMovie[]
   correctPlays   Play[]          @relation("correctMovie")
   answeredPlays  Play[]          @relation("answeredMovie")
@@ -26,10 +29,10 @@ model Play {
   playerId        String
   player          Player          @relation(fields: [playerId], references: [id])
   correctMovie    Movie           @relation("correctMovie", fields: [correctMovieId], references: [id])
-  correctMovieId  String          @unique
+  correctMovieId  String
   possibleMovies  PossibleMovie[]
   answeredMovie   Movie           @relation("answeredMovie", fields: [answeredMovieId], references: [id])
-  answeredMovieId String          @unique
+  answeredMovieId String
   correctness     Boolean?
 }
 
