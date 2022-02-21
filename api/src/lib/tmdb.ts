@@ -51,8 +51,8 @@ export const discoverMovieForYear = async ({ year, numPages = 5 }) => {
  */
 export const discoverMoviesForYears = async ({
   startYear = new Date().getFullYear(),
-  yearsAgo = 10,
-  numPages = 5,
+  yearsAgo = 5,
+  numPages = 2,
 }) => {
   const movies = [] as Array<MovieResult>
 

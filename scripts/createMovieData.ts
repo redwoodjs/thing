@@ -12,16 +12,28 @@ const writeFile = ({ filename, data }) => {
   })
 }
 
+/**
+ * Fetch movies from the Movie Database for a series of years and saves to a data file
+ * for database seeding.
+ *
+ * Usage: yarn rw exec createMovieData --yearsAgo 5 --numPages 2
+ *
+ * @param yearsAgo How many years back to fetch movies. Defaults to 5
+ * @param numPages How many movies per year. Each page is 20 movies
+ *
+ * Note this is not memory efficient since loads all data before saving.
+ *
+ */
 export default async ({ args }) => {
-  // Your script here...
   console.log(':: Executing script with args ::')
   console.log(args)
 
   const yearsAgo = args['yearsAgo'] || 5
+  const numPages = args['numPages'] || 1
 
   console.log(`Saving movies for past ${yearsAgo} years ...`)
   try {
-    const data = await discoverMoviesForYears({ yearsAgo })
+    const data = await discoverMoviesForYears({ yearsAgo, numPages })
     console.log(`Saving ${data.length} total movies ...`)
     writeFile({ filename: 'movies', data })
 
