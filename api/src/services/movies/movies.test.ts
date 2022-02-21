@@ -30,7 +30,7 @@ describe('movies', () => {
       input: {
         title: 'The Fog',
         tmdbId: 1,
-        posterPath: 'jhpg',
+        posterPath: 'jpg',
         releasedOn: '1980-01-01T00:00:00Z',
       },
     })
