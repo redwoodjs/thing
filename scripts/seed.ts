@@ -24,6 +24,16 @@ const inBatches = (items, batchSize) => {
 }
 
 export default async () => {
+  const movieCount = await db.movie.count()
+
+  if (movieCount > 0) {
+    console.warn(
+      `Skipping seeding since there are already ${movieCount} movies in your database.`
+    )
+
+    return
+  }
+
   const tmdbMoviesData = fs.readFileSync('./data/movies.json', 'utf8')
   const tmdbMovies = JSON.parse(tmdbMoviesData)
 
@@ -41,12 +51,12 @@ export default async () => {
     })
 
     inBatches(movies, 1000).forEach(async (batchOfMovies) => {
-      console.log(`Saving ${batchOfMovies.length} movies ...`)
-      console.log(`First movie in batch: '${batchOfMovies[0].title}'`)
+      console.info(`Saving ${batchOfMovies.length} movies ...`)
+      console.info(`First movie in batch: '${batchOfMovies[0].title}'`)
       await db.movie.createMany({ data: batchOfMovies })
     })
 
-    console.log(`Done!`)
+    console.info(`Done!`)
   } catch (error) {
     console.warn('Something went wrong when seeding. :(')
     console.error(error)

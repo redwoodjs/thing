@@ -31,6 +31,59 @@ All movie data will be seeded from [The Movie Database](https://www.themoviedb.o
 
 A script will generate a JSON file of Movies and the seed script will load these into the Movie table.
 
+### Generate Seed Script
+
+This project comes pre-packaged with 8,000 movies from the past 40 years that can be seeded during database migration.
+
+You can find this movie data file in `data/movies.json`.
+
+First, you will need a TMDB API key.
+
+Register at https://www.themoviedb.org to get tokens and api keys
+
+Set in for `.env` file, your API Key.
+
+```
+TMDB_API_KEY=your key
+```
+
+We'll use the The Movie Database API (see: https://www.themoviedb.org/documentation/api) to fetch movies for a a number of past years.
+
+The `createMovieData` script is found in `scripts/createMovieData.ts`.
+
+To run:
+
+```
+// Fetch default set of 20 movies (ie, 1 page) from 5 years ago
+yarn rw exec createMovieData
+
+// Fetch 20 movies (ie, 1 page) from year from 5 years ago to current year
+yarn rw exec createMovieData --yearsAgo 5
+
+// Fetch 200 movies (ie, 10 pages) from year from 10 years ago to current year
+yarn rw exec createMovieData --yearsAgo 10 --numPages 10
+```
+
+After running the `createMovieData` script, you can then seed your data via:
+
+```
+yarn rw prisma db seed
+```
+
+Also, `yarn rw prisma migrate dev` will seed.
+
+> Note: If data exists in the `Movie` it will not re-seed as adding same movies will cause a unique constraint to be violated.
+
+Or reset to reload:
+
+```
+// Warning: this will destroy ALL data including Plays and User data
+// Are you sure you want to reset your database? All data will be lost.
+//
+yarn rw prisma migrate reset
+```
+
+
 ## Caching
 
 GraphQL caching using a Redis store will cache Leaders (ie, the leadboard). Will be invalidated on play. Note - this may be very aggressive invalidation.
