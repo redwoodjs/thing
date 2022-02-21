@@ -7,5 +7,6 @@
     "@redwoodjs/api": "^0.46.1-canary.9",
     "@redwoodjs/graphql-server": "^0.46.1-canary.9",
     "date-fns": "^2.28.0"
+    "moviedb-promise": "^3.1.13"
   }
 }
