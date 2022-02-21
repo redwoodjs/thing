@@ -45,8 +45,8 @@ export default async () => {
         tmdbId: movie.id,
         title: movie.title || movie.original_title,
         releasedOn: parseISO(movie.release_date),
-        posterPath: movie.poster_path || movie.backdrop_path || '',
-        tagline: movie.overview,
+        photoPath: movie.poster_path || movie.backdrop_path || '',
+        overview: movie.overview,
       }
     })
 

@@ -15,8 +15,8 @@ model Movie {
   tmdbId         Int             @unique
   title          String
   releasedOn     DateTime
-  posterPath     String
-  tagline        String?
+  photoPath      String
+  overview       String?
   possibleMovies PossibleMovie[]
   correctPlays   Play[]          @relation("correctMovie")
   answeredPlays  Play[]          @relation("answeredMovie")
