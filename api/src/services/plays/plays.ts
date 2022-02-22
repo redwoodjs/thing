@@ -20,6 +20,7 @@ interface CreatePlayArgs {
 export const createPlay = ({ input }: CreatePlayArgs) => {
   return db.play.create({
     data: input,
+    include: { answeredMovie: true, correctMovie: true, possibleMovies: true },
   })
 }
 
@@ -31,6 +32,7 @@ export const updatePlay = ({ id, input }: UpdatePlayArgs) => {
   return db.play.update({
     data: input,
     where: { id },
+    include: { answeredMovie: true, correctMovie: true, possibleMovies: true },
   })
 }
 
