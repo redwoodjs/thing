@@ -91,8 +91,6 @@ export const possiblesForMovieId = async ({ movieId }) => {
   ORDER BY
     RANDOM()`
 
-  // console.log(movies)
-
   return movies
 }
 
