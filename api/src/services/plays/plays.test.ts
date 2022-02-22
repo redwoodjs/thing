@@ -40,9 +40,9 @@ describe('plays', () => {
 
     const result = await createPlay({
       input: {
-        playerId,
-        correctMovieId,
-        answeredMovieId,
+        player: { connect: { id: playerId } },
+        correctMovie: { connect: { id: correctMovieId } },
+        answeredMovie: { connect: { id: answeredMovieId } },
         correctness: scenario.play.one.correctness,
       },
     })
