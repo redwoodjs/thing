@@ -40,6 +40,10 @@ export const deletePlay = ({ id }: Prisma.PlayWhereUniqueInput) => {
   })
 }
 
+export const unansweredPlays = () => {
+  return db.play.findMany({ where: { answeredMovie: null } })
+}
+
 export const Play = {
   player: (_obj, { root }: ResolverArgs<ReturnType<typeof play>>) =>
     db.play.findUnique({ where: { id: root.id } }).player(),

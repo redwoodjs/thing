@@ -31,8 +31,8 @@ model Play {
   correctMovie    Movie           @relation("correctMovie", fields: [correctMovieId], references: [id])
   correctMovieId  String
   possibleMovies  PossibleMovie[]
-  answeredMovie   Movie           @relation("answeredMovie", fields: [answeredMovieId], references: [id])
-  answeredMovieId String
+  answeredMovie   Movie?          @relation("answeredMovie", fields: [answeredMovieId], references: [id])
+  answeredMovieId String?
   correctness     Boolean?
 }
 

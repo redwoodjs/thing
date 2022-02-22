@@ -1,4 +1,11 @@
-import { plays, play, createPlay, updatePlay, deletePlay } from './plays'
+import {
+  plays,
+  play,
+  createPlay,
+  updatePlay,
+  deletePlay,
+  unansweredPlays,
+} from './plays'
 import type { StandardScenario } from './plays.scenarios'
 
 import { movies } from '../movies/movies'
@@ -33,9 +40,9 @@ describe('plays', () => {
 
     const result = await createPlay({
       input: {
-        playerId,
-        correctMovieId,
-        answeredMovieId,
+        player: { connect: { id: playerId } },
+        correctMovie: { connect: { id: correctMovieId } },
+        answeredMovie: { connect: { id: answeredMovieId } },
         correctness: scenario.play.one.correctness,
       },
     })
@@ -60,5 +67,19 @@ describe('plays', () => {
     const result = await play({ id: original.id })
 
     expect(result).toEqual(null)
+  })
+
+  scenario('creates an unanswered play', async (scenario: StandardScenario) => {
+    const allUnansweredPlays = await unansweredPlays()
+
+    const unansweredPlay = allUnansweredPlays[0]
+
+    expect(unansweredPlay).not.toBeUndefined()
+    expect(unansweredPlay.playerId).toEqual(scenario.play.unanswered.playerId)
+    expect(unansweredPlay.correctMovieId).toEqual(
+      scenario.play.unanswered.correctMovieId
+    )
+
+    expect(unansweredPlay.answeredMovieId).toBeNull()
   })
 })

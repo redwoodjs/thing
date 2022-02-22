@@ -25,6 +25,10 @@ All have createdAt and updatedAt timestamps.
 
 Current idea is to pick the move for the year. This mean the possible movies cannot be released in the same year as the correct randomly picked movie.
 
+Maybe when no logged in n play, create a player with some code and tell user to remember code.
+
+Then when sign up, use code to claim plays.
+
 ## Data
 
 All movie data will be seeded from [The Movie Database](https://www.themoviedb.org).
@@ -83,6 +87,29 @@ Or reset to reload:
 yarn rw prisma migrate reset
 ```
 
+## Game Simulation Script
+
+You can simulate a new play via:
+
+`yarn rw exec simulateNewPlay`
+
+This:
+
+* creates a new plyer
+* picks a random movie as the correctMovie
+* creates a new play without an answered movie but with the correct and possible movies set
+
+```
+{
+  id: '1650a1e3-3181-40f0-81df-e7d18b0161be',
+  createdAt: 2022-02-22T01:10:28.055Z,
+  updatedAt: 2022-02-22T01:10:28.055Z,
+  playerId: 'f705f530-165d-425e-a7ea-25efe5f5f323',
+  correctMovieId: '3f3add52-a5d9-4cfa-aa9c-a5ac91e165bc',
+  answeredMovieId: null,
+  correctness: null
+}
+```
 
 ## Caching
 
