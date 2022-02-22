@@ -48,6 +48,22 @@ export const standard = defineScenario<Prisma.PlayCreateArgs>({
         },
       },
     },
+    unanswered: {
+      data: {
+        player: {
+          create: { name: 'Smurfette' },
+        },
+        correctMovie: {
+          create: {
+            tmdbId: 77931,
+            title: 'The Smurfs 2',
+            releasedOn: '2013-07-31T00:00:00Z',
+            photoPath: 'String',
+          },
+        },
+        answeredMovie: undefined,
+      },
+    },
   },
 })
 

@@ -8,8 +8,8 @@ export const schema = gql`
     correctMovie: Movie!
     correctMovieId: String!
     possibleMovies: [PossibleMovie]!
-    answeredMovie: Movie!
-    answeredMovieId: String!
+    answeredMovie: Movie
+    answeredMovieId: String
     correctness: Boolean
   }
 
@@ -21,7 +21,7 @@ export const schema = gql`
   input CreatePlayInput {
     playerId: String!
     correctMovieId: String!
-    answeredMovieId: String!
+    answeredMovieId: String
     correctness: Boolean
   }
 
