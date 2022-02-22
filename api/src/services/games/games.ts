@@ -4,56 +4,22 @@ import { db } from 'src/lib/db'
 import { createPlayer } from 'api/src/services/players/players'
 import { createPlay, updatePlay } from 'api/src/services/plays/plays'
 
-const isTest = process.env.NODE_ENV === 'test'
-
 /**
  * randomMovie can be used to pick the correct movie when creating a new play
  *
  * It uses a sample of all movies then randomly orders
  * to pick just one randomly selected movie
  *
+ * @see tsm_system_rows https://www.postgresql.org/docs/9.5/tsm-system-rows.html
+ *
  * @returns A movie
  */
 export const randomMovie = async () => {
-  // The sampleSize is important based on the total number of records
-  // which impacts the initial random set from which one movie is selected.
-  //
-  // Since the test database has only a few movies, then this sample needs
-  // to be larger than is in production where there may be thousands of movies
-  //
-  // The probability of a row to be returned from TABLESAMPLE BERNOULLI(1) is 1/100, that is, 0.01
-
-  let movies = []
-
-  if (isTest) {
-    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
-    SELECT
-      *
-    FROM
-      "Movie" TABLESAMPLE BERNOULLI (100)
-  )
-  SELECT
-    *
-  FROM
-    movie_sample
-  ORDER BY
-    RANDOM()
-  LIMIT 1`
-  } else {
-    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
-      SELECT
-        *
-      FROM
-        "Movie" TABLESAMPLE BERNOULLI (1)
-    )
-    SELECT
-      *
-    FROM
-      movie_sample
-    ORDER BY
-      RANDOM()
-    LIMIT 1`
-  }
+  // Note: Be sure to run a migration that creates the tsm_system_rows Postgres extension
+  // See: https://www.postgresql.org/docs/9.5/tsm-system-rows.html
+  const movies = await db.$queryRaw<
+    Movie[]
+  >`select * from "Movie" TABLESAMPLE SYSTEM_ROWS(100) LIMIT 1`
 
   return movies[0]
 }
@@ -124,8 +90,6 @@ export const possiblesForMovieId = async ({ movieId }) => {
     all_movie_options
   ORDER BY
     RANDOM()`
-
-  // console.log(movies)
 
   return movies
 }
