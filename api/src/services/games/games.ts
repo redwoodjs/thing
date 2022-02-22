@@ -4,6 +4,8 @@ import { db } from 'src/lib/db'
 import { createPlayer } from 'api/src/services/players/players'
 import { createPlay, updatePlay } from 'api/src/services/plays/plays'
 
+const isTest = process.env.NODE_ENV === 'test'
+
 /**
  * randomMovie can be used to pick the correct movie when creating a new play
  *
@@ -13,11 +15,22 @@ import { createPlay, updatePlay } from 'api/src/services/plays/plays'
  * @returns A movie
  */
 export const randomMovie = async () => {
-  const movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
+  // The sampleSize is important based on the total number of records
+  // which impacts the initial random set from which one movie is selected.
+  //
+  // Since the test database has only a few movies, then this sample needs
+  // to be larger than is in production where there may be thousands of movies
+  //
+  // The probability of a row to be returned from TABLESAMPLE BERNOULLI(1) is 1/100, that is, 0.01
+
+  let movies = []
+
+  if (isTest) {
+    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
     SELECT
       *
     FROM
-      "Movie" TABLESAMPLE BERNOULLI (1)
+      "Movie" TABLESAMPLE BERNOULLI (100)
   )
   SELECT
     *
@@ -26,6 +39,21 @@ export const randomMovie = async () => {
   ORDER BY
     RANDOM()
   LIMIT 1`
+  } else {
+    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
+      SELECT
+        *
+      FROM
+        "Movie" TABLESAMPLE BERNOULLI (1)
+    )
+    SELECT
+      *
+    FROM
+      movie_sample
+    ORDER BY
+      RANDOM()
+    LIMIT 1`
+  }
 
   return movies[0]
 }
@@ -35,7 +63,7 @@ export const randomMovie = async () => {
  *
  * The movieId is the correct movie. It is used to pick four other
  * possible movies based on the date of the given movie.
- * Since we ask thr play to pick the year, we want to pick four possibles that are
+ * Since we ask the player to pick the year, we want to pick four possibles that are
  * somewhat contemporaneous, but not the same years as thr given movie.
  *
  * The logic is, given a movie, take a sampling of movies +/- 4 years from the movie's
@@ -100,10 +128,6 @@ export const possiblesForMovieId = async ({ movieId }) => {
   // console.log(movies)
 
   return movies
-}
-
-export const firstMovie = async () => {
-  return await db.movie.findFirst()
 }
 
 export const createNewGamePlay = async () => {
