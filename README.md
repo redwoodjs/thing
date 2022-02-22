@@ -98,19 +98,64 @@ This:
 * creates a new plyer
 * picks a random movie as the correctMovie
 * creates a new play without an answered movie but with the correct and possible movies set
+* answers given the possible movies
+* figures out correctness
+
+### Yay!
 
 ```
 {
-  id: '1650a1e3-3181-40f0-81df-e7d18b0161be',
-  createdAt: 2022-02-22T01:10:28.055Z,
-  updatedAt: 2022-02-22T01:10:28.055Z,
-  playerId: 'f705f530-165d-425e-a7ea-25efe5f5f323',
-  correctMovieId: '3f3add52-a5d9-4cfa-aa9c-a5ac91e165bc',
+  id: '9732a3ad-22bf-491b-8e8c-ef502f3d1468',
+  createdAt: 2022-02-22T02:27:11.586Z,
+  updatedAt: 2022-02-22T02:27:11.586Z,
+  playerId: '75ff4bb5-3b96-4e76-b08f-74ab9a06c270',
+  correctMovieId: 'f144f781-ca25-459d-8082-4854cf911175',
   answeredMovieId: null,
   correctness: null
-}
+} New Play by player 75ff4bb5-3b96-4e76-b08f-74ab9a06c270
+
+Player 75ff4bb5-3b96-4e76-b08f-74ab9a06c270 is guessing f144f781-ca25-459d-8082-4854cf911175 and the correct movie id is f144f781-ca25-459d-8082-4854cf911175
+
+{
+  id: '9732a3ad-22bf-491b-8e8c-ef502f3d1468',
+  createdAt: 2022-02-22T02:27:11.586Z,
+  updatedAt: 2022-02-22T02:27:13.558Z,
+  playerId: '75ff4bb5-3b96-4e76-b08f-74ab9a06c270',
+  correctMovieId: 'f144f781-ca25-459d-8082-4854cf911175',
+  answeredMovieId: 'f144f781-ca25-459d-8082-4854cf911175',
+  correctness: true
+} Your answer
+
+true Did you win?
 ```
 
+### Sorry ...
+
+```
+{
+  id: 'ec837c3c-2e57-442b-81eb-d57b6c2a1aec',
+  createdAt: 2022-02-22T02:28:08.850Z,
+  updatedAt: 2022-02-22T02:28:08.850Z,
+  playerId: '9e2939d9-6968-4ab3-83a3-299969fc5743',
+  correctMovieId: '26007fed-2eba-4ea0-bf75-1d3831ac3cd8',
+  answeredMovieId: null,
+  correctness: null
+} New Play by player 9e2939d9-6968-4ab3-83a3-299969fc5743
+
+Player 9e2939d9-6968-4ab3-83a3-299969fc5743 is guessing 35e0812a-03d7-4fce-af6c-bb5bb1902256 and the correct movie id is 26007fed-2eba-4ea0-bf75-1d3831ac3cd8
+
+{
+  id: 'ec837c3c-2e57-442b-81eb-d57b6c2a1aec',
+  createdAt: 2022-02-22T02:28:08.850Z,
+  updatedAt: 2022-02-22T02:28:10.724Z,
+  playerId: '9e2939d9-6968-4ab3-83a3-299969fc5743',
+  correctMovieId: '26007fed-2eba-4ea0-bf75-1d3831ac3cd8',
+  answeredMovieId: '35e0812a-03d7-4fce-af6c-bb5bb1902256',
+  correctness: false
+} Your answer
+
+false Did you win?
+```
 ## Caching
 
 GraphQL caching using a Redis store will cache Leaders (ie, the leadboard). Will be invalidated on play. Note - this may be very aggressive invalidation.

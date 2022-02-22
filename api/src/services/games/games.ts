@@ -2,7 +2,7 @@ import { Movie } from '@prisma/client'
 import { db } from 'src/lib/db'
 
 import { createPlayer } from 'api/src/services/players/players'
-import { createPlay } from 'api/src/services/plays/plays'
+import { createPlay, updatePlay } from 'api/src/services/plays/plays'
 
 /**
  * randomMovie can be used to pick the correct movie when creating a new play
@@ -112,10 +112,12 @@ export const createNewGamePlay = async () => {
 
   // Ideally this would be in a transaction, but may have to do some checks
   // that data is valid to go the the next step
+  // Or use the preview Prisma feature "Interactive Transactions"
+  // See: https://www.prisma.io/docs/concepts/components/prisma-client/transactions#interactive-transactions-in-preview
 
   const correctMovie = await randomMovie()
-  const possibleMovies = await possiblesForMovieId({ movieId: correctMovie.id })
 
+  const possibleMovies = await possiblesForMovieId({ movieId: correctMovie.id })
   const possibleMoviesIds = possibleMovies.map((movie) => {
     return { movieId: movie.id }
   })
@@ -134,4 +136,42 @@ export const createNewGamePlay = async () => {
   })
 
   return gamePlay
+}
+
+// Ideally this would be in a transaction, but may have to do some checks
+// that data is valid to go the the next step
+// Or use the preview Prisma feature "Interactive Transactions"
+// See: https://www.prisma.io/docs/concepts/components/prisma-client/transactions#interactive-transactions-in-preview
+// Note: Don't pass in player, but get from currentUser
+export const answerPlay = async ({ playId, playerId, answeredMovieId }) => {
+  // make sure the play belongs to the player
+  const unansweredPlays = await db.play.findMany({
+    where: {
+      id: playId,
+      playerId, // currentUser.id
+      answeredMovieId: null,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
+
+  const currentPlay = unansweredPlays[0]
+
+  let correctness = null
+
+  if (currentPlay) {
+    if (currentPlay.correctMovieId == answeredMovieId) {
+      correctness = true
+    } else {
+      correctness = false
+    }
+  }
+
+  const answered = await updatePlay({
+    id: currentPlay.id,
+    input: { correctness, answeredMovie: { connect: { id: answeredMovieId } } },
+  })
+
+  return answered
 }
