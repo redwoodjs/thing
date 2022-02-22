@@ -1,8 +1,18 @@
+import { getYear, parseISO } from 'date-fns'
+
 import { Movie } from '@prisma/client'
 import { db } from 'src/lib/db'
 
-import { createPlayer } from 'api/src/services/players/players'
-import { createPlay, updatePlay } from 'api/src/services/plays/plays'
+import { createPlayer } from 'src/services/players'
+import { createPlay, updatePlay } from 'src/services/plays'
+import { logger } from 'src/lib/logger'
+import {
+  RedwoodGraphQLError,
+  UserInputError,
+  ValidationError,
+} from '@redwoodjs/graphql-server'
+
+const isTest = process.env.NODE_ENV === 'test'
 
 /**
  * randomMovie can be used to pick the correct movie when creating a new play
@@ -10,16 +20,48 @@ import { createPlay, updatePlay } from 'api/src/services/plays/plays'
  * It uses a sample of all movies then randomly orders
  * to pick just one randomly selected movie
  *
- * @see tsm_system_rows https://www.postgresql.org/docs/9.5/tsm-system-rows.html
- *
  * @returns A movie
  */
 export const randomMovie = async () => {
-  // Note: Be sure to run a migration that creates the tsm_system_rows Postgres extension
-  // See: https://www.postgresql.org/docs/9.5/tsm-system-rows.html
-  const movies = await db.$queryRaw<
-    Movie[]
-  >`select * from "Movie" TABLESAMPLE SYSTEM_ROWS(100) LIMIT 1`
+  // The sampleSize is important based on the total number of records
+  // which impacts the initial random set from which one movie is selected.
+  //
+  // Since the test database has only a few movies, then this sample needs
+  // to be larger than is in production where there may be thousands of movies
+  //
+  // The probability of a row to be returned from TABLESAMPLE BERNOULLI(1) is 1/100, that is, 0.01
+
+  let movies = []
+
+  if (isTest) {
+    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
+    SELECT
+      *
+    FROM
+      "Movie" TABLESAMPLE BERNOULLI (100)
+  )
+  SELECT
+    *
+  FROM
+    movie_sample
+  ORDER BY
+    RANDOM()
+  LIMIT 1`
+  } else {
+    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
+      SELECT
+        *
+      FROM
+        "Movie" TABLESAMPLE BERNOULLI (1)
+    )
+    SELECT
+      *
+    FROM
+      movie_sample
+    ORDER BY
+      RANDOM()
+    LIMIT 1`
+  }
 
   return movies[0]
 }
@@ -93,8 +135,7 @@ export const possiblesForMovieId = async ({ movieId }) => {
 
   return movies
 }
-
-export const createNewGamePlay = async () => {
+export const createGame = async () => {
   // Here we'll pick the currentUser instead
   const player = await createPlayer({ input: { name: 'Player' } })
 
@@ -102,8 +143,13 @@ export const createNewGamePlay = async () => {
   // that data is valid to go the the next step
   // Or use the preview Prisma feature "Interactive Transactions"
   // See: https://www.prisma.io/docs/concepts/components/prisma-client/transactions#interactive-transactions-in-preview
-
   const correctMovie = await randomMovie()
+
+  if (!correctMovie) {
+    throw new RedwoodGraphQLError('No movies')
+  }
+
+  const year = getYear(parseISO(correctMovie.releasedOn.toString()))
 
   const possibleMovies = await possiblesForMovieId({ movieId: correctMovie.id })
   const possibleMoviesIds = possibleMovies.map((movie) => {
@@ -123,7 +169,27 @@ export const createNewGamePlay = async () => {
     },
   })
 
-  return gamePlay
+  const game = {
+    playId: gamePlay.id,
+    playerId: gamePlay.playerId,
+    year,
+    choices: possibleMovies.map((movie) => {
+      return {
+        id: movie.id,
+        title: movie.title,
+        overview: movie.overview,
+        photoPath: movie.photoPath,
+      }
+    }),
+  }
+
+  logger.debug({ query: game }, `Game ${gamePlay.id} for ${year}`)
+  logger.debug(
+    { query: { id: correctMovie.id, title: correctMovie.title } },
+    `The correct answer for ${gamePlay.id} and the ${year} is this movie`
+  )
+
+  return game
 }
 
 // Ideally this would be in a transaction, but may have to do some checks
@@ -131,7 +197,17 @@ export const createNewGamePlay = async () => {
 // Or use the preview Prisma feature "Interactive Transactions"
 // See: https://www.prisma.io/docs/concepts/components/prisma-client/transactions#interactive-transactions-in-preview
 // Note: Don't pass in player, but get from currentUser
-export const answerPlay = async ({ playId, playerId, answeredMovieId }) => {
+export const answerGame = async ({ input }) => {
+  const { playId, playerId, answeredMovieId } = input
+
+  if (!playId) {
+    throw new ValidationError('Missing play')
+  }
+
+  logger.debug(
+    { query: { playId, playerId, answeredMovieId } },
+    'answerGame input params'
+  )
   // make sure the play belongs to the player
   const unansweredPlays = await db.play.findMany({
     where: {
@@ -144,7 +220,15 @@ export const answerPlay = async ({ playId, playerId, answeredMovieId }) => {
     },
   })
 
+  if (unansweredPlays.length === 0) {
+    throw new UserInputError('The play has already been answered.')
+  }
+
   const currentPlay = unansweredPlays[0]
+
+  if (!currentPlay) {
+    throw new UserInputError('Nothing to play.')
+  }
 
   let correctness = null
 
@@ -160,6 +244,19 @@ export const answerPlay = async ({ playId, playerId, answeredMovieId }) => {
     id: currentPlay.id,
     input: { correctness, answeredMovie: { connect: { id: answeredMovieId } } },
   })
+
+  logger.debug(
+    {
+      query: {
+        playId,
+        playerId,
+        answeredMovieId,
+      },
+    },
+    'answerGame input params'
+  )
+
+  logger.debug({ query: { answered, correctness } }, 'answered')
 
   return answered
 }

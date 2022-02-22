@@ -3,9 +3,11 @@ import type { StandardScenario as GameStandardScenario } from './games.scenarios
 import {
   possiblesForMovieId,
   randomMovie,
-  createNewGamePlay,
-  answerPlay,
+  createGame,
+  answerGame,
 } from './games'
+
+import { play } from '../plays/plays'
 
 describe('games', () => {
   // Note: This test uses a larger tablesample size in test than in dev or prod
@@ -36,7 +38,7 @@ describe('games', () => {
   scenario(
     'Simulates a new game for a player with a correct movie and unanswered play',
     async (scenario: GameStandardScenario) => {
-      const play = await createNewGamePlay()
+      const game = await createGame()
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -47,18 +49,21 @@ describe('games', () => {
         scenario.movie.christine.id,
       ]
 
-      expect(play).toBeTruthy()
-      expect(play.playerId).toBeTruthy()
-      expect(allMovieIds).toContain(play.correctMovieId)
-      expect(play.answeredMovieId).toBeNull()
-      expect(play.correctness).toBeNull()
+      expect(game).toBeTruthy()
+      expect(game.playerId).toBeTruthy()
+
+      const gamePlay = await play({ id: game.playId })
+
+      expect(allMovieIds).toContain(gamePlay.correctMovieId)
+      expect(gamePlay.answeredMovieId).toBeNull()
+      expect(gamePlay.correctness).toBeNull()
     }
   )
 
   scenario(
     'Simulates a correct answer',
     async (scenario: GameStandardScenario) => {
-      const play = await createNewGamePlay()
+      const game = await createGame()
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -69,23 +74,28 @@ describe('games', () => {
         scenario.movie.christine.id,
       ]
 
-      expect(play).toBeTruthy()
-      expect(play.playerId).toBeTruthy()
-      expect(allMovieIds).toContain(play.correctMovieId)
-      expect(play.answeredMovieId).toBeNull()
-      expect(play.correctness).toBeNull()
+      expect(game).toBeTruthy()
+      expect(game.playerId).toBeTruthy()
 
-      const answeredMovieId = play.correctMovieId
+      const gamePlay = await play({ id: game.playId })
 
-      const answered = await answerPlay({
-        playId: play.id,
-        playerId: play.playerId,
-        answeredMovieId,
+      expect(allMovieIds).toContain(gamePlay.correctMovieId)
+      expect(gamePlay.answeredMovieId).toBeNull()
+      expect(gamePlay.correctness).toBeNull()
+
+      const answeredMovieId = gamePlay.correctMovieId
+
+      const answered = await answerGame({
+        input: {
+          playId: game.playId,
+          playerId: game.playerId,
+          answeredMovieId,
+        },
       })
 
       expect(answered).toBeTruthy()
       expect(answered.playerId).toBeTruthy()
-      expect(allMovieIds).toContain(play.correctMovieId)
+      expect(allMovieIds).toContain(gamePlay.correctMovieId)
       expect(answered.answeredMovieId).toEqual(answeredMovieId)
       expect(answered.correctness).toEqual(true)
     }
@@ -94,7 +104,7 @@ describe('games', () => {
   scenario(
     'Simulates a wrong answer',
     async (scenario: GameStandardScenario) => {
-      const play = await createNewGamePlay()
+      const game = await createGame()
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -105,25 +115,30 @@ describe('games', () => {
         scenario.movie.christine.id,
       ]
 
-      expect(play).toBeTruthy()
-      expect(play.playerId).toBeTruthy()
-      expect(allMovieIds).toContain(play.correctMovieId)
-      expect(play.answeredMovieId).toBeNull()
-      expect(play.correctness).toBeNull()
+      expect(game).toBeTruthy()
+      expect(game.playerId).toBeTruthy()
+
+      const gamePlay = await play({ id: game.playId })
+
+      expect(allMovieIds).toContain(gamePlay.correctMovieId)
+      expect(gamePlay.answeredMovieId).toBeNull()
+      expect(gamePlay.correctness).toBeNull()
 
       const answeredMovieId = allMovieIds.filter(
-        (id) => id != play.correctMovieId
+        (id) => id != gamePlay.correctMovieId
       )[0]
 
-      const answered = await answerPlay({
-        playId: play.id,
-        playerId: play.playerId,
-        answeredMovieId,
+      const answered = await answerGame({
+        input: {
+          playId: game.playId,
+          playerId: game.playerId,
+          answeredMovieId,
+        },
       })
 
       expect(answered).toBeTruthy()
       expect(answered.playerId).toBeTruthy()
-      expect(allMovieIds).toContain(play.correctMovieId)
+      expect(allMovieIds).toContain(gamePlay.correctMovieId)
       expect(answered.answeredMovieId).toEqual(answeredMovieId)
       expect(answered.correctness).toEqual(false)
     }
