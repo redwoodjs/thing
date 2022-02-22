@@ -1,6 +1,9 @@
 import { Movie } from '@prisma/client'
 import { db } from 'src/lib/db'
 
+import { createPlayer } from 'api/src/services/players/players'
+import { createPlay } from 'api/src/services/plays/plays'
+
 /**
  * randomMovie can be used to pick the correct movie when creating a new play
  *
@@ -101,4 +104,34 @@ export const possiblesForMovieId = async ({ movieId }) => {
 
 export const firstMovie = async () => {
   return await db.movie.findFirst()
+}
+
+export const createNewGamePlay = async () => {
+  // Here we'll pick the currentUser instead
+  const player = await createPlayer({ input: { name: 'Player' } })
+
+  // Ideally this would be in a transaction, but may have to do some checks
+  // that data is valid to go the the next step
+
+  const correctMovie = await randomMovie()
+  const possibleMovies = await possiblesForMovieId({ movieId: correctMovie.id })
+
+  const possibleMoviesIds = possibleMovies.map((movie) => {
+    return { movieId: movie.id }
+  })
+
+  const gamePlay = await createPlay({
+    input: {
+      player: { connect: { id: player.id } },
+      correctMovie: {
+        connect: {
+          id: correctMovie.id,
+        },
+      },
+      possibleMovies: { create: possibleMoviesIds },
+      answeredMovie: undefined,
+    },
+  })
+
+  return gamePlay
 }
