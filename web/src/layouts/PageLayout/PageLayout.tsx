@@ -1,5 +1,7 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
+import { Toaster } from '@redwoodjs/web/toast'
+
 import { SignInButton } from '@clerk/clerk-react'
 
 type PageLayoutProps = {
@@ -11,6 +13,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
 
   return (
     <div className="relative bg-white overflow-hidden">
+      <Toaster toastOptions={{ success: { duration: 10000 } }} />
       <div
         className="hidden lg:block lg:absolute lg:inset-0"
         aria-hidden="true"
