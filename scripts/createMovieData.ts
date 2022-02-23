@@ -13,13 +13,16 @@ const writeFile = ({ filename, data }) => {
 }
 
 /**
- * Fetch movies from the Movie Database for a series of years and saves to a data file
- * for database seeding.
+ * Fetch movies from the Movie Database for a series of years and saves to a
+ * data file for database seeding.
+ *
+ * Don't forget that you need a TMDB API Key to run this.
  *
  * Usage: yarn rw exec createMovieData --yearsAgo 5 --numPages 2
  *
  * @param yearsAgo How many years back to fetch movies. Defaults to 5
- * @param numPages How many movies per year. Each page is 20 movies
+ * @param numPages How many pages to fetch. Each page is 20 movies. Defaults
+ *                 to 1 page
  *
  * Note this is not memory efficient since loads all data before saving.
  *
