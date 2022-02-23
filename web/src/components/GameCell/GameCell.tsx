@@ -103,7 +103,8 @@ export const Success = ({
                 <img
                   className="drop-shadow-md"
                   alt={movie.title}
-                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.photoPath}`}
+                  // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
+                  src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}
                 />
               </div>
             </button>
