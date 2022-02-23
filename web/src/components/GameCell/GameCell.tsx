@@ -20,7 +20,7 @@ export const QUERY = gql`
 
 const ANSWER_GAME_MUTATION = gql`
   mutation AnswerGame($input: AnswerGameInput!) {
-    answerGame(input: $input) {
+    play: answerGame(input: $input) {
       id
       correctness
       answeredMovieId
@@ -58,7 +58,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({
   game,
-  setPreviousPlayId,
+  setPreviousPlay,
   refetch,
 }: CellSuccessProps) => {
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
@@ -66,18 +66,15 @@ export const Success = ({
       toast.error(error.message)
     },
 
-    onCompleted: () => {
-      setPreviousPlayId(game.playId)
+    onCompleted: ({ play }) => {
+      setPreviousPlay(play)
       refetch()
     },
   })
 
   const onAnswerClick = ({ playId, playerId, answeredMovieId }) => {
-    const t = Date.now()
     answerGame({
       variables: { input: { playId, playerId, answeredMovieId } },
-    }).then(() => {
-      console.log('delta', (Date.now() - t) / 1000.0)
     })
   }
 

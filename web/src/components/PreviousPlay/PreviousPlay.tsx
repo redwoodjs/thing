@@ -1,43 +1,14 @@
-import type { FindPreviousPlayQuery } from 'types/graphql'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { getYear } from 'src/utils/date'
 
-export const QUERY = gql`
-  query FindPreviousPlayQuery($id: String!) {
-    play(id: $id) {
-      correctMovie {
-        id
-        photoPath
-        title
-        releasedOn
-      }
-      possibleMovies {
-        movie {
-          id
-          photoPath
-          title
-          releasedOn
-        }
-      }
-      answeredMovie {
-        id
-        photoPath
-        title
-        releasedOn
-      }
-    }
+interface Props {
+  play: any | undefined
+}
+
+const PreviousPlay = ({ play }: Props) => {
+  if (!play) {
+    return null
   }
-`
 
-export const Loading = () => <div></div>
-
-export const Empty = () => <div></div>
-
-export const Failure = ({ error }: CellFailureProps) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
-)
-
-export const Success = ({ play }: CellSuccessProps<FindPreviousPlayQuery>) => {
   return (
     <div>
       <h2 className="text-center">
@@ -79,3 +50,5 @@ export const Success = ({ play }: CellSuccessProps<FindPreviousPlayQuery>) => {
     </div>
   )
 }
+
+export default PreviousPlay
