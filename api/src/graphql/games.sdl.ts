@@ -8,6 +8,7 @@ export const schema = gql`
 
   type Game {
     playId: String!
+    playerId: String!
     year: Int!
     choices: [GameMovieDetail]!
   }
