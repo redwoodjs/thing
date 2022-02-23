@@ -50,11 +50,11 @@ export default async () => {
       }
     })
 
-    inBatches(movies, 1000).forEach(async (batchOfMovies) => {
+    for (const batchOfMovies of inBatches(movies, 1000)) {
       console.info(`Saving ${batchOfMovies.length} movies ...`)
       console.info(`First movie in batch: '${batchOfMovies[0].title}'`)
       await db.movie.createMany({ data: batchOfMovies })
-    })
+    }
 
     console.info(`Done!`)
   } catch (error) {
