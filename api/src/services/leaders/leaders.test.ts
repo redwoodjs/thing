@@ -8,13 +8,22 @@ import type { StandardScenario as LeaderStandardScenario } from './leaders.scena
 // https://redwoodjs.com/docs/testing#jest-expect-type-considerations
 
 describe('leaders', () => {
-  scenario('returns all leaders', async (scenario: LeaderStandardScenario) => {
+  scenario('returns all leaders', async () => {
     const result = await leaders()
 
-    const topPlayer = result[0]
-
     expect(result.length).toBeGreaterThan(0)
-    expect(topPlayer.playerId).toEqual(scenario.play.one.playerId)
-    expect(topPlayer._count.correctness).toEqual(1)
+  })
+
+  scenario('gets the top player', async (scenario: LeaderStandardScenario) => {
+    const allLeaders = await leaders()
+
+    const allPlayerIds = [
+      scenario.play.one.playerId,
+      scenario.play.two.playerId,
+    ]
+
+    const topPlayerId = allLeaders[0].playerId
+
+    expect(allPlayerIds).toContain(topPlayerId)
   })
 })
