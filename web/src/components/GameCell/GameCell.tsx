@@ -73,8 +73,11 @@ export const Success = ({
   })
 
   const onAnswerClick = ({ playId, playerId, answeredMovieId }) => {
+    const t = Date.now()
     answerGame({
       variables: { input: { playId, playerId, answeredMovieId } },
+    }).then(() => {
+      console.log('delta', (Date.now() - t) / 1000.0)
     })
   }
 
