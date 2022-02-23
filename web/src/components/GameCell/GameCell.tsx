@@ -1,5 +1,3 @@
-import { getYear, parseISO } from 'date-fns'
-
 import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
@@ -58,33 +56,19 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ game }: CellSuccessProps) => {
+export const Success = ({
+  game,
+  setPreviousPlayId,
+  refetch,
+}: CellSuccessProps) => {
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
       toast.error(error.message)
     },
 
-    onCompleted: (data) => {
-      const correctMovieMessage = `${
-        data.answerGame.correctMovie.title
-      } was released in ${getYear(
-        parseISO(data.answerGame.correctMovie.releasedOn)
-      )}`
-
-      const answeredMovieMessage = `${
-        data.answerGame.answeredMovie.title
-      } which was released in ${getYear(
-        parseISO(data.answerGame.answeredMovie.releasedOn)
-      )}`
-
-      let message = `${correctMovieMessage}.`
-
-      if (!data.answerGame.correctness) {
-        message += ` But, you chose ${answeredMovieMessage}.`
-      }
-      toast.success(
-        `${data.answerGame.correctness ? 'Yes!' : 'Sorry.'} ${message}`
-      )
+    onCompleted: () => {
+      setPreviousPlayId(game.playId)
+      refetch()
     },
   })
 

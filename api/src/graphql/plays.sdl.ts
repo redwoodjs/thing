@@ -15,7 +15,7 @@ export const schema = gql`
 
   type Query {
     plays: [Play!]! @requireAuth
-    play(id: String!): Play @requireAuth
+    play(id: String!): Play @skipAuth
   }
 
   input CreatePlayInput {
