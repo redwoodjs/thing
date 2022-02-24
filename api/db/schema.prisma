@@ -20,6 +20,9 @@ model Movie {
   possibleMovies PossibleMovie[]
   correctPlays   Play[]          @relation("correctMovie")
   answeredPlays  Play[]          @relation("answeredMovie")
+
+  @@index([id])
+  @@index([tmdbId])
 }
 
 model Play {
@@ -34,6 +37,12 @@ model Play {
   answeredMovie   Movie?          @relation("answeredMovie", fields: [answeredMovieId], references: [id])
   answeredMovieId String?
   correctness     Boolean?
+
+  @@index([id])
+  @@index([playerId])
+  @@index([correctMovieId])
+  @@index([answeredMovieId])
+  @@index([correctness])
 }
 
 model Player {
@@ -43,6 +52,9 @@ model Player {
   name         String
   gravatarHash String?
   plays        Play[]
+
+  @@index([id])
+  @@index([name])
 }
 
 model PossibleMovie {
@@ -53,4 +65,9 @@ model PossibleMovie {
   playId    String
   movie     Movie    @relation(fields: [movieId], references: [id])
   movieId   String
+
+  @@index([id])
+  @@index([playId])
+  @@index([movieId])
+  @@index([playId, movieId])
 }
