@@ -1,4 +1,8 @@
 const Leader = ({ leader, playerId }) => {
+  if (!leader) {
+    return <></>
+  }
+
   return (
     <div
       className={

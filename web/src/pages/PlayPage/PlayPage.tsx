@@ -2,17 +2,17 @@ import { MetaTags } from '@redwoodjs/web'
 import { useEffect, useState } from 'react'
 
 import GameCell from 'src/components/GameCell'
-import PreviousPlay from 'src/components/PreviousPlay'
+import AnsweredGame from 'src/components/AnsweredGame'
 
 const PlayPage = () => {
-  const [previousPlay, setPreviousPlay] = useState<any>()
+  const [answeredGame, setAnsweredGame] = useState<any>()
   const [showPrevious, setShowPrevious] = useState(false)
 
   useEffect(() => {
     console.log('useEffect showPrevious', showPrevious)
     if (showPrevious) {
       setTimeout(() => {
-        console.log('hide PreviousPlay')
+        console.log('hide AnsweredGame')
         setShowPrevious(false)
       }, 3000)
     }
@@ -30,12 +30,12 @@ const PlayPage = () => {
             (showPrevious ? 'opacity-100' : 'opacity-0')
           }
         >
-          <PreviousPlay play={previousPlay} />
+          <AnsweredGame play={answeredGame} />
         </div>
         <div className={'z-0 ' + (showPrevious ? 'invisible' : 'visible')}>
           <GameCell
-            setPreviousPlay={(play) => {
-              setPreviousPlay(play)
+            setAnsweredGame={(play) => {
+              setAnsweredGame(play)
               setShowPrevious(true)
             }}
           />

@@ -1,10 +1,12 @@
+// import type { Play } from 'types/graphql'
+
 import { getYear } from 'src/utils/date'
 
-interface Props {
-  play: any | undefined
-}
+// interface Props {
+//   play: Play | undefined
+// }
 
-const PreviousPlay = ({ play }: Props) => {
+const AnsweredGame = ({ play }) => {
   if (!play) {
     return null
   }
@@ -53,4 +55,4 @@ const PreviousPlay = ({ play }: Props) => {
   )
 }
 
-export default PreviousPlay
+export default AnsweredGame

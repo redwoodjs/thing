@@ -1,14 +1,14 @@
 import { render } from '@redwoodjs/testing/web'
 
-import PreviousPlay from './PreviousPlay'
+import AnsweredGame from './AnsweredGame'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe('PreviousPlay', () => {
-  it('renders successfully', () => {
+describe('AnsweredGame', () => {
+  it('renders successfully without a play', () => {
     expect(() => {
-      render(<PreviousPlay />)
+      render(<AnsweredGame play={null} />)
     }).not.toThrow()
   })
 })
