@@ -2,9 +2,10 @@ export const schema = gql`
   type Leader {
     playerId: String!
     player: Player!
-    playedCount: Int!
-    # correctCount: Int!
-    # incorrectCount: Int!
+    correctTotal: Int!
+    incorrectTotal: Int!
+    unansweredTotal: Int!
+    place: Int!
   }
 
   type Query {
