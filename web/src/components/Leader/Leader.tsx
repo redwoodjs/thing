@@ -1,4 +1,4 @@
-const Leader = ({ leader }) => {
+const Leader = ({ leader, playerId }) => {
   return (
     <div
       className={
@@ -7,8 +7,16 @@ const Leader = ({ leader }) => {
           : 'grid grid-cols-6 gap-1 px-2 py-1 bg-white'
       }
     >
-      <div className="">{leader.place}</div>
-      <div className="font-semibold">
+      <div className={leader.place <= 3 ? 'font-semibold' : 'font-normal'}>
+        {leader.place}
+      </div>
+      <div
+        className={
+          playerId && playerId == leader.playerId
+            ? 'bg-green-200 font-bold'
+            : 'font-semibod'
+        }
+      >
         <span>{leader.player.gravatarHash}</span>
         {leader.player.name}
       </div>

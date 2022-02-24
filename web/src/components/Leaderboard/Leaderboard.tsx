@@ -1,6 +1,6 @@
 import Leader from 'src/components/Leader'
 
-const Leaderboard = ({ leaderboard }) => {
+const Leaderboard = ({ leaderboard, playerId }) => {
   return (
     <div>
       <div className="grid grid-cols-6 gap-1 font-bold bg-gray-200 p-2">
@@ -13,7 +13,9 @@ const Leaderboard = ({ leaderboard }) => {
       </div>
 
       {leaderboard?.map((leader) => {
-        return <Leader key={leader.playerId} leader={leader} />
+        return (
+          <Leader key={leader.playerId} leader={leader} playerId={playerId} />
+        )
       })}
     </div>
   )
