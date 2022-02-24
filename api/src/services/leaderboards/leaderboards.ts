@@ -64,6 +64,7 @@ export const leaderboards = async () => {
       totals t
       JOIN "Player" p ON p.id = t. "playerId"
     ORDER BY
+      "leaderboardRowNumber" ASC,
       place DESC,
       p.name ASC`
 
@@ -202,7 +203,12 @@ WHERE
 SELECT leaderboard.*
   FROM leaderboard, player_leaderboard
     WHERE ABS(leaderboard."leaderboardRowNumber" - player_leaderboard."leaderboardRowNumber") <= ${window}
-  ORDER BY leaderboard."leaderboardRowNumber"`
+  ORDER BY leaderboard."leaderboardRowNumber" ASC`
 
   return leaders
+}
+
+export const Leaderboard = {
+  player: (_obj, { root }) =>
+    db.player.findUnique({ where: { id: root.playerId } }),
 }

@@ -5,6 +5,7 @@ export const schema = gql`
     correctTotal: Int!
     incorrectTotal: Int!
     unansweredTotal: Int!
+    playedTotal: Int!
     place: Int!
     leaderboardRowNumber: Int!
   }

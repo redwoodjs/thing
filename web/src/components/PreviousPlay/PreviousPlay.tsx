@@ -22,20 +22,22 @@ const PreviousPlay = ({ play }: Props) => {
         {play.possibleMovies.map(({ movie }) => {
           return (
             <div key={movie.id} className="w-40">
-              <div className="flex flex-col">
+              <div className="flex flex-col text-center ">
                 <h3
                   className={
                     'py-4' +
                     (movie.id === play.correctMovie.id
-                      ? ' text-green-700'
+                      ? ' font-bold text-green-700'
                       : movie.id === play.answeredMovie.id
-                      ? ' text-red-700'
-                      : '')
+                      ? ' font-bold text-red-700'
+                      : ' text-gray-500')
                   }
                 >
                   {movie.title}
                 </h3>
-                <p>{getYear(movie.releasedOn)}</p>
+                <p className="font-bold text-center pb-2">
+                  {getYear(movie.releasedOn)}
+                </p>
                 <img
                   className="drop-shadow-md"
                   alt={movie.title}

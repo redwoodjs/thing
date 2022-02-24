@@ -2,6 +2,8 @@ import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
+import LeaderboardWindowCell from 'src/components/LeaderboardWindowCell'
+
 export const QUERY = gql`
   query CreateGame {
     game: createGame {
@@ -110,6 +112,9 @@ export const Success = ({
             </button>
           )
         })}
+      </div>
+      <div className="py-8">
+        <LeaderboardWindowCell playerId={game.playerId} />
       </div>
     </div>
   )
