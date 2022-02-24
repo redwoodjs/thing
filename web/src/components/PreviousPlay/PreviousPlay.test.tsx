@@ -6,9 +6,9 @@ import PreviousPlay from './PreviousPlay'
 //    https://redwoodjs.com/docs/testing#testing-components
 
 describe('PreviousPlay', () => {
-  it('renders successfully', () => {
+  it('renders successfully without a play', () => {
     expect(() => {
-      render(<PreviousPlay />)
+      render(<PreviousPlay play={null} />)
     }).not.toThrow()
   })
 })

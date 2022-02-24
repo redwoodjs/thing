@@ -1,7 +1,9 @@
+import type { Play } from 'types/graphql'
+
 import { getYear } from 'src/utils/date'
 
 interface Props {
-  play: any | undefined
+  play: Play | undefined
 }
 
 const PreviousPlay = ({ play }: Props) => {

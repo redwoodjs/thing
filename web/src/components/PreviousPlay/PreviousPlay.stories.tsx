@@ -1,7 +1,7 @@
 import PreviousPlay from './PreviousPlay'
 
-export const generated = () => {
-  return <PreviousPlay />
+export const missingPlay = () => {
+  return <PreviousPlay play={null} />
 }
 
 export default { title: 'Components/PreviousPlay' }

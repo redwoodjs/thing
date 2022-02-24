@@ -30,5 +30,5 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ leaderboard }: CellSuccessProps<Leaderboards>) => {
-  return <Leaderboard leaderboard={leaderboard} />
+  return <Leaderboard leaderboard={leaderboard} playerId={null} />
 }

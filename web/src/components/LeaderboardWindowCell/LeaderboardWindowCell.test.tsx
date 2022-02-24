@@ -1,4 +1,4 @@
-import { render, screen } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './LeaderboardWindowCell'
 import { standard } from './LeaderboardWindowCell.mock'
 
@@ -35,7 +35,7 @@ describe('LeaderboardWindowCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success leaderboardWindow={standard().leaderboardWindow} />)
+      render(<Success leaderboard={standard().leaderboard} />)
     }).not.toThrow()
   })
 })
