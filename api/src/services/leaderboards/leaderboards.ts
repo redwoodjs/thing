@@ -206,3 +206,8 @@ SELECT leaderboard.*
 
   return leaders
 }
+
+export const Leaderboard = {
+  player: (_obj, { root }) =>
+    db.player.findUnique({ where: { id: root.playerId } }),
+}
