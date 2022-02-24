@@ -6,11 +6,7 @@ import { db } from 'src/lib/db'
 import { createPlayer } from 'src/services/players'
 import { createPlay, updatePlay } from 'src/services/plays'
 import { logger } from 'src/lib/logger'
-import {
-  RedwoodGraphQLError,
-  UserInputError,
-  ValidationError,
-} from '@redwoodjs/graphql-server'
+import { ValidationError } from '@redwoodjs/graphql-server'
 
 const isTest = process.env.NODE_ENV === 'test'
 
@@ -34,25 +30,12 @@ export const randomMovie = async () => {
   let movies = []
 
   if (isTest) {
-    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
-    SELECT
-      *
-    FROM
-      "Movie" TABLESAMPLE BERNOULLI (100)
-  )
-  SELECT
-    *
-  FROM
-    movie_sample
-  ORDER BY
-    RANDOM()
-  LIMIT 1`
-  } else {
-    movies = await db.$queryRaw<Movie[]>`WITH movie_sample AS (
+    movies = await db.$queryRaw<Movie[]>`
+    WITH movie_sample AS (
       SELECT
         *
       FROM
-        "Movie" TABLESAMPLE BERNOULLI (1)
+        "Movie" TABLESAMPLE BERNOULLI (100)
     )
     SELECT
       *
@@ -61,6 +44,21 @@ export const randomMovie = async () => {
     ORDER BY
       RANDOM()
     LIMIT 1`
+  } else {
+    movies = await db.$queryRaw<Movie[]>`
+      WITH movie_sample AS (
+        SELECT
+          *
+        FROM
+          "Movie" TABLESAMPLE BERNOULLI (1)
+      )
+      SELECT
+        *
+      FROM
+        movie_sample
+      ORDER BY
+        RANDOM()
+      LIMIT 1`
   }
 
   return movies[0]
@@ -85,53 +83,54 @@ export const randomMovie = async () => {
  *
  */
 export const possiblesForMovieId = async ({ movieId }) => {
-  const movies = await db.$queryRaw<Movie[]>`WITH picked_movie AS (
+  const movies = await db.$queryRaw<Movie[]>`
+    WITH picked_movie AS (
+      SELECT
+        *
+      FROM
+        "Movie"
+      WHERE
+        id = ${movieId}
+    ),
+    movie_years AS (
+      SELECT
+        m.*
+      FROM
+        "Movie" m
+        LEFT JOIN picked_movie ON m.id != picked_movie.id
+      WHERE
+        date_part('year',
+          m. "releasedOn") != date_part('year',
+          picked_movie. "releasedOn")
+        AND m. "releasedOn" BETWEEN picked_movie. "releasedOn" - Interval '4 years'
+        AND picked_movie. "releasedOn" + interval '4 years'
+        ),
+    candidate_movies AS (
+      SELECT
+        *
+      FROM
+        movie_years
+      ORDER BY
+        RANDOM()
+      LIMIT 4
+    ),
+    all_movie_options AS (
+      SELECT
+        *
+      FROM
+        candidate_movies
+      UNION
+      SELECT
+        *
+      FROM
+        picked_movie
+    )
     SELECT
       *
     FROM
-      "Movie"
-    WHERE
-      id = ${movieId}
-  ),
-  movie_years AS (
-    SELECT
-      m.*
-    FROM
-      "Movie" m
-      LEFT JOIN picked_movie ON m.id != picked_movie.id
-    WHERE
-      date_part('year',
-        m. "releasedOn") != date_part('year',
-        picked_movie. "releasedOn")
-      AND m. "releasedOn" BETWEEN picked_movie. "releasedOn" - Interval '4 years'
-      AND picked_movie. "releasedOn" + interval '4 years'
-      ),
-  candidate_movies AS (
-    SELECT
-      *
-    FROM
-      movie_years
+      all_movie_options
     ORDER BY
-      RANDOM()
-    LIMIT 4
-  ),
-  all_movie_options AS (
-    SELECT
-      *
-    FROM
-      candidate_movies
-    UNION
-    SELECT
-      *
-    FROM
-      picked_movie
-  )
-  SELECT
-    *
-  FROM
-    all_movie_options
-  ORDER BY
-    RANDOM()`
+      RANDOM()`
 
   return movies
 }
@@ -146,7 +145,7 @@ export const createGame = async () => {
   const correctMovie = await randomMovie()
 
   if (!correctMovie) {
-    throw new RedwoodGraphQLError('No movies')
+    throw new ValidationError('No movies')
   }
 
   const year = getYear(parseISO(correctMovie.releasedOn.toString()))
@@ -220,14 +219,14 @@ export const answerGame = async ({ input }) => {
     },
   })
 
-  if (unansweredPlays.length === 0) {
-    throw new UserInputError('The play has already been answered.')
-  }
-
   const currentPlay = unansweredPlays[0]
 
   if (!currentPlay) {
-    throw new UserInputError('Nothing to play.')
+    throw new ValidationError('Nothing to play.')
+  }
+
+  if (unansweredPlays.length === 0) {
+    throw new ValidationError('The play has already been answered.')
   }
 
   let correctness = null

@@ -1,3 +1,5 @@
+import { ValidationError } from '@redwoodjs/graphql-server'
+
 import type { StandardScenario as GameStandardScenario } from './games.scenarios'
 
 import {
@@ -8,6 +10,7 @@ import {
 } from './games'
 
 import { play } from '../plays/plays'
+import { db } from 'src/lib/db'
 
 describe('games', () => {
   // Note: This test uses a larger tablesample size in test than in dev or prod
@@ -29,7 +32,6 @@ describe('games', () => {
       })
 
       const movieIds = movies.map((movie) => movie.id)
-
       expect(movies.length).toEqual(5)
       expect(movieIds).toContain(movieId)
     }
@@ -141,6 +143,59 @@ describe('games', () => {
       expect(allMovieIds).toContain(gamePlay.correctMovieId)
       expect(answered.answeredMovieId).toEqual(answeredMovieId)
       expect(answered.correctness).toEqual(false)
+    }
+  )
+
+  scenario(
+    'When no movies to make a game',
+    async (_scenario: GameStandardScenario) => {
+      await db.movie.deleteMany()
+
+      expect(async () => await createGame()).rejects.toThrow('No movies')
+    }
+  )
+
+  scenario(
+    'When the game has already been answered.',
+    async (scenario: GameStandardScenario) => {
+      const game = await createGame()
+
+      await db.play.update({
+        data: { answeredMovieId: scenario.movie.escape.id },
+        where: { id: game.playId },
+      })
+
+      expect(
+        async () =>
+          await answerGame({
+            input: {
+              playId: game.playId,
+              playerId: game.playerId,
+              answeredMovieId: scenario.movie.escape.id,
+            },
+          })
+      ).rejects.toThrow('Nothing to play.')
+    }
+  )
+
+  scenario(
+    'When the game does not belong to the current user.',
+    async (scenario: GameStandardScenario) => {
+      const game = await createGame()
+      const otherPlayer = await db.player.create({
+        data: { name: 'Some other player' },
+      })
+
+      expect(
+        async () =>
+          await answerGame({
+            input: {
+              playId: game.playId,
+              playerId: otherPlayer.id,
+              answeredMovieId: scenario.movie.escape.id,
+            },
+          })
+      ).rejects.toThrow('Nothing to play.')
     }
   )
 })
