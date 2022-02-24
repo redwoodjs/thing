@@ -60,7 +60,7 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({
   game,
-  setPreviousPlay,
+  setAnsweredGame,
   refetch,
 }: CellSuccessProps) => {
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
@@ -69,7 +69,7 @@ export const Success = ({
     },
 
     onCompleted: ({ play }) => {
-      setPreviousPlay(play)
+      setAnsweredGame(play)
       refetch()
     },
   })
