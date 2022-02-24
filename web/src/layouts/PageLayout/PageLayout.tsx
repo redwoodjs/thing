@@ -82,12 +82,13 @@ const PageLayout = ({ children }: PageLayoutProps) => {
               >
                 Rules
               </Link>
-              <a
-                href="#leader-board"
+              <Link
+                to={routes.leaderboard()}
+                href="#leaderboard"
                 className="font-medium text-gray-500 hover:text-gray-900"
               >
-                Leader board
-              </a>
+                Leaderboard
+              </Link>
               {isAuthenticated && (
                 <Link
                   to={routes.profile()}

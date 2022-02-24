@@ -1,4 +1,4 @@
-import { getYear, parseISO } from 'date-fns'
+import { getMilliseconds, getYear, parseISO } from 'date-fns'
 
 import { Movie } from '@prisma/client'
 import { db } from 'src/lib/db'
@@ -136,7 +136,9 @@ export const possiblesForMovieId = async ({ movieId }) => {
 }
 export const createGame = async () => {
   // Here we'll pick the currentUser instead
-  const player = await createPlayer({ input: { name: 'Player' } })
+  const player = await createPlayer({
+    input: { name: `Player ${getMilliseconds(Date.now())}` },
+  })
 
   // Ideally this would be in a transaction, but may have to do some checks
   // that data is valid to go the the next step
