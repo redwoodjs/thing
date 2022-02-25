@@ -35,6 +35,6 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ leaderboard }: CellSuccessProps<Leaderboards>) => {
-  return <Leaderboard leaderboard={leaderboard} playerId={currentPlayerId} />
+export const Success = ({ leaderboard, playerId = null }) => {
+  return <Leaderboard leaderboard={leaderboard} playerId={playerId} />
 }
