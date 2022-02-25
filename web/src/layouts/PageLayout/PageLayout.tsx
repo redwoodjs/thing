@@ -111,7 +111,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
             </div>
           )}
         </nav>
-        <main className="mt-16 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-32">
+        <main className="mt-4 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-8">
           {children}
         </main>
       </div>

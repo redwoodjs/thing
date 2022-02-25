@@ -22,7 +22,6 @@ const PlayPage = () => {
     <>
       <MetaTags title="Play" description="Play page" />
 
-      <h1 className="text-xl text-center pb-12">Play!</h1>
       <div className="relative">
         <div
           className={
