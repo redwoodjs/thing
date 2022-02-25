@@ -4,6 +4,10 @@ import { useMutation } from '@redwoodjs/web'
 
 import LeaderboardWindowCell from 'src/components/LeaderboardWindowCell'
 
+export const beforeQuery = () => {
+  return { fetchPolicy: 'no-cache' }
+}
+
 export const QUERY = gql`
   query CreateGame {
     game: createGame {
@@ -29,14 +33,17 @@ const ANSWER_GAME_MUTATION = gql`
       answeredMovie {
         id
         title
+        overview
         releasedOn
         photoPath
       }
       correctMovie {
         id
         title
+        overview
         releasedOn
         photoPath
+        overview
       }
       possibleMovies {
         movie {
@@ -81,7 +88,7 @@ export const Success = ({
   }
 
   return (
-    <div>
+    <div className="mb-4">
       <h2 className="text-center">
         Which movie was released in{' '}
         <span className="font-bold text-xl px-1">{game.year}</span>?
