@@ -14,7 +14,12 @@ export const failure = () => {
 }
 
 export const success = () => {
-  return Success ? <Success {...standard()} /> : null
+  return Success ? (
+    <Success
+      leaderboard={standard().leaderboard}
+      playerId={standard().leaderboard[2].playerId}
+    />
+  ) : null
 }
 
 export default { title: 'Cells/LeaderboardWindowCell' }

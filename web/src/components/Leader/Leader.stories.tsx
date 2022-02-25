@@ -1,8 +1,8 @@
 import Leader from './Leader'
-import { standard } from '../LeaderboardWindowCell/LeaderboardWindowCell.mock'
+import { standard } from '../LeaderboardCell/LeaderboardCell.mock'
 
 export const generated = () => {
-  const leader = standard().leaderboard[0]
+  const leader = standard().leaderboard[6]
   return <Leader leader={leader} playerId={leader.playerId} />
 }
 
