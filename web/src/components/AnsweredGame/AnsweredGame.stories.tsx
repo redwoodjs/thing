@@ -5,8 +5,12 @@ export const missing = () => {
   return <AnsweredGame play={null} />
 }
 
-export const answered = () => {
-  return <AnsweredGame play={standard().answeredGame} />
+export const answeredCorrectly = () => {
+  return <AnsweredGame play={standard().answeredCorrectly} />
+}
+
+export const answeredIncorrectly = () => {
+  return <AnsweredGame play={standard().answeredIncorrectly} />
 }
 
 export default { title: 'Components/AnsweredGame' }

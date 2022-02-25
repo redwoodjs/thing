@@ -12,7 +12,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
   const { isAuthenticated } = useAuth()
 
   return (
-    <div className="relative bg-white overflow-hidden">
+    <div className="relative bg-white">
       <Toaster toastOptions={{ success: { duration: 10000 } }} />
       <div
         className="hidden lg:block lg:absolute lg:inset-0"
