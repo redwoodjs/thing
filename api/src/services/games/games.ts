@@ -134,11 +134,14 @@ export const possiblesForMovieId = async ({ movieId }) => {
 
   return movies
 }
-export const createGame = async () => {
-  // Here we'll pick the currentUser instead
-  const player = await createPlayer({
-    input: { name: `Player ${getMilliseconds(Date.now())}` },
-  })
+export const createGame = async ({ playerId }) => {
+  let player
+
+  if (!playerId) {
+    player = await createPlayer({
+      input: { name: `Player ${getMilliseconds(Date.now())}` },
+    })
+  }
 
   // Ideally this would be in a transaction, but may have to do some checks
   // that data is valid to go the the next step
@@ -159,7 +162,11 @@ export const createGame = async () => {
 
   const gamePlay = await createPlay({
     input: {
-      player: { connect: { id: player.id } },
+      player: {
+        connect: {
+          id: playerId ?? player.id,
+        },
+      },
       correctMovie: {
         connect: {
           id: correctMovie.id,

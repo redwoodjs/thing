@@ -7,6 +7,7 @@ import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
 
 import './index.css'
+import { PlayerContextProvider } from './contexts/PlayerContext'
 
 // Wrap <ClerkAuthProvider> around the Redwood <AuthProvider>
 //
@@ -44,7 +45,9 @@ const App = () => (
       <ClerkAuthProvider>
         <AuthProvider type="clerk">
           <RedwoodApolloProvider>
-            <Routes />
+            <PlayerContextProvider>
+              <Routes />
+            </PlayerContextProvider>
           </RedwoodApolloProvider>
         </AuthProvider>
       </ClerkAuthProvider>

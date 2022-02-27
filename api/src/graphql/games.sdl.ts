@@ -15,8 +15,7 @@ export const schema = gql`
 
   type Query {
     randomMovie: Movie! @skipAuth
-    # will be @requireAuth
-    createGame: Game! @skipAuth
+    createGame(playerId: String): Game! @skipAuth
   }
   input AnswerGameInput {
     playId: String!

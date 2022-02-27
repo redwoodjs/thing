@@ -3,14 +3,26 @@ import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
 import LeaderboardWindowCell from 'src/components/LeaderboardWindowCell'
+import { useGameContext } from 'src/contexts/GameContext'
+import { usePlayerContext } from 'src/contexts/PlayerContext'
+import { useEffect } from 'react'
 
 export const beforeQuery = () => {
-  return { fetchPolicy: 'no-cache' }
+  // When babel does it thing this will end up inside a component
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const playerContext = usePlayerContext()
+
+  return {
+    fetchPolicy: 'no-cache',
+    variables: {
+      playerId: playerContext.state.playerId,
+    },
+  }
 }
 
 export const QUERY = gql`
-  query CreateGame {
-    game: createGame {
+  query CreateGame($playerId: String) {
+    game: createGame(playerId: $playerId) {
       playId
       playerId
       year
@@ -71,6 +83,8 @@ export const Success = ({
   refetch,
 }: CellSuccessProps) => {
   const gameContext = useGameContext()
+  const playerContext = usePlayerContext()
+
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
       toast.error(error.message)
@@ -93,6 +107,12 @@ export const Success = ({
       variables: { input: { playId, playerId, answeredMovieId } },
     })
   }
+
+  useEffect(() => {
+    if (!playerContext.state.playerId) {
+      playerContext.setState({ playerId: game.playerId })
+    }
+  }, [playerContext, game])
 
   return (
     <div className="mb-4">
