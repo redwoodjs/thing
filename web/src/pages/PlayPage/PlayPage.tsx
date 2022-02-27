@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react'
 import GameCell from 'src/components/GameCell'
 import AnsweredGame from 'src/components/AnsweredGame'
 
+import type { AnswerGame } from 'types/graphql'
+import GameStats from 'src/components/GameStats/GameStats'
+
 const PlayPage = () => {
-  const [answeredGame, setAnsweredGame] = useState<any>()
+  const [answeredGame, setAnsweredGame] = useState<AnswerGame>()
   const [showPrevious, setShowPrevious] = useState(false)
 
   useEffect(() => {
@@ -22,6 +25,7 @@ const PlayPage = () => {
     <>
       <MetaTags title="Play" description="Play page" />
 
+      <GameStats />
       <div className="relative">
         <div
           className={

@@ -70,12 +70,19 @@ export const Success = ({
   setAnsweredGame,
   refetch,
 }: CellSuccessProps) => {
+  const gameContext = useGameContext()
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
       toast.error(error.message)
     },
 
     onCompleted: ({ play }) => {
+      if (play.answeredMovieId === play.correctMovie.id) {
+        gameContext.correctAnswer()
+      } else {
+        gameContext.incorrectAnswer()
+      }
+
       setAnsweredGame(play)
       refetch()
     },
