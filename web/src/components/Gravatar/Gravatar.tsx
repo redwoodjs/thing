@@ -1,9 +1,18 @@
-const Gravatar = ({ leader }) => {
+interface Props {
+  player: {
+    gravatarHash?: string
+    name: string
+  }
+  size?: string
+}
+
+const Gravatar = ({ player, size = '2.25rem' }: Props) => {
   return (
     <img
-      className="inline-block h-9 w-9 rounded-full"
-      src={`https://www.gravatar.com/avatar/${leader.player.gravatarHash}?s=200`}
-      alt={leader.player.name}
+      className="inline-block rounded-full"
+      style={{ width: size, height: size }}
+      src={`https://www.gravatar.com/avatar/${player.gravatarHash}?s=200`}
+      alt={player.name}
     />
   )
 }

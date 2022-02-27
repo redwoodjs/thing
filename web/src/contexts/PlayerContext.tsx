@@ -1,4 +1,4 @@
-import React, { useReducer, createContext } from 'react'
+import React, { useReducer, createContext, useEffect } from 'react'
 
 export interface PlayerState {
   playerId?: string
@@ -16,11 +16,19 @@ function stateReducer(state: PlayerState, newState: Partial<PlayerState>) {
   return { ...state, ...newState }
 }
 
-export const PlayerContextProvider: React.FC = ({ children }) => {
+interface ProviderProps {
+  children: React.ReactNode
+}
+
+export const PlayerContextProvider = ({ children }: ProviderProps) => {
   const [state, setState] = useReducer(stateReducer, {
-    playerId: undefined,
+    playerId: localStorage.getItem('playerId') || undefined,
     playerName: '',
   })
+
+  useEffect(() => {
+    localStorage.setItem('playerId', state.playerId)
+  }, [state])
 
   return (
     <PlayerContext.Provider value={{ state, setState }}>

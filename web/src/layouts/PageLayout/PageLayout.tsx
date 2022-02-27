@@ -3,13 +3,16 @@ import { useAuth } from '@redwoodjs/auth'
 import { Toaster } from '@redwoodjs/web/toast'
 
 import { SignInButton } from '@clerk/clerk-react'
+import PlayerNameCell from 'src/components/PlayerNameCell'
+import { usePlayerContext } from 'src/contexts/PlayerContext'
 
 type PageLayoutProps = {
   children?: React.ReactNode
 }
 
 const PageLayout = ({ children }: PageLayoutProps) => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, logOut } = useAuth()
+  const playerContext = usePlayerContext()
 
   return (
     <div className="relative bg-white">
@@ -99,17 +102,37 @@ const PageLayout = ({ children }: PageLayoutProps) => {
               )}
             </div>
           </div>
-          {!isAuthenticated && (
-            <div className="text-right">
-              <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+          <div className="text-right">
+            <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
+              {!isAuthenticated ? (
                 <SignInButton mode="modal">
                   <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
-                    Log In
+                    {playerContext.state.playerId ? (
+                      <PlayerNameCell id={playerContext.state.playerId} />
+                    ) : (
+                      <>Sign In</>
+                    )}
                   </button>
                 </SignInButton>
-              </span>
-            </div>
-          )}
+              ) : playerContext.state.playerId ? (
+                <Link
+                  to={routes.profile()}
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
+                >
+                  <PlayerNameCell id={playerContext.state.playerId} />
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    playerContext.setState({ playerId: undefined })
+                    logOut()
+                  }}
+                >
+                  Sign Out
+                </button>
+              )}
+            </span>
+          </div>
         </nav>
         <main className="mt-4 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-8">
           {children}

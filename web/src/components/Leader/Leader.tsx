@@ -71,7 +71,7 @@ const Leader = ({ leader, playerId }) => {
       <div className="flex-shrink-0 group block">
         <div className="flex items-center">
           <div>
-            <Gravatar leader={leader} />
+            <Gravatar player={leader.player} />
           </div>
           <div className="ml-3">
             <p

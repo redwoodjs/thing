@@ -1,7 +1,12 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+import { usePlayerContext } from 'src/contexts/PlayerContext'
+import { useAuth } from '@redwoodjs/auth'
 
 const ProfilePage = () => {
+  const playerContext = usePlayerContext()
+  const { logOut } = useAuth()
+
   return (
     <>
       <MetaTags title="Profile" description="Profile page" />
@@ -40,6 +45,14 @@ const ProfilePage = () => {
           .
         </p>
       </div>
+      <button
+        onClick={() => {
+          playerContext.setState({ playerId: undefined })
+          logOut()
+        }}
+      >
+        Sign Out
+      </button>
     </>
   )
 }
