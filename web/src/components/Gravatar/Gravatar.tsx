@@ -7,11 +7,17 @@ interface Props {
 }
 
 const Gravatar = ({ player, size = '2.25rem' }: Props) => {
+  let src = 'https://www.gravatar.com/avatar?d=mp'
+
+  if (player.gravatarHash) {
+    src = `https://www.gravatar.com/avatar/${player.gravatarHash}?s=200`
+  }
+
   return (
     <img
       className="inline-block rounded-full"
       style={{ width: size, height: size }}
-      src={`https://www.gravatar.com/avatar/${player.gravatarHash}?s=200`}
+      src={src}
       alt={player.name}
     />
   )
