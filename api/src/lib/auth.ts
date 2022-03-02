@@ -14,11 +14,7 @@ import { logger } from 'src/lib/logger'
  *
  * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
  */
-export const getCurrentUser = async (
-  decoded,
-  { _token, _type },
-  { _event, _context }
-) => {
+export const getCurrentUser = async (decoded) => {
   if (!decoded) {
     logger.warn('Missing decoded user')
     return null
