@@ -4,8 +4,8 @@ import { getCurrentUser } from 'src/lib/auth'
 import { useRequireAuth } from '@redwoodjs/graphql-server'
 import fetch from 'node-fetch'
 import {
-  // verifyEvent,
-  // VerifyOptions,
+  verifyEvent,
+  VerifyOptions,
   WebhookVerificationError,
 } from '@redwoodjs/api/webhooks'
 
@@ -59,34 +59,34 @@ async function handlerFn(event: APIGatewayEvent, _context: Context) {
   }
 
   try {
-    // const options: VerifyOptions = {
-    //   signatureHeader: 'svix-signature',
-    //   // signatureTransformer: (signature: string) => {
-    //   //   // Clerk can pass a space separated list of signatures.
-    //   //   // Let's just use the first one that's of version 1
-    //   //   const passedSignatures = signature.split(' ')
+    const options: VerifyOptions = {
+      signatureHeader: 'svix-signature',
+      signatureTransformer: (signature: string) => {
+        // Clerk can pass a space separated list of signatures.
+        // Let's just use the first one that's of version 1
+        const passedSignatures = signature.split(' ')
 
-    //   //   for (const versionedSignature of passedSignatures) {
-    //   //     const [version, signature] = versionedSignature.split(',')
+        for (const versionedSignature of passedSignatures) {
+          const [version, signature] = versionedSignature.split(',')
 
-    //   //     if (version === 'v1') {
-    //   //       return signature
-    //   //     }
-    //   //   }
-    //   // },
-    //   timestamp: parseInt(event.headers['svix-timestamp'], 10) * 1000,
-    //   tolerance: 5 * 60 * 1000, // 5 minutes
-    // }
+          if (version === 'v1') {
+            return signature
+          }
+        }
+      },
+      eventTimestamp: parseInt(event.headers['svix-timestamp'], 10) * 1000,
+      tolerance: 5 * 60 * 1000, // 5 minutes
+    }
 
-    // const svix_id = event.headers['svix-id']
-    // const svix_timestamp = event.headers['svix-timestamp']
+    const svix_id = event.headers['svix-id']
+    const svix_timestamp = event.headers['svix-timestamp']
 
-    // verifyEvent('base64Sha256Verifier', {
-    //   event,
-    //   secret: process.env.CLERK_WH_SECRET.slice(6),
-    //   payload: `${svix_id}.${svix_timestamp}.${event.body}`,
-    //   options,
-    // })
+    verifyEvent('base64Sha256Verifier', {
+      event,
+      secret: process.env.CLERK_WH_SECRET.slice(6),
+      payload: `${svix_id}.${svix_timestamp}.${event.body}`,
+      options,
+    })
 
     webhookLogger.debug({ headers: event.headers }, 'Headers')
 
