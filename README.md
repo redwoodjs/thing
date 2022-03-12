@@ -201,3 +201,6 @@ To run this app you need:
 - A redis database
 - An account with Clerk for user auth
 - An API key for TMDB
+
+Start the dev server with `yarn rw dev --forward="--allowed-hosts all"` to
+allow incoming webhooks (from Clerk)

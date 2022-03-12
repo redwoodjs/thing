@@ -147,8 +147,8 @@ async function handleClerkPayload(body) {
       }
     )
     const user = await response.json()
-    logger.debug(user, 'User')
-    logger.debug(user.email_addresses[0].email_address, 'User email')
+    logger.debug('User %o', user)
+    logger.debug('User email %s', user.email_addresses[0].email_address)
   }
 
   return {
