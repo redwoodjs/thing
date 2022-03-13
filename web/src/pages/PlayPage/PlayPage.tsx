@@ -1,25 +1,35 @@
 import { MetaTags } from '@redwoodjs/web'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import GameCell from 'src/components/GameCell'
 import AnsweredGame from 'src/components/AnsweredGame'
 
-import type { AnswerGame } from 'types/graphql'
+import type { Play } from 'types/graphql'
 import GameStats from 'src/components/GameStats/GameStats'
+import { useGameContext } from 'src/contexts/GameContext'
 
 const PlayPage = () => {
-  const [answeredGame, setAnsweredGame] = useState<AnswerGame>()
+  const [answeredGame, setAnsweredGame] = useState<Play>()
   const [showPrevious, setShowPrevious] = useState(false)
+  const gameContext = useGameContext()
+  const firstLoad = useRef(true)
 
   useEffect(() => {
-    console.log('useEffect showPrevious', showPrevious)
     if (showPrevious) {
       setTimeout(() => {
-        console.log('hide AnsweredGame')
         setShowPrevious(false)
+        gameContext.setIsPlaying(true)
       }, 3000)
     }
-  }, [showPrevious])
+  }, [showPrevious, gameContext])
+
+  useEffect(() => {
+    // Immediately start playing on page load
+    if (firstLoad.current) {
+      firstLoad.current = false
+      gameContext.setIsPlaying(true)
+    }
+  }, [gameContext])
 
   return (
     <>
@@ -38,8 +48,8 @@ const PlayPage = () => {
         <div className={'z-0 ' + (showPrevious ? 'invisible' : 'visible')}>
           <GameCell
             setAnsweredGame={(play) => {
-              setAnsweredGame(play)
               setShowPrevious(true)
+              setAnsweredGame(play)
             }}
           />
         </div>

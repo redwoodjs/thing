@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
@@ -5,7 +6,6 @@ import { useMutation } from '@redwoodjs/web'
 import LeaderboardWindowCell from 'src/components/LeaderboardWindowCell'
 import { useGameContext } from 'src/contexts/GameContext'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
-import { useEffect } from 'react'
 
 export const beforeQuery = () => {
   // When babel does it thing this will end up inside a component
@@ -85,6 +85,8 @@ export const Success = ({
   const gameContext = useGameContext()
   const playerContext = usePlayerContext()
 
+  const countdown = gameContext.state.countdown
+
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
       toast.error(error.message)
@@ -103,6 +105,7 @@ export const Success = ({
   })
 
   const onAnswerClick = ({ playId, playerId, answeredMovieId }) => {
+    setIsPlaying(false)
     answerGame({
       variables: { input: { playId, playerId, answeredMovieId } },
     })
@@ -114,12 +117,40 @@ export const Success = ({
     }
   }, [playerContext, game])
 
+  const isPlaying = gameContext.state.isPlaying
+  const setIsPlaying = gameContext.setIsPlaying
+
+  useEffect(() => {
+    if (countdown === 0 && isPlaying) {
+      // Timeout! Skip this game
+      answerGame({
+        variables: {
+          input: {
+            playId: game.playId,
+            playerId: game.playerId,
+            answeredMovieId: undefined,
+          },
+        },
+      })
+
+      setIsPlaying(false)
+    }
+  }, [
+    countdown,
+    isPlaying,
+    setIsPlaying,
+    answerGame,
+    game.playId,
+    game.playerId,
+  ])
+
   return (
     <div className="mb-4">
       <h2 className="text-center">
         Which movie was released in{' '}
         <span className="font-bold text-xl px-1">{game.year}</span>?
       </h2>
+      <div className="text-center">{countdown}</div>
       <div className="flex items-center flex-1 justify-between w-full w-auto">
         {game.choices.map((movie) => {
           return (

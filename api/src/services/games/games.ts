@@ -239,32 +239,36 @@ export const answerGame = async ({ input }) => {
   }
 
   let correctness = null
+  let play = currentPlay
 
-  if (currentPlay) {
+  if (answeredMovieId) {
     if (currentPlay.correctMovieId == answeredMovieId) {
       correctness = true
     } else {
       correctness = false
     }
+
+    play = await updatePlay({
+      id: currentPlay.id,
+      input: {
+        correctness,
+        answeredMovie: { connect: { id: answeredMovieId } },
+      },
+    })
+
+    logger.debug(
+      {
+        query: {
+          playId,
+          playerId,
+          answeredMovieId,
+        },
+      },
+      'answerGame input params'
+    )
   }
 
-  const answered = await updatePlay({
-    id: currentPlay.id,
-    input: { correctness, answeredMovie: { connect: { id: answeredMovieId } } },
-  })
+  logger.debug({ query: { play, correctness } }, 'answered')
 
-  logger.debug(
-    {
-      query: {
-        playId,
-        playerId,
-        answeredMovieId,
-      },
-    },
-    'answerGame input params'
-  )
-
-  logger.debug({ query: { answered, correctness } }, 'answered')
-
-  return answered
+  return play
 }

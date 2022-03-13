@@ -20,7 +20,7 @@ export const schema = gql`
   input AnswerGameInput {
     playId: String!
     playerId: String!
-    answeredMovieId: String!
+    answeredMovieId: String
   }
   type Mutation {
     # will be @requireAuth
