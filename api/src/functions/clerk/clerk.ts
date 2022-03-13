@@ -1,7 +1,5 @@
 import type { APIGatewayEvent, Context } from 'aws-lambda'
 import { logger } from 'src/lib/logger'
-import { getCurrentUser } from 'src/lib/auth'
-import { useRequireAuth } from '@redwoodjs/graphql-server'
 import fetch from 'node-fetch'
 import {
   verifyEvent,
@@ -26,9 +24,7 @@ import {
  * function, and execution environment.
  */
 
-export const handler = useRequireAuth({ handlerFn, getCurrentUser })
-
-async function handlerFn(event: APIGatewayEvent, _context: Context) {
+export async function handler(event: APIGatewayEvent, _context: Context) {
   const clerkInfo = { webhook: 'clerk' }
   const webhookLogger = logger.child({ clerkInfo })
 
