@@ -1365,10 +1365,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@clerk/backend-core@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.4.3.tgz#c4ce7168033c0d6b736101acc58b9ce9f17e7630"
-  integrity sha512-If9scF9gFpYfEu7EYvlhJ6J6LwqktuWXNKm79WurhbqC91VQ9oISu0kK6s8y9QL6PJ8ZjVX+RitSFmdbKoGElA==
+"@clerk/backend-core@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.7.0.tgz#7b7ca59b401a0422120e178f897e8bbc520f5148"
+  integrity sha512-lTUm8mig9w2KPDDpVFfMKeb/8VI5Ogc+gJY9ZnxgNsIHAYY1Ioz3PO4C2D30s0DHvxw1rKRomAXrPa6jbQnUjg==
   dependencies:
     camelcase-keys "^7.0.1"
     query-string "^7.0.1"
@@ -1383,12 +1383,12 @@
     "@clerk/types" "^1.25.1"
     tslib "^2.3.1"
 
-"@clerk/clerk-sdk-node@^2.9.3":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.9.3.tgz#9308e94181d241ca13a68c7b09117eab1ac6bd1c"
-  integrity sha512-ESNI7WdAOCxZGvM7OcuZwgkYdhUaGgYVBgCKblPlXyoDPwuIG6CXszjZmZSNsGSC7hR3+Qp/2+PaZstcmiOzoA==
+"@clerk/clerk-sdk-node@2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.10.0.tgz#6dac5247241058ded762dcfd4774521cd73d99e0"
+  integrity sha512-imtaXFk6kpedHA1+rGxOvVBHP0+ee4/7bSosP0B1XJy+aiyX1ngk3a3IJsD8xeIX+U+SyLkv3Dc7bNmoV6WFeQ==
   dependencies:
-    "@clerk/backend-core" "^0.4.3"
+    "@clerk/backend-core" "^0.7.0"
     "@peculiar/webcrypto" "^1.2.3"
     camelcase-keys "^6.2.2"
     cookies "^0.8.0"
