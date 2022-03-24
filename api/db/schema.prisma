@@ -47,6 +47,7 @@ model Play {
 
 model Player {
   id           String   @id @default(uuid())
+  clerkId      String?  @unique
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   name         String

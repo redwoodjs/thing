@@ -123,6 +123,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
                 </Link>
               ) : (
                 <button
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
                   onClick={() => {
                     playerContext.setState({ playerId: undefined })
                     logOut()

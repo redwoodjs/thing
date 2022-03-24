@@ -1,6 +1,7 @@
 export const schema = gql`
   type Player {
     id: String!
+    clerkId: String!
     createdAt: DateTime!
     updatedAt: DateTime!
     name: String!
@@ -10,7 +11,8 @@ export const schema = gql`
 
   type Query {
     players: [Player!]! @requireAuth
-    player(id: String!): Player @skipAuth
+    player(id: String, clerkId: String): Player @skipAuth
+    playerByClerkId(clerkId: String!): Player @skipAuth
   }
 
   input CreatePlayerInput {
@@ -20,12 +22,13 @@ export const schema = gql`
 
   input UpdatePlayerInput {
     name: String
+    clerkId: String
     gravatarHash: String
   }
 
   type Mutation {
     createPlayer(input: CreatePlayerInput!): Player! @requireAuth
-    updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @requireAuth
+    updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @skipAuth
     deletePlayer(id: String!): Player! @requireAuth
   }
 `

@@ -27,7 +27,11 @@ export const PlayerContextProvider = ({ children }: ProviderProps) => {
   })
 
   useEffect(() => {
-    localStorage.setItem('playerId', state.playerId)
+    if (state.playerId) {
+      localStorage.setItem('playerId', state.playerId)
+    } else {
+      localStorage.removeItem('playerId')
+    }
   }, [state])
 
   return (

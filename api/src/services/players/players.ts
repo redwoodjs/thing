@@ -7,9 +7,9 @@ export const players = () => {
   return db.player.findMany()
 }
 
-export const player = ({ id }: Prisma.PlayerWhereUniqueInput) => {
+export const player = ({ id, clerkId }: Prisma.PlayerWhereUniqueInput) => {
   return db.player.findUnique({
-    where: { id },
+    where: { id, clerkId },
   })
 }
 

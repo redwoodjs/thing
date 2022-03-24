@@ -1,3 +1,4 @@
+import { Clerk as IClerk } from '@clerk/types'
 import { AuthProvider } from '@redwoodjs/auth'
 import { ClerkProvider, withClerk } from '@clerk/clerk-react'
 import { FatalErrorBoundary, RedwoodProvider } from '@redwoodjs/web'
@@ -19,6 +20,12 @@ import { PlayerContextProvider } from './contexts/PlayerContext'
 //
 // Lastly, be sure to add the key "CLERK_FRONTEND_API_URL" in your app's redwood.toml
 // [web] config "includeEnvironmentVariables" setting.
+
+declare global {
+  interface Window {
+    Clerk: IClerk
+  }
+}
 
 const ClerkAuthConsumer = withClerk(({ children, clerk }) => {
   return React.cloneElement(children as React.ReactElement, {

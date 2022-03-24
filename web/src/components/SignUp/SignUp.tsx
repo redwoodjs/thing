@@ -1,8 +1,21 @@
+import { useSignUp, useSessionList } from '@clerk/clerk-react'
 import { Form, PasswordField, Submit, TextField } from '@redwoodjs/forms'
-import { useSignUp } from '@clerk/clerk-react'
+import { useMutation } from '@redwoodjs/web'
+import { usePlayerContext } from 'src/contexts/PlayerContext'
+
+const UPDATE_PLAYER_MUTATION = gql`
+  mutation SignUpUpdatePlayer($id: String!, $input: UpdatePlayerInput!) {
+    updatePlayer(id: $id, input: $input) {
+      id
+    }
+  }
+`
 
 const SignUp = () => {
   const signUp = useSignUp()
+  const playerContext = usePlayerContext()
+
+  const [updatePlayer] = useMutation(UPDATE_PLAYER_MUTATION)
 
   const onSubmit = ({ emailAddress, password }) => {
     signUp
@@ -27,7 +40,33 @@ const SignUp = () => {
     signUp
       .attemptEmailAddressVerification({ code: data.code })
       .then((data) => {
-        console.log('data', data)
+        const session = window.Clerk.client.sessions.find(
+          (session) => session.id === data.createdSessionId
+        )
+
+        if (!session?.user.id || !playerContext.state.playerId) {
+          // Reload window to update auth
+          window.location.reload()
+        }
+
+        updatePlayer({
+          variables: {
+            id: playerContext.state.playerId,
+            input: {
+              clerkId: session?.user.id,
+            },
+          },
+        })
+          .then((data) => {
+            console.log('data', data)
+          })
+          .catch((error) => {
+            console.error('error', error)
+          })
+          .finally(() => {
+            // Reload window to update auth
+            window.location.reload()
+          })
       })
       .catch((error) => {
         console.log('error', error.errors)
