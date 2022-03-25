@@ -1,5 +1,7 @@
-import { useSignUp, useSessionList } from '@clerk/clerk-react'
+import { useState } from 'react'
+import { useSignUp } from '@clerk/clerk-react'
 import { Form, PasswordField, Submit, TextField } from '@redwoodjs/forms'
+import { Dialog } from '@headlessui/react'
 import { useMutation } from '@redwoodjs/web'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
 
@@ -14,6 +16,7 @@ const UPDATE_PLAYER_MUTATION = gql`
 const SignUp = () => {
   const signUp = useSignUp()
   const playerContext = usePlayerContext()
+  const [isOpen, setIsOpen] = useState(false)
 
   const [updatePlayer] = useMutation(UPDATE_PLAYER_MUTATION)
 
@@ -74,31 +77,97 @@ const SignUp = () => {
   }
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <Form onSubmit={onSubmit}>
-        <label htmlFor="emailAddress" className="block mt-4">
-          Email Address
-        </label>
-        <TextField name="emailAddress" validation={{ required: true }} />
+    <>
+      <button
+        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        type="button"
+        onClick={() => setIsOpen(true)}
+      >
+        Sign up
+      </button>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="fixed z-10 inset-0 overflow-y-auto"
+      >
+        <div className="flex items-center justify-center min-h-screen">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-        <label htmlFor="password" className="block mt-4">
-          Password
-        </label>
-        <PasswordField name="password" validation={{ required: true }} />
+          {/* <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"> */}
+          <div className="relative bg-white rounded max-w-lg mx-auto w-auto">
+            {/*content*/}
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              {/*header*/}
+              <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+                <Dialog.Title className="text-3xl font-semibold">
+                  Sign Up
+                  {/* <h3 className="text-3xl font-semibold">Sign Up</h3> */}
+                </Dialog.Title>
+                <button
+                  className="p-1 ml-auto bg-transparent border-0 text-black opacity-50 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="bg-transparent text-black h-6 w-6 text-2xl block outline-none">
+                    ×
+                  </span>
+                </button>
+              </div>
+              {/*body*/}
+              <div className="relative p-6 flex-auto">
+                <Dialog.Description>
+                  Create an account to claim your highscores
+                </Dialog.Description>
+                <Form onSubmit={onSubmit}>
+                  <label htmlFor="emailAddress" className="block mt-4">
+                    Email Address
+                  </label>
+                  <TextField
+                    name="emailAddress"
+                    validation={{ required: true }}
+                  />
 
-        <Submit className="block mt-4">Sign Up</Submit>
-      </Form>
+                  <label htmlFor="password" className="block mt-4">
+                    Password
+                  </label>
+                  <PasswordField
+                    name="password"
+                    validation={{ required: true }}
+                  />
 
-      <Form onSubmit={onSubmitCode}>
-        <label htmlFor="code" className="block mt-4">
-          Sign Up Code
-        </label>
-        <TextField name="code" validation={{ required: true }} />
+                  <Submit className="block mt-4">Sign Up</Submit>
+                </Form>
 
-        <Submit className="block mt-4">Verify Code</Submit>
-      </Form>
-    </div>
+                <Form onSubmit={onSubmitCode}>
+                  <label htmlFor="code" className="block mt-4">
+                    Sign Up Code
+                  </label>
+                  <TextField name="code" validation={{ required: true }} />
+
+                  <Submit className="block mt-4">Verify Code</Submit>
+                </Form>
+              </div>
+              {/*footer*/}
+              <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <button
+                  className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Close
+                </button>
+                <button
+                  className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Save Changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Dialog>
+    </>
   )
 }
 
