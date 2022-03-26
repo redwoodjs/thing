@@ -2,10 +2,9 @@ import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import { Toaster } from '@redwoodjs/web/toast'
 
-import { SignInButton } from '@clerk/clerk-react'
 import PlayerNameCell from 'src/components/PlayerNameCell'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
-import SignIn from 'src/components/SignIn/SignIn'
+import SignInButton from 'src/components/SignIn/SignInButton'
 
 type PageLayoutProps = {
   children?: React.ReactNode
@@ -102,13 +101,13 @@ const PageLayout = ({ children }: PageLayoutProps) => {
           <div className="text-right">
             <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
               {!isAuthenticated ? (
-                <SignIn className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                <SignInButton className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
                   {playerContext.state.playerId ? (
                     <PlayerNameCell id={playerContext.state.playerId} />
                   ) : (
                     <>Sign In</>
                   )}
-                </SignIn>
+                </SignInButton>
               ) : playerContext.state.playerId ? (
                 <Link
                   to={routes.profile()}

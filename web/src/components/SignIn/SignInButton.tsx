@@ -24,7 +24,7 @@ interface Props {
   children: ReactNode
 }
 
-const SignIn = ({ className, children }: Props) => {
+const SignInButton = ({ className, children }: Props) => {
   const signUp = useSignUp()
   const signIn = useSignIn()
   const playerContext = usePlayerContext()
@@ -243,4 +243,4 @@ const SignIn = ({ className, children }: Props) => {
   )
 }
 
-export default SignIn
+export default SignInButton
