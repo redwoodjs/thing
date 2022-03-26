@@ -5,6 +5,7 @@ import { Toaster } from '@redwoodjs/web/toast'
 import { SignInButton } from '@clerk/clerk-react'
 import PlayerNameCell from 'src/components/PlayerNameCell'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
+import SignIn from 'src/components/SignIn/SignIn'
 
 type PageLayoutProps = {
   children?: React.ReactNode
@@ -101,15 +102,13 @@ const PageLayout = ({ children }: PageLayoutProps) => {
           <div className="text-right">
             <span className="inline-flex rounded-md shadow-md ring-1 ring-black ring-opacity-5">
               {!isAuthenticated ? (
-                <SignInButton mode="modal">
-                  <button className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
-                    {playerContext.state.playerId ? (
-                      <PlayerNameCell id={playerContext.state.playerId} />
-                    ) : (
-                      <>Sign In</>
-                    )}
-                  </button>
-                </SignInButton>
+                <SignIn className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50">
+                  {playerContext.state.playerId ? (
+                    <PlayerNameCell id={playerContext.state.playerId} />
+                  ) : (
+                    <>Sign In</>
+                  )}
+                </SignIn>
               ) : playerContext.state.playerId ? (
                 <Link
                   to={routes.profile()}

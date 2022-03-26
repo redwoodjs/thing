@@ -1,7 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import SignIn from 'src/components/SignIn/SignIn'
-import { SignInButton } from '@clerk/clerk-react'
 
 const HomePage = () => {
   return (
@@ -33,13 +32,9 @@ const HomePage = () => {
                 Start Playing
               </Link>
             </div>
-            <div className="mt-3 rounded-md shadow ring-1 ring-black ring-opacity-5 sm:mt-0 sm:ml-3">
-              <SignInButton mode="modal">
-                <button className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
-                  Log In
-                </button>
-              </SignInButton>
-            </div>
+            <SignIn className="block mt-3 sm:mt-0 sm:ml-3 rounded-md shadow ring-1 ring-black ring-opacity-5 flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+              Sign In
+            </SignIn>
           </div>
         </div>
         <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
@@ -97,9 +92,6 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div>
-        <SignIn />
       </div>
     </>
   )

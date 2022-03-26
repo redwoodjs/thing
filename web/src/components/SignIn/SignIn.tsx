@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import { useSignUp, useSignIn } from '@clerk/clerk-react'
 import {
   Form,
@@ -19,7 +19,12 @@ const UPDATE_PLAYER_MUTATION = gql`
   }
 `
 
-const SignIn = () => {
+interface Props {
+  className?: string
+  children: ReactNode
+}
+
+const SignIn = ({ className, children }: Props) => {
   const signUp = useSignUp()
   const signIn = useSignIn()
   const playerContext = usePlayerContext()
@@ -113,11 +118,11 @@ const SignIn = () => {
   return (
     <>
       <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
+        className={className}
         onClick={() => setIsOpen(true)}
       >
-        Sign In
+        {children}
       </button>
       <Dialog
         open={isOpen}
@@ -143,8 +148,12 @@ const SignIn = () => {
                 </button>
               </div>
               <div className="relative p-6 flex-auto">
-                <Dialog.Description>
-                  Sign in to claim your highscores
+                <Dialog.Description as="div">
+                  <p>Sign in to claim your highscores.</p>
+                  <p className="text-sm text-gray-500">
+                    If you don&apos;t have an account, one will be created for
+                    you
+                  </p>
                 </Dialog.Description>
                 <Form formMethods={formMethods} onSubmit={onSubmit}>
                   <label htmlFor="emailAddress" className="block mt-4 w-full">
@@ -173,13 +182,6 @@ const SignIn = () => {
                   >
                     Sign In
                   </Submit>
-                  {/* <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Save Changes
-                  </button> */}
                 </Form>
 
                 {needCode && (
