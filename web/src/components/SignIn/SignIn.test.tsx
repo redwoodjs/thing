@@ -1,6 +1,6 @@
 import { render } from '@redwoodjs/testing/web'
 
-import SignUp from './SignUp'
+import SignIn from './SignIn'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
@@ -8,7 +8,7 @@ import SignUp from './SignUp'
 describe('SignUp', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<SignUp />)
+      render(<SignIn />)
     }).not.toThrow()
   })
 })

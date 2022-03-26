@@ -1,6 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
-import SignUp from 'src/components/SignUp/SignUp'
+import SignIn from 'src/components/SignIn/SignIn'
 import { SignInButton } from '@clerk/clerk-react'
 
 const HomePage = () => {
@@ -99,7 +99,7 @@ const HomePage = () => {
         </div>
       </div>
       <div>
-        <SignUp />
+        <SignIn />
       </div>
     </>
   )
