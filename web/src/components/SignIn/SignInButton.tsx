@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import { useSignUp, useSignIn } from '@clerk/clerk-react'
 import {
   Form,
@@ -36,6 +36,42 @@ const SignInButton = ({ className, children }: Props) => {
 
   const [updatePlayer] = useMutation(UPDATE_PLAYER_MUTATION)
 
+  const playerId = playerContext.state.playerId
+
+  const afterSignIn = useCallback(
+    (data) => {
+      const session = window.Clerk.client.sessions.find(
+        (session) => session.id === data.createdSessionId
+      )
+
+      if (!session?.user.id || !playerId) {
+        // Reload window to update auth
+        window.location.reload()
+      }
+
+      updatePlayer({
+        variables: {
+          id: playerId,
+          input: {
+            clerkId: session?.user.id,
+          },
+        },
+      })
+        .then((data) => {
+          console.log('data', data)
+        })
+        .catch((error) => {
+          console.error('error', error)
+          // TODO: Set errors
+        })
+        .finally(() => {
+          // Reload window to update auth
+          window.location.reload()
+        })
+    },
+    [updatePlayer, playerId]
+  )
+
   const onSubmit = ({ emailAddress, password }) => {
     signUp
       .create({ emailAddress, password })
@@ -59,8 +95,7 @@ const SignInButton = ({ className, children }: Props) => {
             .create({ identifier: emailAddress, password })
             .then((data) => {
               if (data.status === 'complete') {
-                // Reload window to update auth
-                window.location.reload()
+                afterSignIn(data)
               } else {
                 console.log('signIn data', data)
               }
@@ -81,37 +116,10 @@ const SignInButton = ({ className, children }: Props) => {
 
     signUp
       .attemptEmailAddressVerification({ code: data.code })
-      .then((data) => {
-        const session = window.Clerk.client.sessions.find(
-          (session) => session.id === data.createdSessionId
-        )
-
-        if (!session?.user.id || !playerContext.state.playerId) {
-          // Reload window to update auth
-          window.location.reload()
-        }
-
-        updatePlayer({
-          variables: {
-            id: playerContext.state.playerId,
-            input: {
-              clerkId: session?.user.id,
-            },
-          },
-        })
-          .then((data) => {
-            console.log('data', data)
-          })
-          .catch((error) => {
-            console.error('error', error)
-          })
-          .finally(() => {
-            // Reload window to update auth
-            window.location.reload()
-          })
-      })
-      .catch((error) => {
-        console.log('error', error.errors)
+      .then(afterSignIn)
+      .catch((e) => {
+        console.log('error', e.errors)
+        setErrors(e.errors)
       })
   }
 
@@ -213,7 +221,10 @@ const SignInButton = ({ className, children }: Props) => {
                 <button
                   className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm mr-1 mb-1 ease-linear transition-all duration-150"
                   type="button"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setNeedCode(false)
+                    setIsOpen(false)
+                  }}
                 >
                   Close
                 </button>
