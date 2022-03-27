@@ -84,7 +84,7 @@ export async function handler(event: APIGatewayEvent, _context: Context) {
       options,
     })
 
-    webhookLogger.debug({ headers: event.headers }, 'Headers')
+    webhookLogger.debug('Headers %o', { headers: event.headers })
 
     let body
 
