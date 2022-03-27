@@ -29,6 +29,7 @@ export const schema = gql`
   type Mutation {
     createPlayer(input: CreatePlayerInput!): Player! @requireAuth
     updatePlayer(id: String!, input: UpdatePlayerInput!): Player! @skipAuth
+    setGravatarHash(clerkId: String!, gravatarHash: String!): Player! @skipAuth
     deletePlayer(id: String!): Player! @requireAuth
   }
 `

@@ -1,3 +1,5 @@
+import crypto from 'crypto'
+
 import type { APIGatewayEvent, Context } from 'aws-lambda'
 import { logger } from 'src/lib/logger'
 import fetch from 'node-fetch'
@@ -6,6 +8,7 @@ import {
   VerifyOptions,
   WebhookVerificationError,
 } from '@redwoodjs/api/webhooks'
+import { setGravatarHash, updatePlayer } from 'src/services/players'
 
 /**
  * The handler function is your code that processes http request events.
@@ -102,7 +105,7 @@ export async function handler(event: APIGatewayEvent, _context: Context) {
       }
     }
 
-    webhookLogger.debug({ body }, 'Body payload')
+    webhookLogger.debug('Body payload %o', { body })
 
     return handleClerkPayload(body)
   } catch (error) {
@@ -143,8 +146,28 @@ async function handleClerkPayload(body) {
       }
     )
     const user = await response.json()
+    const email = user.email_addresses[0].email_address
     logger.debug('User %o', user)
-    logger.debug('User email %s', user.email_addresses[0].email_address)
+    logger.debug('User id %s', user.id)
+    logger.debug('User email %s', email)
+
+    const hash = crypto
+      .createHash('md5')
+      .update(email.trim().toLowerCase())
+      .digest('hex')
+
+    logger.debug('hash >' + hash + '<')
+
+    try {
+      const player = await setGravatarHash({
+        clerkId: user.id,
+        gravatarHash: hash,
+      })
+
+      logger.debug('player %o', player)
+    } catch (e) {
+      logger.error('Error setting Gravatar Hash %o', e)
+    }
   }
 
   return {

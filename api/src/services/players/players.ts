@@ -29,8 +29,23 @@ interface UpdatePlayerArgs extends Prisma.PlayerWhereUniqueInput {
 
 export const updatePlayer = ({ id, input }: UpdatePlayerArgs) => {
   return db.player.update({
-    data: input,
     where: { id },
+    data: input,
+  })
+}
+
+interface SetGravatarHashArgs {
+  clerkId: string
+  gravatarHash: string
+}
+
+export const setGravatarHash = ({
+  clerkId,
+  gravatarHash,
+}: SetGravatarHashArgs) => {
+  return db.player.update({
+    where: { clerkId },
+    data: { gravatarHash },
   })
 }
 
