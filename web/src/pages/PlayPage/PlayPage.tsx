@@ -12,6 +12,7 @@ const PlayPage = () => {
   const [answeredGame, setAnsweredGame] = useState<Play>()
   const [showPrevious, setShowPrevious] = useState(false)
   const gameContext = useGameContext()
+
   const firstLoad = useRef(true)
 
   useEffect(() => {

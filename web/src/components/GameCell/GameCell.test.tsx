@@ -1,6 +1,8 @@
-import { render, screen } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './GameCell'
 import { standard } from './GameCell.mock'
+import { GameContextProvider } from 'src/contexts/GameContext'
+import { PlayerContextProvider } from 'src/contexts/PlayerContext'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float and DateTime types.
@@ -35,7 +37,13 @@ describe('GameCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success game={standard().game} />)
+      render(
+        <GameContextProvider>
+          <PlayerContextProvider>
+            <Success game={standard().game} />{' '}
+          </PlayerContextProvider>
+        </GameContextProvider>
+      )
     }).not.toThrow()
   })
 })

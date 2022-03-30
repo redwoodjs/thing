@@ -1,6 +1,6 @@
 import type { Leaderboards } from 'types/graphql'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import Leaderboard from 'src/components/Leaderboard'
+import LeaderboardTable from 'src/components/LeaderboardTable'
 
 export const QUERY = gql`
   query Leaderboards {
@@ -30,5 +30,5 @@ export const Failure = ({ error }: CellFailureProps) => (
 )
 
 export const Success = ({ leaderboard }: CellSuccessProps<Leaderboards>) => {
-  return <Leaderboard leaderboard={leaderboard} playerId={null} />
+  return <LeaderboardTable leaderboard={leaderboard} playerId={null} />
 }

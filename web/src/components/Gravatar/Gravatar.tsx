@@ -18,7 +18,7 @@ const Gravatar = ({ player, size = '2.25rem' }: Props) => {
       className="inline-block rounded-full"
       style={{ width: size, height: size }}
       src={src}
-      alt={player.name}
+      alt={player?.name}
     />
   )
 }

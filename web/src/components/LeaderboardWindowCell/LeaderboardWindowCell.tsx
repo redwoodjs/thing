@@ -1,13 +1,6 @@
-import type { Leaderboards } from 'types/graphql'
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
-import Leaderboard from 'src/components/Leaderboard'
-
-let currentPlayerId
-
-export const beforeQuery = ({ playerId }) => {
-  currentPlayerId = playerId
-  return { variables: { playerId } }
-}
+import type { Leaderboard } from 'types/graphql'
+import type { CellFailureProps } from '@redwoodjs/web'
+import LeaderboardTable from 'src/components/LeaderboardTable'
 
 export const QUERY = gql`
   query LeaderboardWindow($playerId: String!) {
@@ -35,6 +28,12 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ leaderboard, playerId = null }) => {
-  return <Leaderboard leaderboard={leaderboard} playerId={playerId} />
+export const Success = ({
+  leaderboard,
+  playerId = undefined,
+}: {
+  leaderboard: [Leaderboard]
+  playerId?: string | undefined
+}) => {
+  return <LeaderboardTable leaderboard={leaderboard} playerId={playerId} />
 }

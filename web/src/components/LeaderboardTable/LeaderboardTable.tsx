@@ -1,6 +1,13 @@
+import type { Leaderboard } from 'types/graphql'
 import Leader from 'src/components/Leader'
 
-const Leaderboard = ({ leaderboard, playerId }) => {
+const LeaderboardTable = ({
+  leaderboard,
+  playerId,
+}: {
+  leaderboard: [Leaderboard]
+  playerId?: string | undefined
+}) => {
   return (
     <div>
       <div className="grid grid-cols-6 gap-1 font-bold bg-gray-100 p-2">
@@ -102,4 +109,4 @@ const Leaderboard = ({ leaderboard, playerId }) => {
   )
 }
 
-export default Leaderboard
+export default LeaderboardTable

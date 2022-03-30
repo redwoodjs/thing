@@ -17,7 +17,7 @@ import { db } from 'src/lib/db'
  */
 export const leaderboards = async () => {
   // how can I import the Leaderboard type for the graphql types (not Prisma types)?
-  const leaders = await db.$queryRaw<Leaderboard[]>`
+  const leaders = await db.$queryRaw<typeof Leaderboard[]>`
   WITH correct_counts AS (
     SELECT
       p. "playerId",
@@ -79,7 +79,7 @@ export const leaderboards = async () => {
  */
 export const playerLeaderboard = async ({ playerId }) => {
   // how can I import the Leaderboard type for the graphql types (not Prisma types)?
-  const leaders = await db.$queryRaw<Leaderboard[]>`
+  const leaders = await db.$queryRaw<typeof Leaderboard[]>`
   WITH correct_counts AS (
     SELECT
       p. "playerId",
@@ -139,8 +139,7 @@ export const playerLeaderboard = async ({ playerId }) => {
  * @returns an array Leaderboard records
  */
 export const leaderboardWindow = async ({ playerId, window = 2 }) => {
-  // how can I import the Leaderboard type for the graphql types (not Prisma types)?
-  const leaders = await db.$queryRaw<Leaderboard[]>`
+  const leaders = await db.$queryRaw<typeof Leaderboard[]>`
 WITH correct_counts AS (
 	SELECT
 		p. "playerId",
