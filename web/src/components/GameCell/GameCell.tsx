@@ -68,10 +68,18 @@ const ANSWER_GAME_MUTATION = gql`
   }
 `
 
+const MoviePlaceholder = () => (
+  <div className="lg:h-60 md:h-32 h-20 bg-gray-300 lg:w-48 w-24 rounded-md animate-pulse"></div>
+)
+
 export const Loading = () => (
   <div className='"w-full text-center'>
-    <div className="grid md:grid-cols-5 grid-cols-3">
-      <div className="lg:h-60 md:h-32 h-20 bg-gray-500">?</div>
+    <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
     </div>
   </div>
 )
@@ -159,7 +167,7 @@ export const Success = ({
         </h2>
         <div className="text-center">{countdown}</div>
       </div>
-      <div className="grid md:grid-cols-5 grid-cols-3">
+      <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
         {game.choices.map((movie) => {
           return (
             <div key={movie.id} className="text-center">
