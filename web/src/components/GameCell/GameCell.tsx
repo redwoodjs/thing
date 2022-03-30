@@ -6,6 +6,8 @@ import { useMutation } from '@redwoodjs/web'
 import { useGameContext } from 'src/contexts/GameContext'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
 
+import MoviePlaceholder from 'src/components/MoviePlaceholder/MoviePlaceholder'
+
 export const beforeQuery = () => {
   // When babel does it thing this will end up inside a component
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -67,10 +69,6 @@ const ANSWER_GAME_MUTATION = gql`
     }
   }
 `
-
-const MoviePlaceholder = () => (
-  <div className="lg:h-60 md:h-32 h-20 bg-gray-300 lg:w-48 w-24 rounded-md animate-pulse"></div>
-)
 
 export const Loading = () => (
   <div className='"w-full text-center'>
