@@ -11,7 +11,7 @@ import type { StandardScenario as MovieStandardScenario } from './movies.scenari
 
 describe('movies', () => {
   scenario('returns all movies', async (scenario: MovieStandardScenario) => {
-    const result = await movies()
+    const result = await movies() //?
 
     expect(result.length).toEqual(Object.keys(scenario.movie).length)
   })

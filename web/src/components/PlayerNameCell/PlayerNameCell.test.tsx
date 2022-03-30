@@ -1,4 +1,4 @@
-import { render, screen } from '@redwoodjs/testing/web'
+import { render } from '@redwoodjs/testing/web'
 import { Loading, Empty, Failure, Success } from './PlayerNameCell'
 import { standard } from './PlayerNameCell.mock'
 
@@ -35,7 +35,7 @@ describe('PlayerNameCell', () => {
 
   it('renders Success successfully', async () => {
     expect(() => {
-      render(<Success playerName={standard().playerName} />)
+      render(<Success player={standard().player} />)
     }).not.toThrow()
   })
 })
