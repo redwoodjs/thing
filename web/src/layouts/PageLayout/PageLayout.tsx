@@ -35,6 +35,13 @@ const PageLayout = ({ children }: PageLayoutProps) => {
             </div>
             <div className="ml-5 space-x-5 md:ml-10 md:space-x-10">
               <Link
+                to={routes.play()}
+                href="#play"
+                className="font-medium text-gray-500 hover:text-gray-900"
+              >
+                Play
+              </Link>
+              <Link
                 to={routes.rules()}
                 className="font-medium text-gray-500 hover:text-gray-900"
               >
