@@ -58,7 +58,7 @@ export const leaderboards = async () => {
     t. "correctTotal",
     t. "incorrectTotal",
     t. "unansweredTotal",
-    DENSE_RANK() OVER (PARTITION BY t. "playerId" ORDER BY t. "correctTotal" DESC) AS place,
+    DENSE_RANK() OVER (ORDER BY t. "correctTotal" DESC) AS place,
 		ROW_NUMBER() OVER () AS "leaderboardRowNumber"
     FROM
       totals t
