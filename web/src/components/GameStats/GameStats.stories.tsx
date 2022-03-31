@@ -4,7 +4,7 @@ import { GameContextProvider } from '../../contexts/GameContext'
 export const generated = () => {
   return (
     <GameContextProvider>
-      <GameStats />
+      <GameStats gameStats={{ correct: 10, incorrect: 5, streak: 2 }} />
     </GameContextProvider>
   )
 }
