@@ -2,17 +2,17 @@ import React, { useReducer, createContext, useCallback } from 'react'
 import { useInterval } from 'src/hooks/useInterval'
 
 export interface GameState {
-  streak: number
-  correct: number
-  incorrect: number
+  // streak: number
+  // correct: number
+  // incorrect: number
   isPlaying: boolean
   countdown: number
 }
 
 export interface GameContextProps {
   state: GameState
-  correctAnswer: () => void
-  incorrectAnswer: () => void
+  // correctAnswer: () => void
+  // incorrectAnswer: () => void
   setIsPlaying: (isPlaying: boolean) => void
 }
 
@@ -24,20 +24,20 @@ function stateReducer(state: GameState, newState: Partial<GameState>) {
 
 export const GameContextProvider: React.FC = ({ children }) => {
   const [state, setState] = useReducer(stateReducer, {
-    streak: 0,
-    correct: 0,
-    incorrect: 0,
+    // streak: 0,
+    // correct: 0,
+    // incorrect: 0,
     isPlaying: false,
     countdown: 10,
   })
 
-  const correctAnswer = useCallback(() => {
-    setState({ correct: state.correct + 1, streak: state.streak + 1 })
-  }, [state])
+  // const correctAnswer = useCallback(() => {
+  //   setState({ correct: state.correct + 1, streak: state.streak + 1 })
+  // }, [state])
 
-  const incorrectAnswer = useCallback(() => {
-    setState({ incorrect: state.incorrect + 1, streak: 0 })
-  }, [state])
+  // const incorrectAnswer = useCallback(() => {
+  //   setState({ incorrect: state.incorrect + 1, streak: 0 })
+  // }, [state])
 
   useInterval(() => {
     if (!state.isPlaying) {
@@ -63,9 +63,7 @@ export const GameContextProvider: React.FC = ({ children }) => {
   )
 
   return (
-    <GameContext.Provider
-      value={{ state, correctAnswer, incorrectAnswer, setIsPlaying }}
-    >
+    <GameContext.Provider value={{ state, setIsPlaying }}>
       {children}
     </GameContext.Provider>
   )

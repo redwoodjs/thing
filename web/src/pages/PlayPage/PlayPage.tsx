@@ -5,7 +5,6 @@ import GameCell from 'src/components/GameCell'
 import AnsweredGame from 'src/components/AnsweredGame'
 
 import type { Play } from 'types/graphql'
-import GameStats from 'src/components/GameStats/GameStats'
 import { useGameContext } from 'src/contexts/GameContext'
 
 const PlayPage = () => {
@@ -36,7 +35,6 @@ const PlayPage = () => {
     <>
       <MetaTags title="Play" description="Play page" />
 
-      <GameStats />
       <div className="relative">
         <div
           className={

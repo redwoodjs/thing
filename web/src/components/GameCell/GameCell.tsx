@@ -3,10 +3,11 @@ import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
+import GameStats from 'src/components/GameStats/GameStats'
+import MoviePlaceholder from 'src/components/MoviePlaceholder/MoviePlaceholder'
+
 import { useGameContext } from 'src/contexts/GameContext'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
-
-import MoviePlaceholder from 'src/components/MoviePlaceholder/MoviePlaceholder'
 
 export const beforeQuery = () => {
   // When babel does it thing this will end up inside a component
@@ -33,6 +34,11 @@ export const QUERY = gql`
         overview
         photoPath
       }
+    }
+    gameStats(playerId: $playerId) {
+      correct
+      incorrect
+      streak
     }
   }
 `
@@ -90,8 +96,8 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({
   game,
+  gameStats,
   setAnsweredGame,
-
   refetch,
 }: CellSuccessProps) => {
   const gameContext = useGameContext()
@@ -105,12 +111,6 @@ export const Success = ({
     },
 
     onCompleted: ({ play }) => {
-      if (play.answeredMovieId === play.correctMovie.id) {
-        gameContext.correctAnswer()
-      } else {
-        gameContext.incorrectAnswer()
-      }
-
       setAnsweredGame(play)
       refetch()
     },
@@ -158,6 +158,8 @@ export const Success = ({
 
   return (
     <div className="">
+      <GameStats gameStats={gameStats} />
+
       <div className="text-center mb-8">
         <h2 className="text-center mb-8">
           Which movie was released in{' '}
