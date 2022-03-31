@@ -165,14 +165,34 @@ export const Success = ({
           Which movie was released in{' '}
           <span className="font-bold text-xl px-1">{game.year}</span>?
         </h2>
-        <div className="text-center">{countdown}</div>
+        <div className="h-12">
+          {countdown > 13 && <div className="text-center">{countdown}</div>}
+          {countdown > 7 && countdown <= 13 && (
+            <div className="text-center font-semibold text-md">{countdown}</div>
+          )}
+          {countdown > 4 && countdown <= 7 && (
+            <div className="text-center font-bold text-lg text-indigo-700">
+              {countdown}
+            </div>
+          )}
+          {countdown >= 2 && countdown <= 4 && (
+            <div className="text-center font-extrabold text-xl text-purple-600">
+              {countdown}
+            </div>
+          )}
+          {countdown > 0 && countdown < 2 && (
+            <div className="text-center font-extrabold text-2xl text-red-500">
+              {countdown}
+            </div>
+          )}
+        </div>
       </div>
       <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
         {game.choices.map((movie) => {
           return (
             <div key={movie.id} className="text-center">
               <button
-                className=" bg-gray-200"
+                className="bg-gray-200"
                 onClick={() =>
                   onAnswerClick({
                     playId: game.playId,

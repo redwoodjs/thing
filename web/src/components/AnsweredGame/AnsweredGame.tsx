@@ -148,7 +148,7 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
                 </div>
               </div>
             ) : (
-              <div className="flex mt-4 p-6 bg-red-100 rounded-lg">
+              <div className="flex mt-4 p-6 bg-purple-100 rounded-lg">
                 <p className="text-center w-full">No answer given in time</p>
               </div>
             )}

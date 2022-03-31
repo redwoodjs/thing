@@ -1,18 +1,16 @@
 import React, { useReducer, createContext, useCallback } from 'react'
 import { useInterval } from 'src/hooks/useInterval'
 
+export const COUNTDOWN_SECONDS = 17
+export const CONTINUE_PLAY_SECONDS = 7
+
 export interface GameState {
-  // streak: number
-  // correct: number
-  // incorrect: number
   isPlaying: boolean
   countdown: number
 }
 
 export interface GameContextProps {
   state: GameState
-  // correctAnswer: () => void
-  // incorrectAnswer: () => void
   setIsPlaying: (isPlaying: boolean) => void
 }
 
@@ -24,20 +22,9 @@ function stateReducer(state: GameState, newState: Partial<GameState>) {
 
 export const GameContextProvider: React.FC = ({ children }) => {
   const [state, setState] = useReducer(stateReducer, {
-    // streak: 0,
-    // correct: 0,
-    // incorrect: 0,
     isPlaying: false,
-    countdown: 10,
+    countdown: COUNTDOWN_SECONDS,
   })
-
-  // const correctAnswer = useCallback(() => {
-  //   setState({ correct: state.correct + 1, streak: state.streak + 1 })
-  // }, [state])
-
-  // const incorrectAnswer = useCallback(() => {
-  //   setState({ incorrect: state.incorrect + 1, streak: 0 })
-  // }, [state])
 
   useInterval(() => {
     if (!state.isPlaying) {
@@ -49,12 +36,12 @@ export const GameContextProvider: React.FC = ({ children }) => {
     } else {
       setState({ countdown: state.countdown - 1 })
     }
-  }, 1000)
+  }, 1_000)
 
   const setIsPlaying = useCallback(
     (isPlaying: boolean) => {
       if (!state.isPlaying && isPlaying) {
-        setState({ countdown: 10 })
+        setState({ countdown: COUNTDOWN_SECONDS })
       }
 
       setState({ isPlaying })

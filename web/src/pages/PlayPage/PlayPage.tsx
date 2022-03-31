@@ -5,7 +5,7 @@ import GameCell from 'src/components/GameCell'
 import AnsweredGame from 'src/components/AnsweredGame'
 
 import type { Play } from 'types/graphql'
-import { useGameContext } from 'src/contexts/GameContext'
+import { useGameContext, CONTINUE_PLAY_SECONDS } from 'src/contexts/GameContext'
 
 const PlayPage = () => {
   const [answeredGame, setAnsweredGame] = useState<Play>()
@@ -19,7 +19,7 @@ const PlayPage = () => {
       setTimeout(() => {
         setShowPrevious(false)
         gameContext.setIsPlaying(true)
-      }, 3000)
+      }, CONTINUE_PLAY_SECONDS * 1_000)
     }
   }, [showPrevious, gameContext])
 
