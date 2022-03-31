@@ -1,6 +1,5 @@
-// Define your own mock data here:
+import { standard as leaderboards } from '../LeaderboardWindowCell/LeaderboardWindowCell.mock'
+
 export const standard = (/* vars, { ctx, req } */) => ({
-  playerName: {
-    id: 42,
-  },
+  player: leaderboards().leaderboard[0].player,
 })

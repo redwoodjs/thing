@@ -1,5 +1,3 @@
-import { ValidationError } from '@redwoodjs/graphql-server'
-
 import type { StandardScenario as GameStandardScenario } from './games.scenarios'
 
 import {
@@ -40,7 +38,7 @@ describe('games', () => {
   scenario(
     'Simulates a new game for a player with a correct movie and unanswered play',
     async (scenario: GameStandardScenario) => {
-      const game = await createGame()
+      const game = await createGame({ playerId: null })
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -65,7 +63,7 @@ describe('games', () => {
   scenario(
     'Simulates a correct answer',
     async (scenario: GameStandardScenario) => {
-      const game = await createGame()
+      const game = await createGame({ playerId: null })
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -106,7 +104,7 @@ describe('games', () => {
   scenario(
     'Simulates a wrong answer',
     async (scenario: GameStandardScenario) => {
-      const game = await createGame()
+      const game = await createGame({ playerId: null })
 
       const allMovieIds = [
         scenario.movie.starman.id,
@@ -151,14 +149,16 @@ describe('games', () => {
     async (_scenario: GameStandardScenario) => {
       await db.movie.deleteMany()
 
-      expect(async () => await createGame()).rejects.toThrow('No movies')
+      expect(async () => await createGame({ playerId: null })).rejects.toThrow(
+        'No movies'
+      )
     }
   )
 
   scenario(
     'When the game has already been answered.',
     async (scenario: GameStandardScenario) => {
-      const game = await createGame()
+      const game = await createGame({ playerId: null })
 
       await db.play.update({
         data: { answeredMovieId: scenario.movie.escape.id },
@@ -181,7 +181,7 @@ describe('games', () => {
   scenario(
     'When the game does not belong to the current user.',
     async (scenario: GameStandardScenario) => {
-      const game = await createGame()
+      const game = await createGame({ playerId: null })
       const otherPlayer = await db.player.create({
         data: { name: 'Some other player' },
       })

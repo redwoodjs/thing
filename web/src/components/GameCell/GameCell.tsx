@@ -3,7 +3,9 @@ import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
-import LeaderboardWindowCell from 'src/components/LeaderboardWindowCell'
+import GameStats from 'src/components/GameStats/GameStats'
+import MoviePlaceholder from 'src/components/MoviePlaceholder/MoviePlaceholder'
+
 import { useGameContext } from 'src/contexts/GameContext'
 import { usePlayerContext } from 'src/contexts/PlayerContext'
 
@@ -32,6 +34,11 @@ export const QUERY = gql`
         overview
         photoPath
       }
+    }
+    gameStats(playerId: $playerId) {
+      correct
+      incorrect
+      streak
     }
   }
 `
@@ -69,7 +76,17 @@ const ANSWER_GAME_MUTATION = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => (
+  <div className='"w-full text-center'>
+    <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+      <MoviePlaceholder />
+    </div>
+  </div>
+)
 
 export const Empty = () => <div>Empty</div>
 
@@ -79,13 +96,14 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({
   game,
+  gameStats,
   setAnsweredGame,
   refetch,
 }: CellSuccessProps) => {
   const gameContext = useGameContext()
   const playerContext = usePlayerContext()
 
-  const countdown = gameContext.state.countdown
+  const countdown = gameContext?.state?.countdown || 10
 
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
@@ -93,12 +111,6 @@ export const Success = ({
     },
 
     onCompleted: ({ play }) => {
-      if (play.answeredMovieId === play.correctMovie.id) {
-        gameContext.correctAnswer()
-      } else {
-        gameContext.incorrectAnswer()
-      }
-
       setAnsweredGame(play)
       refetch()
     },
@@ -145,41 +157,45 @@ export const Success = ({
   ])
 
   return (
-    <div className="mb-4">
-      <h2 className="text-center">
-        Which movie was released in{' '}
-        <span className="font-bold text-xl px-1">{game.year}</span>?
-      </h2>
-      <div className="text-center">{countdown}</div>
-      <div className="flex items-center flex-1 justify-between w-full w-auto">
+    <div className="">
+      <GameStats gameStats={gameStats} />
+
+      <div className="text-center mb-8">
+        <h2 className="text-center mb-8">
+          Which movie was released in{' '}
+          <span className="font-bold text-xl px-1">{game.year}</span>?
+        </h2>
+        <div className="text-center">{countdown}</div>
+      </div>
+      <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
         {game.choices.map((movie) => {
           return (
-            <button
-              key={movie.id}
-              className="w-40"
-              onClick={() =>
-                onAnswerClick({
-                  playId: game.playId,
-                  playerId: game.playerId,
-                  answeredMovieId: movie.id,
-                })
-              }
-            >
-              <div className="flex flex-col">
-                <h3 className="py-4">{movie.title}</h3>
-                <img
-                  className="drop-shadow-md"
-                  alt={movie.title}
-                  // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
-                  src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}
-                />
-              </div>
-            </button>
+            <div key={movie.id} className="text-center">
+              <button
+                className=" bg-gray-200"
+                onClick={() =>
+                  onAnswerClick({
+                    playId: game.playId,
+                    playerId: game.playerId,
+                    answeredMovieId: movie.id,
+                  })
+                }
+              >
+                <div className="drop-shadow-lg">
+                  <img
+                    className="lg:h-60 md:h-32 h-20"
+                    alt={movie.title}
+                    // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
+                    src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}
+                  />
+                </div>
+              </button>
+              <h3 className="py-4 text-center font-semibold lg:text-xl md:text-lg text-md ">
+                {movie.title}
+              </h3>
+            </div>
           )
         })}
-      </div>
-      <div className="py-8">
-        <LeaderboardWindowCell playerId={game.playerId} />
       </div>
     </div>
   )

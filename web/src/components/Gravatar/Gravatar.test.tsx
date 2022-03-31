@@ -9,7 +9,7 @@ import Gravatar from './Gravatar'
 describe('Gravatar', () => {
   it('renders successfully', () => {
     expect(() => {
-      render(<Gravatar leader={standard().leaderboard[3]} />)
+      render(<Gravatar player={standard().leaderboard[3].player} />)
     }).not.toThrow()
   })
 })

@@ -1,18 +1,19 @@
 import { render } from '@redwoodjs/testing/web'
 
-import GameStats from './GameStats'
-import { GameContextProvider } from '../../contexts/GameContext'
+import LeaderboardTable from './LeaderboardTable'
+import { standard } from '../LeaderboardCell/LeaderboardCell.mock'
 
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe('GameStats', () => {
+describe('Leaderboard', () => {
   it('renders successfully', () => {
     expect(() => {
       render(
-        <GameContextProvider>
-          <GameStats />
-        </GameContextProvider>
+        <LeaderboardTable
+          leaderboard={standard().leaderboard}
+          playerId={null}
+        />
       )
     }).not.toThrow()
   })

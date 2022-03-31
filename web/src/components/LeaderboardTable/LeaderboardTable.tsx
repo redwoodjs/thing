@@ -1,6 +1,13 @@
+import type { Leaderboard } from 'types/graphql'
 import Leader from 'src/components/Leader'
 
-const Leaderboard = ({ leaderboard, playerId }) => {
+const LeaderboardTable = ({
+  leaderboard,
+  playerId,
+}: {
+  leaderboard: [Leaderboard]
+  playerId?: string | undefined
+}) => {
   return (
     <div>
       <div className="grid grid-cols-6 gap-1 font-bold bg-gray-100 p-2">
@@ -31,7 +38,7 @@ const Leaderboard = ({ leaderboard, playerId }) => {
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span className="pl-2">Correct</span>
+            <span className="pl-2">Right</span>
           </span>
         </div>
         <div className="text-center">
@@ -50,7 +57,7 @@ const Leaderboard = ({ leaderboard, playerId }) => {
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span className="pl-2">Incorrect</span>
+            <span className="pl-2">Wrong</span>
           </span>
         </div>
         <div className="text-center">
@@ -69,7 +76,7 @@ const Leaderboard = ({ leaderboard, playerId }) => {
                 d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
               ></path>
             </svg>
-            <span className="pl-2">Unanswered</span>
+            <span className="pl-2">Skipped</span>
           </span>
         </div>
         <div className="text-center">
@@ -102,4 +109,4 @@ const Leaderboard = ({ leaderboard, playerId }) => {
   )
 }
 
-export default Leaderboard
+export default LeaderboardTable

@@ -1,13 +1,15 @@
-import Leaderboard from './Leaderboard'
+import LeaderboardTable from './LeaderboardTable'
 import { standard } from '../LeaderboardCell/LeaderboardCell.mock'
 
 export const generated = () => {
-  return <Leaderboard leaderboard={standard().leaderboard} playerId={null} />
+  return (
+    <LeaderboardTable leaderboard={standard().leaderboard} playerId={null} />
+  )
 }
 
 export const top = () => {
   return (
-    <Leaderboard
+    <LeaderboardTable
       leaderboard={standard().leaderboard.splice(0, 4)}
       playerId={null}
     />
@@ -16,7 +18,7 @@ export const top = () => {
 
 export const middle = () => {
   return (
-    <Leaderboard
+    <LeaderboardTable
       leaderboard={standard().leaderboard.splice(5, 5)}
       playerId={null}
     />
@@ -25,7 +27,7 @@ export const middle = () => {
 
 export const tied = () => {
   return (
-    <Leaderboard
+    <LeaderboardTable
       leaderboard={standard().leaderboard.splice(3, 5)}
       playerId={null}
     />
