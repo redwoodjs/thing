@@ -37,7 +37,7 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
                       {getYear(movie.releasedOn)}
                     </p>
                     <img
-                      className="drop-shadow-md"
+                      className="rounded-md shadow-md h-60"
                       alt={movie.title}
                       // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
                       src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}
@@ -56,9 +56,8 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
             <div className="grid grid-cols-4 mt-4 p-6 bg-green-100 rounded-lg">
               <div className="place-self-center col-span-1 drop-shadow-md">
                 <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  <span className="sr-only">Watch our video to learn more</span>
                   <img
-                    className="rounded-md shadow-md"
+                    className="rounded-md shadow-md h-60"
                     alt={play.correctMovie.title}
                     // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
                     src={`https://image.tmdb.org/t/p/w154/${play.correctMovie.photoPath}`}
@@ -102,11 +101,8 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
               <div className="grid grid-cols-4 mt-4 p-6 bg-red-100 rounded-lg">
                 <div className="place-self-center col-span-1 drop-shadow-md">
                   <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <span className="sr-only">
-                      Watch our video to learn more
-                    </span>
                     <img
-                      className="rounded-md shadow-md"
+                      className="rounded-md shadow-md h-60"
                       alt={play.answeredMovie.title}
                       // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
                       src={`https://image.tmdb.org/t/p/w154/${play.answeredMovie.photoPath}`}
@@ -150,7 +146,7 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
                 <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                   <span className="sr-only">Watch our video to learn more</span>
                   <img
-                    className="rounded-md shadow-md"
+                    className="rounded-md shadow-md h-60"
                     alt={play.correctMovie.title}
                     // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
                     src={`https://image.tmdb.org/t/p/w154/${play.correctMovie.photoPath}`}

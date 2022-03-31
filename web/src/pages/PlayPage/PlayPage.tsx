@@ -39,15 +39,15 @@ const PlayPage = () => {
         {showPrevious && (
           <div>
             <AnsweredGame play={answeredGame} />
-            <div className="text-center p-8">
+            <div className="text-center p-4">
               <button
-                className="p-2 bg-indigo-700 text-white rounded-md"
+                className="px-12 py-2 bg-indigo-500 text-white rounded-md"
                 onClick={() => {
                   setShowPrevious(false)
                   gameContext.setIsPlaying(true)
                 }}
               >
-                Continue
+                Play Again
               </button>
             </div>
           </div>
