@@ -13,14 +13,7 @@ const AnsweredGame = ({ play, showMovies = false }: Props) => {
   }
 
   return (
-    <div>
-      <h2 className="text-center">
-        Which movie was released in{' '}
-        <span className="font-bold text-lg px-1">
-          {getYear(play.correctMovie.releasedOn)}
-        </span>
-        ?
-      </h2>
+    <div className="pointer-events-none">
       {showMovies && (
         <div>
           <div className="flex items-center flex-1 justify-between w-full w-auto">

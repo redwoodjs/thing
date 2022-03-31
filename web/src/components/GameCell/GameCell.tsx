@@ -77,7 +77,7 @@ const ANSWER_GAME_MUTATION = gql`
 `
 
 export const Loading = () => (
-  <div className='"w-full text-center'>
+  <div className='"w-full text-center opacity-0'>
     <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
       <MoviePlaceholder />
       <MoviePlaceholder />
@@ -203,7 +203,7 @@ export const Success = ({
               >
                 <div className="drop-shadow-lg">
                   <img
-                    className="lg:h-60 md:h-32 h-20"
+                    className="lg:h-60 md:h-32 h-20 rounded-md"
                     alt={movie.title}
                     // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
                     src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}

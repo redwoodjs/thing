@@ -35,23 +35,33 @@ const PlayPage = () => {
     <>
       <MetaTags title="Play" description="Play page" />
 
-      <div className="relative">
-        <div
-          className={
-            'absolute inset-0 pointer-events-none z-10 transition ' +
-            (showPrevious ? 'opacity-100' : 'opacity-0')
-          }
-        >
-          <AnsweredGame play={answeredGame} />
-        </div>
-        <div className={'z-0 ' + (showPrevious ? 'invisible' : 'visible')}>
-          <GameCell
-            setAnsweredGame={(play) => {
-              setShowPrevious(true)
-              setAnsweredGame(play)
-            }}
-          />
-        </div>
+      <div>
+        {showPrevious && (
+          <div>
+            <AnsweredGame play={answeredGame} />
+            <div className="text-center p-8">
+              <button
+                className="p-2 bg-indigo-700 text-white rounded-md"
+                onClick={() => {
+                  setShowPrevious(false)
+                  gameContext.setIsPlaying(true)
+                }}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
+        {!showPrevious && (
+          <div>
+            <GameCell
+              setAnsweredGame={(play) => {
+                setShowPrevious(true)
+                setAnsweredGame(play)
+              }}
+            />
+          </div>
+        )}
       </div>
     </>
   )
