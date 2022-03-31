@@ -18,6 +18,7 @@ const ClerkAuthProvider = ({ children }) => {
     </ClerkProvider>
   )
 }
+
 import { render } from '@redwoodjs/testing/web'
 
 import SignInButton from './SignInButton'
@@ -25,7 +26,7 @@ import SignInButton from './SignInButton'
 //   Improve this test with help from the Redwood Testing Doc:
 //    https://redwoodjs.com/docs/testing#testing-components
 
-describe('SignUp', () => {
+describe('SignInButton', () => {
   it('renders successfully', () => {
     expect(() => {
       render(
