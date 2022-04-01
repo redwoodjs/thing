@@ -6,13 +6,14 @@ const Routes = () => {
   return (
     <Router>
       <Set wrap={PageLayout}>
-        <Route path="/" page={HomePage} name="home" />
+        <Route path="/" page={HomePage} name="home" prerender />
         <Set wrap={GameContextProvider}>
           <Route path="/play" page={PlayPage} name="play" />
         </Set>
         <Route path="/leaderboard" page={LeaderboardPage} name="leaderboard" />
         <Route path="/profile" page={ProfilePage} name="profile" />
-        <Route path="/rules" page={RulesPage} name="rules" />
+        <Route path="/rules" page={RulesPage} name="rules" prerender />
+        <Route path="/about" page={AboutPage} name="about" />
         <Route notfound page={NotFoundPage} />
       </Set>
     </Router>

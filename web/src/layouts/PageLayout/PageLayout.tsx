@@ -1,4 +1,4 @@
-import { Link, routes } from '@redwoodjs/router'
+import { NavLink, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import { Toaster } from '@redwoodjs/web/toast'
 
@@ -28,39 +28,54 @@ const PageLayout = ({ children }: PageLayoutProps) => {
         >
           <div className="flex items-center flex-1">
             <div className="flex items-center justify-between w-auto">
-              <Link to={routes.home()}>
+              <NavLink
+                activeClassName="font-bold text-gray-900 hover:text-gray-900"
+                to={routes.home()}
+              >
                 <span className="sr-only">Home</span>
                 <img className="h-8 w-auto sm:h-10" src="./logo.png" alt="" />
-              </Link>
+              </NavLink>
             </div>
             <div className="ml-5 space-x-5 md:ml-10 md:space-x-10">
-              <Link
+              <NavLink
+                activeClassName="font-bold text-gray-900 hover:text-gray-900"
                 to={routes.play()}
                 href="#play"
                 className="font-medium text-gray-500 hover:text-gray-900"
               >
                 Play
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
+                activeClassName="font-bold text-gray-900 hover:text-gray-900"
                 to={routes.rules()}
                 className="font-medium text-gray-500 hover:text-gray-900"
               >
                 Rules
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
+                activeClassName="font-bold text-gray-900 hover:text-gray-900"
                 to={routes.leaderboard()}
                 href="#leaderboard"
                 className="font-medium text-gray-500 hover:text-gray-900"
               >
                 Leaderboard
-              </Link>
+              </NavLink>
+              <NavLink
+                activeClassName="font-bold text-gray-900 hover:text-gray-900"
+                to={routes.about()}
+                href="#about"
+                className="font-medium text-gray-500 hover:text-gray-900"
+              >
+                About
+              </NavLink>
               {isAuthenticated && (
-                <Link
+                <NavLink
+                  activeClassName="font-bold text-gray-900 hover:text-gray-900"
                   to={routes.profile()}
                   className="font-medium text-gray-500 hover:text-gray-900"
                 >
                   Profile
-                </Link>
+                </NavLink>
               )}
             </div>
           </div>
@@ -75,12 +90,13 @@ const PageLayout = ({ children }: PageLayoutProps) => {
                   )}
                 </SignInButton>
               ) : playerContext.state.playerId ? (
-                <Link
+                <NavLink
+                  activeClassName="font-bold text-gray-900 hover:text-gray-900"
                   to={routes.profile()}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
                 >
                   <PlayerNameCell id={playerContext.state.playerId} />
-                </Link>
+                </NavLink>
               ) : (
                 <button
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
