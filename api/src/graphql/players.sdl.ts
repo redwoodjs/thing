@@ -12,7 +12,7 @@ export const schema = gql`
   type Query {
     players: [Player!]! @requireAuth
     player(id: String, clerkId: String): Player @skipAuth
-    playerByClerkId(clerkId: String!): Player @skipAuth
+    # playerByClerkId(clerkId: String!): Player @skipAuth
   }
 
   input CreatePlayerInput {

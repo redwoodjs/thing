@@ -20,6 +20,8 @@ const writeFile = ({ filename, data }) => {
  *
  * Usage: yarn rw exec createMovieData --yearsAgo 5 --numPages 2
  *
+ * Large set: yarn rw exec createMovieData --yearsAgo 43 --numPages 10
+ *
  * @param yearsAgo How many years back to fetch movies. Defaults to 5
  * @param numPages How many pages to fetch. Each page is 20 movies. Defaults
  *                 to 1 page

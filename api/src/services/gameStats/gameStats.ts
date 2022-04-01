@@ -68,7 +68,7 @@ export const gameStats = async ({ playerId }) => {
     p. "playerId"
   LIMIT 1   `
 
-  return stats[0]
+  return stats[0] || { correct: 0, incorrect: 0, streak: 0 }
 }
 
 // export const maximumPlayerWinStreaks = async ({ playerId }) => {

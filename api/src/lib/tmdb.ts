@@ -45,7 +45,7 @@ export const discoverMovieForYear = async ({ year, numPages = 5 }) => {
 }
 
 /**
- * @see https://developers.themoviedb.org/3/discover/movie-discover
+ * @see https://developers.themoviedb.org/3/discover/movie-discovery
  * @param query
  * @returns JSON of movies
  */
@@ -67,6 +67,8 @@ export const discoverMoviesForYears = async ({
         const res = await moviedb.discoverMovie({
           primary_release_year,
           include_adult: false,
+          'vote_average.gte': 4,
+          'vote_count.gte': 10,
           region: 'US',
           sort_by: 'popularity.desc',
           page,
@@ -82,6 +84,7 @@ export const discoverMoviesForYears = async ({
           movies.push(movie)
         })
       } catch (error) {
+        console.error(error)
         return tmdbError(error)
       }
 

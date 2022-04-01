@@ -103,8 +103,14 @@ export const possiblesForMovieId = async ({ movieId }) => {
         date_part('year',
           m. "releasedOn") != date_part('year',
           picked_movie. "releasedOn")
-        AND m. "releasedOn" BETWEEN picked_movie. "releasedOn" - Interval '4 years'
-        AND picked_movie. "releasedOn" + interval '4 years'
+        AND date_part('year',
+          m. "releasedOn") != date_part('year',
+          picked_movie. "releasedOn") + 1
+        AND date_part('year',
+          m. "releasedOn") != date_part('year',
+          picked_movie. "releasedOn") - 1
+        AND m. "releasedOn" BETWEEN picked_movie. "releasedOn" - Interval '8 years'
+        AND picked_movie. "releasedOn" + interval '8 years'
         ),
     candidate_movies AS (
       SELECT
