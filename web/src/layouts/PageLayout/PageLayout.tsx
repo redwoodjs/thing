@@ -91,7 +91,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
                 </SignInButton>
               ) : playerContext.state.playerId ? (
                 <NavLink
-                  activeClassName="font-bold text-gray-900 hover:text-gray-900"
+                  activeClassName="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
                   to={routes.profile()}
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50"
                 >

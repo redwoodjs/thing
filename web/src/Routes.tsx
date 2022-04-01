@@ -13,7 +13,7 @@ const Routes = () => {
         <Route path="/leaderboard" page={LeaderboardPage} name="leaderboard" />
         <Route path="/profile" page={ProfilePage} name="profile" />
         <Route path="/rules" page={RulesPage} name="rules" prerender />
-        <Route path="/about" page={AboutPage} name="about" />
+        <Route path="/about" page={AboutPage} name="about" prerender />
         <Route notfound page={NotFoundPage} />
       </Set>
     </Router>

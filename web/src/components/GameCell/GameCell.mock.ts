@@ -43,6 +43,12 @@ export const standard = (/* vars, { ctx, req } */) => ({
   },
   answeredCorrectly: {
     id: 'd6b6704a-68d2-44b0-ac77-c5b27fb4ba67',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    playerId: 1,
+    player: {
+      id: '1',
+    },
     correctness: true,
     answeredMovieId: '3cf9467b-3194-4627-98fc-847cfb9a675c',
     answeredMovie: {
@@ -51,6 +57,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       releasedOn: '1986-05-30T04:00:00.000Z',
       photoPath: '/vWtOXvlcXCpb74GGfqYAnSbnm0L.jpg',
     },
+    correctMovieId: '3cf9467b-3194-4627-98fc-847cfb9a675c',
     correctMovie: {
       id: '3cf9467b-3194-4627-98fc-847cfb9a675c',
       title: 'Big Trouble in Little China',
@@ -104,6 +111,12 @@ export const standard = (/* vars, { ctx, req } */) => ({
   },
   answeredIncorrectly: {
     id: 'd6b6704a-68d2-44b0-ac77-c5b27fb4ba67',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    playerId: 1,
+    player: {
+      id: '1',
+    },
     correctness: false,
     answeredMovieId: 'ebfef61a-e35a-4559-94b9-f8272f448e21',
     answeredMovie: {
@@ -114,6 +127,7 @@ export const standard = (/* vars, { ctx, req } */) => ({
       releasedOn: '1993-06-11T04:00:00.000Z',
       photoPath: '/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg',
     },
+    correctMovieId: '3cf9467b-3194-4627-98fc-847cfb9a675c',
     correctMovie: {
       id: '3cf9467b-3194-4627-98fc-847cfb9a675c',
       title: 'Big Trouble in Little China',
