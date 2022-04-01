@@ -68,17 +68,17 @@ const GameStats = ({ gameStats }) => {
       <div className="grid grid-cols-3 gap-1 font-bold bg-white p-2">
         <div className="text-center">
           <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
-            {gameStats?.correct}
+            {gameStats?.correct || 0}
           </span>
         </div>
         <div className="text-center">
           <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-100 text-red-800">
-            {gameStats?.incorrect}
+            {gameStats?.incorrect || 0}
           </span>
         </div>
         <div className="text-center">
           <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-            {gameStats?.streak}
+            {gameStats?.streak || 0}
           </span>
         </div>
       </div>

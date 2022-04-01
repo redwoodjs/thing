@@ -1,44 +1,34 @@
-export default () => (
-  <main>
-    <style
-      dangerouslySetInnerHTML={{
-        __html: `
-              html, body {
-                margin: 0;
-              }
-              html * {
-                box-sizing: border-box;
-              }
-              main {
-                display: flex;
-                align-items: center;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-                text-align: center;
-                background-color: #E2E8F0;
-                height: 100vh;
-              }
-              section {
-                background-color: white;
-                border-radius: 0.25rem;
-                width: 32rem;
-                padding: 1rem;
-                margin: 0 auto;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-              }
-              h1 {
-                font-size: 2rem;
-                margin: 0;
-                font-weight: 500;
-                line-height: 1;
-                color: #2D3748;
-              }
-            `,
-      }}
-    />
-    <section>
-      <h1>
-        <span>404 Page Not Found</span>
-      </h1>
-    </section>
+import { Link, routes } from '@redwoodjs/router'
+
+const NotFoundPage = () => (
+  <main className="h-full">
+    <div className="bg-white min-h-full px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
+      <div className="max-w-max mx-auto">
+        <main className="sm:flex">
+          <p className="text-4xl font-extrabold text-indigo-600 sm:text-5xl">
+            404
+          </p>
+          <div className="sm:ml-6">
+            <div className="sm:border-l sm:border-gray-200 sm:pl-6">
+              <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
+                Page not found
+              </h1>
+              <p className="mt-1 text-base text-gray-500">
+                Please check the URL in the address bar and try again.
+              </p>
+            </div>
+            <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
+              <Link
+                to={routes.home()}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Go back home
+              </Link>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   </main>
 )
+export default NotFoundPage
