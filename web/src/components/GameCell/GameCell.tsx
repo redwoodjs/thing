@@ -3,7 +3,9 @@ import { toast } from '@redwoodjs/web/toast'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 
+import Countdown from 'src/components/Countdown/Countdown'
 import GameStats from 'src/components/GameStats/GameStats'
+import MovieButton from 'src/components/MovieButton/MovieButton'
 import MoviePlaceholder from 'src/components/MoviePlaceholder/MoviePlaceholder'
 
 import { useGameContext } from 'src/contexts/GameContext'
@@ -98,7 +100,6 @@ export const Success = ({
   game,
   gameStats,
   setAnsweredGame,
-  refetch,
 }: CellSuccessProps) => {
   const gameContext = useGameContext()
   const playerContext = usePlayerContext()
@@ -112,7 +113,6 @@ export const Success = ({
 
     onCompleted: ({ play }) => {
       setAnsweredGame(play)
-      refetch()
     },
   })
 
@@ -166,54 +166,23 @@ export const Success = ({
           <span className="font-bold text-xl px-1">{game.year}</span>?
         </h2>
         <div className="h-12">
-          {countdown > 13 && <div className="text-center">{countdown}</div>}
-          {countdown > 7 && countdown <= 13 && (
-            <div className="text-center font-semibold text-md">{countdown}</div>
-          )}
-          {countdown > 4 && countdown <= 7 && (
-            <div className="text-center font-bold text-lg text-indigo-700">
-              {countdown}
-            </div>
-          )}
-          {countdown >= 2 && countdown <= 4 && (
-            <div className="text-center font-extrabold text-xl text-purple-600">
-              {countdown}
-            </div>
-          )}
-          {countdown > 0 && countdown < 2 && (
-            <div className="text-center font-extrabold text-2xl text-red-500">
-              {countdown}
-            </div>
-          )}
+          <Countdown countdown={countdown} />
         </div>
       </div>
       <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
         {game.choices.map((movie) => {
           return (
-            <div key={movie.id} className="text-center">
-              <button
-                className="bg-gray-200"
-                onClick={() =>
-                  onAnswerClick({
-                    playId: game.playId,
-                    playerId: game.playerId,
-                    answeredMovieId: movie.id,
-                  })
-                }
-              >
-                <div className="drop-shadow-lg">
-                  <img
-                    className="lg:h-60 md:h-32 h-20 rounded-md"
-                    alt={movie.title}
-                    // Available poster sizes ['w92', 'w154', 'w185', 'w342', 'w500', 'w780', 'original']
-                    src={`https://image.tmdb.org/t/p/w185/${movie.photoPath}`}
-                  />
-                </div>
-              </button>
-              <h3 className="py-4 text-center font-semibold lg:text-xl md:text-lg text-md ">
-                {movie.title}
-              </h3>
-            </div>
+            <MovieButton
+              key={movie.id}
+              movie={movie}
+              onClick={() =>
+                onAnswerClick({
+                  playId: game.playId,
+                  playerId: game.playerId,
+                  answeredMovieId: movie.id,
+                })
+              }
+            />
           )
         })}
       </div>
