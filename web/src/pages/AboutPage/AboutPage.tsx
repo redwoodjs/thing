@@ -26,13 +26,24 @@ const AboutPage = () => {
       icon: DatabaseIcon,
       href: 'https://www.prisma.ios',
     },
+    {
+      name: 'tmdb api',
+      description: 'tmdb....',
+      icon: DatabaseIcon,
+      href: 'https://developers.themoviedb.org/3/getting-started/introduction',
+    },
   ]
 
   const faqs = [
     {
       id: 1,
-      question: 'GraphQL Query and Mutation Operations',
-      answer: 'GraphQL Api',
+      question: 'scripts',
+      answer: 'exec script',
+    },
+    {
+      id: 2,
+      question: 'seeds',
+      answer: 'db seed',
     },
   ]
 

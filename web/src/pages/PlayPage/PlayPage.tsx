@@ -14,9 +14,13 @@ const PlayPage = () => {
 
   const firstLoad = useRef(true)
 
+  let timer
+
+  const t = useRef(timer)
+
   useEffect(() => {
     if (showPrevious) {
-      setTimeout(() => {
+      t.current = setTimeout(() => {
         setShowPrevious(false)
         gameContext.setIsPlaying(true)
       }, CONTINUE_PLAY_SECONDS * 1_000)
@@ -43,6 +47,7 @@ const PlayPage = () => {
               <button
                 className="px-12 py-2 bg-indigo-500 text-white rounded-md"
                 onClick={() => {
+                  clearTimeout(t.current)
                   setShowPrevious(false)
                   gameContext.setIsPlaying(true)
                 }}
