@@ -6,7 +6,7 @@ const CorrectMovie = ({ movie, showIcon = true }) => {
       <div className="relative mx-auto lg:max-w-md">
         <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img
-            className="rounded-md shadow-md h-60"
+            className="rounded-md shadow-md h-60 border-4 border-solid border-green-400"
             alt={movie.title}
             src={`https://image.tmdb.org/t/p/w154/${movie.photoPath}`}
           />
@@ -16,7 +16,7 @@ const CorrectMovie = ({ movie, showIcon = true }) => {
               aria-hidden="true"
             >
               <svg
-                className="w-20 h-20"
+                className="w-20 h-20 "
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 stroke="2"

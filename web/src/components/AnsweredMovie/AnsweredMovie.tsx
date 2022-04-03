@@ -6,7 +6,7 @@ const AnsweredMovie = ({ movie, showIcon = true }) => {
       <div className="place-self-center col-span-1 drop-shadow-md">
         <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img
-            className="rounded-md shadow-md h-60"
+            className="rounded-md shadow-md h-60 border-4 border-solid border-red-500"
             alt={movie.title}
             src={`https://image.tmdb.org/t/p/w154/${movie.photoPath}`}
           />
