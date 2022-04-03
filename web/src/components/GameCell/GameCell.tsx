@@ -161,15 +161,15 @@ export const Success = ({
       <GameStats gameStats={gameStats} />
 
       <div className="text-center mb-8">
-        <h2 className="text-center mb-8">
+        <h2 className="text-center mb-8 text-gray-200 text-2xl">
           Which movie was released in{' '}
-          <span className="font-bold text-xl px-1">{game.year}</span>?
+          <span className="font-bold text-3xl px-1">{game.year}</span>?
         </h2>
         <div className="h-12">
           <Countdown countdown={countdown} />
         </div>
       </div>
-      <div className="grid md:grid-cols-5 grid-cols-3 gap-2">
+      <div className="grid md:grid-cols-5 grid-cols-3 gap-3 items-baseline">
         {game.choices.map((movie) => {
           return (
             <MovieButton

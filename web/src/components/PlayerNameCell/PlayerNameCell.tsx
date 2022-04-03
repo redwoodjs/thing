@@ -26,7 +26,9 @@ export const Success = ({ player }: CellSuccessProps<FindPlayerQuery>) => {
       <span className="pr-2">
         <Gravatar player={player} size="20px" />
       </span>
-      <span className="relative top-[2px]">{player.name}</span>
+      <span className="relative top-[2px] text-indigo-400 group-hover:text-gray-100 transition duration-200">
+        {player.name}
+      </span>
     </div>
   )
 }

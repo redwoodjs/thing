@@ -1,11 +1,9 @@
-// import { useGameContext } from 'src/contexts/GameContext'
+import './GameStats.css'
 
 const GameStats = ({ gameStats }) => {
-  // const gameContext = useGameContext()
-
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-3 gap-1 font-bold bg-gray-100 p-2">
+    <div className="p-4 neon-box mb-9">
+      <div className="grid grid-cols-3 gap-1 font-bold p-2 text-gray-200 font-sacramento text-xl neon-green">
         <div className="text-center">
           <span className="inline-flex items-center px-2.5 py-0.5">
             <svg
@@ -65,7 +63,7 @@ const GameStats = ({ gameStats }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-1 font-bold bg-white p-2">
+      <div className="grid grid-cols-3 gap-1 font-bold p-2">
         <div className="text-center">
           <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
             {gameStats?.correct || 0}

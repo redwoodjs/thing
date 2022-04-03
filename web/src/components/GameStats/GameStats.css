@@ -1,0 +1,20 @@
+.neon-box {
+  border: 0.2rem solid #fff;
+  border-radius: 2rem;
+  box-shadow:
+    0 0 0.2rem #fff,
+    0 0 0.2rem #fff,
+    /* 0 0 2rem #bc13fe,
+    0 0 0.8rem #bc13fe,
+    0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe; */
+    /* 0 0 2rem #13fe27,
+    0 0 0.8rem #13fe27,
+    0 0 2.8rem #13fe27,
+    inset 0 0 1.3rem #13fe27; */
+    0 0 2rem #f3e309,
+    0 0 0.8rem #f3e309,
+    0 0 2.8rem #f3e309,
+    inset 0 0 1.3rem #f3e309;
+  background-color: rgba(0, 0, 0, .5);
+}
