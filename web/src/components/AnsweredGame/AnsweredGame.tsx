@@ -18,22 +18,16 @@ const AnsweredGame = ({ play }: Props) => {
       <div className="">
         {play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center text-white">
-              Nice! 🎉
-            </h4>
             <CorrectMovie movie={play.correctMovie} />
           </div>
         )}
         {!play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center text-white">
-              Sorry 😢
-            </h4>
             {play.answeredMovie ? (
               <AnsweredMovie movie={play.answeredMovie} />
             ) : (
-              <div className="flex mt-4 p-6 bg-yellow-100 rounded-lg border-dotted border-8 border-yellow-500">
-                <p className="text-center w-full animate-bounce">
+              <div className="flex mt-4 p-6 bg-yellow-100 rounded-lg border-solid border-4 border-yellow-500">
+                <p className="text-center w-full animate-pulse text-xl font-bold">
                   No answer given in time
                 </p>
               </div>

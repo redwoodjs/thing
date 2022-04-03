@@ -43,9 +43,9 @@ const PlayPage = () => {
         {showPrevious && (
           <div className="p-8">
             <AnsweredGame play={answeredGame} />
-            <div className="text-center p-4">
+            <div className="text-center p-4 mt-2">
               <button
-                className="px-12 py-2 bg-red-500 text-white rounded-md"
+                className="px-12 py-2 bg-red-500 text-white rounded-md animate-bounce"
                 onClick={() => {
                   clearTimeout(t.current)
                   setShowPrevious(false)

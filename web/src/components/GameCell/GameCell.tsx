@@ -158,12 +158,12 @@ export const Success = ({
 
   return (
     <div className="bg-gray-800 p-4 rounded-lg ">
-      <div className="text-center mb-8">
-        <h2 className="text-center mb-8 text-white">
+      <div className="text-center mb-4">
+        <h2 className="text-center mb-4 text-white text-xl">
           Which movie was released in{' '}
-          <span className="font-bold text-xl px-1">{game.year}</span>?
+          <span className="font-bold text-2xl px-1">{game.year}</span>?
         </h2>
-        <div className="h-8">
+        <div>
           <Countdown countdown={countdown} />
         </div>
       </div>

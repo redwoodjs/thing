@@ -2,7 +2,7 @@ import MovieDetail from 'src/components/MovieDetail/MovieDetail'
 
 const CorrectMovie = ({ movie, showIcon = true }) => {
   return (
-    <div className="grid grid-cols-4 mt-4 p-4 bg-green-100 rounded-lg border-dotted border-8 border-green-500">
+    <div className="grid grid-cols-4 mt-4 p-4 bg-green-100 rounded-lg border-solid border-4 border-green-500">
       <div className="relative mx-auto lg:max-w-md">
         <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img
@@ -12,13 +12,14 @@ const CorrectMovie = ({ movie, showIcon = true }) => {
           />
           {showIcon && (
             <div
-              className="absolute inset-0 flex items-center justify-center animate-bounce"
+              className="absolute inset-0 flex items-center justify-center animate-ping  text-green-500"
               aria-hidden="true"
             >
               <svg
                 className="w-20 h-20"
-                fill="white"
+                fill="currentColor"
                 viewBox="0 0 20 20"
+                stroke="2"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
