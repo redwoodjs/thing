@@ -11,21 +11,24 @@ const PlayPage = () => {
   const [answeredGame, setAnsweredGame] = useState<Play>()
   const [showPrevious, setShowPrevious] = useState(false)
   const gameContext = useGameContext()
+  const setIsPlaying = gameContext.setIsPlaying
 
   const firstLoad = useRef(true)
 
-  let timer
-
-  const t = useRef(timer)
+  const timerId = useRef<NodeJS.Timeout>()
 
   useEffect(() => {
     if (showPrevious) {
-      t.current = setTimeout(() => {
+      timerId.current = setTimeout(() => {
         setShowPrevious(false)
-        gameContext.setIsPlaying(true)
+        setIsPlaying(true)
       }, CONTINUE_PLAY_SECONDS * 1_000)
     }
-  }, [showPrevious, gameContext])
+
+    return () => {
+      clearTimeout(timerId.current)
+    }
+  }, [showPrevious, setIsPlaying])
 
   useEffect(() => {
     // Immediately start playing on page load
@@ -47,7 +50,7 @@ const PlayPage = () => {
               <button
                 className="px-12 py-2 bg-indigo-500 text-white rounded-md"
                 onClick={() => {
-                  clearTimeout(t.current)
+                  clearTimeout(timerId.current)
                   setShowPrevious(false)
                   gameContext.setIsPlaying(true)
                 }}

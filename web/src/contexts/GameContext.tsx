@@ -38,15 +38,21 @@ export const GameContextProvider: React.FC = ({ children }) => {
     }
   }, 1_000)
 
+  // extract to variable so we can use this in the useCallback dependency array
+  // below. If we used `state.isPlaying` inside the callback we would have to
+  // have `state` as a dependency, and then the callback would be regenerated
+  // every second when countdown was updated. We don't want/need that.
+  const stateIsPlaying = state.isPlaying
+
   const setIsPlaying = useCallback(
     (isPlaying: boolean) => {
-      if (!state.isPlaying && isPlaying) {
+      if (!stateIsPlaying && isPlaying) {
         setState({ countdown: COUNTDOWN_SECONDS })
       }
 
       setState({ isPlaying })
     },
-    [state]
+    [stateIsPlaying]
   )
 
   return (

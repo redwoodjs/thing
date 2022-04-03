@@ -104,7 +104,7 @@ export const Success = ({
   const gameContext = useGameContext()
   const playerContext = usePlayerContext()
 
-  const countdown = gameContext?.state?.countdown
+  const countdown = gameContext.state.countdown
 
   const [answerGame] = useMutation(ANSWER_GAME_MUTATION, {
     onError: (error) => {
