@@ -18,7 +18,7 @@ const AnsweredGame = ({ play }: Props) => {
       <div className="">
         {play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center text-gray-300">
+            <h4 className="text-xl font-bold text-center text-white">
               Nice! 🎉
             </h4>
             <CorrectMovie movie={play.correctMovie} />
@@ -26,7 +26,7 @@ const AnsweredGame = ({ play }: Props) => {
         )}
         {!play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center text-gray-300">
+            <h4 className="text-xl font-bold text-center text-white">
               Sorry 😢
             </h4>
             {play.answeredMovie ? (

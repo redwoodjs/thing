@@ -157,9 +157,7 @@ export const Success = ({
   ])
 
   return (
-    <div className="bg-gray-800 p-8 rounded-lg">
-      <GameStats gameStats={gameStats} />
-
+    <div className="bg-gray-800 p-4 rounded-lg ">
       <div className="text-center mb-8">
         <h2 className="text-center mb-8 text-white">
           Which movie was released in{' '}
@@ -169,7 +167,7 @@ export const Success = ({
           <Countdown countdown={countdown} />
         </div>
       </div>
-      <div className="grid md:grid-cols-5 grid-cols-3 gap-2 justify-center">
+      <div className="flex mb-6 rounded-md bg-gray-700 p-4 justify-evenly">
         {game.choices.map((movie) => {
           return (
             <MovieButton
@@ -186,6 +184,7 @@ export const Success = ({
           )
         })}
       </div>
+      <GameStats gameStats={gameStats} />
     </div>
   )
 }

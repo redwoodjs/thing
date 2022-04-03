@@ -15,7 +15,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
   const playerContext = usePlayerContext()
 
   return (
-    <div className="relative bg-gray-800 h-screen-max bg-gradient-to-b from-gray-800 to-black">
+    <div className="relative bg-gray-800 h-full bg-gradient-to-b from-gray-800 to-black">
       <Toaster toastOptions={{ success: { duration: 10000 } }} />
       <div
         className="hidden lg:block lg:absolute lg:inset-0"
@@ -111,7 +111,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
             </span>
           </div>
         </nav>
-        <main className="mt-4 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-8">
+        <main className="mt-4 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-8 h-screen">
           {children}
         </main>
       </div>
