@@ -8,7 +8,7 @@ import {
   VerifyOptions,
   WebhookVerificationError,
 } from '@redwoodjs/api/webhooks'
-import { setGravatarHash, updatePlayer } from 'src/services/players'
+import { setGravatarHash } from 'src/services/players'
 
 /**
  * The handler function is your code that processes http request events.
