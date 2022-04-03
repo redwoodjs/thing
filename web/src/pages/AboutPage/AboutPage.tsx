@@ -51,18 +51,18 @@ const AboutPage = () => {
     <>
       <MetaTags title="About" description="About page" />
 
-      <div className="relative bg-white py-4 sm:py-8 lg:py-12">
+      <div className="relative py-4 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
-          <h2 className="text-base font-semibold tracking-wider text-purple-600 uppercase">
+          <h2 className="text-base font-semibold tracking-wider text-red-900 uppercase">
             How we Built with RedwoodJS
           </h2>
-          <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+          <p className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl text-gray-300">
             Everything you need to develop a web app
           </p>
           <p className="mt-5 max-w-prose mx-auto text-xl text-gray-500">
             Build your application like this one ... faster and easier
           </p>
-          <div className="mt-12">
+          <div className="my-12">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((feature) => (
                 <div key={feature.name} className="pt-6">
@@ -70,7 +70,7 @@ const AboutPage = () => {
                     <a href={feature.href}>
                       <div className="-mt-6">
                         <div>
-                          <span className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-md shadow-lg">
+                          <span className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-red-500 to-red-900 rounded-md shadow-lg">
                             <feature.icon
                               className="h-6 w-6 text-white"
                               aria-hidden="true"
@@ -92,7 +92,7 @@ const AboutPage = () => {
           </div>
         </div>
 
-        <div className="bg-white">
+        <div className="bg-white  rounded-lg">
           <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-extrabold text-gray-900 text-center">
               Technologies Used

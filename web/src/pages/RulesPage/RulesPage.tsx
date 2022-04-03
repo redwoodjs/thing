@@ -24,7 +24,7 @@ const RulesPage = () => {
               Can’t find the answer you’re looking for? Reach out to our{' '}
               <a
                 href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
+                className="font-medium text-red-600 hover:text-red-500"
               >
                 customer support
               </a>{' '}

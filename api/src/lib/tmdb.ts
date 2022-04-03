@@ -1,8 +1,6 @@
 import { MovieDb } from 'moviedb-promise'
 import { MovieResult } from 'moviedb-promise/dist/request-types'
 
-import { logger } from './logger'
-
 /**
  * The Movie Database api client
  *

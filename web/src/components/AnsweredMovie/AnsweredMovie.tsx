@@ -2,9 +2,9 @@ import MovieDetail from 'src/components/MovieDetail/MovieDetail'
 
 const AnsweredMovie = ({ movie, showIcon = true }) => {
   return (
-    <div className="grid grid-cols-4 mt-4 p-6 bg-red-100 rounded-lg">
+    <div className="grid grid-cols-4 mt-4 p-4 bg-red-100 rounded-lg border-dotted border-8 border-red-500">
       <div className="place-self-center col-span-1 drop-shadow-md">
-        <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <div className="relative block bg-white rounded-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img
             className="rounded-md shadow-md h-60"
             alt={movie.title}
@@ -12,7 +12,7 @@ const AnsweredMovie = ({ movie, showIcon = true }) => {
           />
           {showIcon && (
             <div
-              className="absolute inset-0 flex items-center justify-center"
+              className="absolute inset-0 flex items-center justify-center animate-bounce"
               aria-hidden="true"
             >
               <svg

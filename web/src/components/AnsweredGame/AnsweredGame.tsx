@@ -15,21 +15,27 @@ const AnsweredGame = ({ play }: Props) => {
 
   return (
     <div className="pointer-events-none">
-      <div className="mt-4">
+      <div className="">
         {play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center">Nice! 🎉 </h4>
+            <h4 className="text-xl font-bold text-center text-gray-300">
+              Nice! 🎉
+            </h4>
             <CorrectMovie movie={play.correctMovie} />
           </div>
         )}
         {!play.correctness && (
           <div>
-            <h4 className="text-xl font-bold text-center">Sorry 😢</h4>
+            <h4 className="text-xl font-bold text-center text-gray-300">
+              Sorry 😢
+            </h4>
             {play.answeredMovie ? (
               <AnsweredMovie movie={play.answeredMovie} />
             ) : (
-              <div className="flex mt-4 p-6 bg-purple-100 rounded-lg">
-                <p className="text-center w-full">No answer given in time</p>
+              <div className="flex mt-4 p-6 bg-yellow-100 rounded-lg border-dotted border-8 border-yellow-500">
+                <p className="text-center w-full animate-bounce">
+                  No answer given in time
+                </p>
               </div>
             )}
 

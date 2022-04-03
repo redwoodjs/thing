@@ -14,7 +14,7 @@ const HomePage = () => {
             </span>
             <span className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
               <span className="block text-gray-900">(thing)</span>
-              <span className="block text-indigo-600">
+              <span className="block text-red-600">
                 keeping you entertained all day long
               </span>
             </span>
@@ -27,12 +27,12 @@ const HomePage = () => {
             <div className="rounded-md shadow">
               <Link
                 to={routes.play()}
-                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 md:py-4 md:text-lg md:px-10"
               >
                 Start Playing
               </Link>
             </div>
-            <SignInButton className="block mt-3 sm:mt-0 sm:ml-3 rounded-md shadow ring-1 ring-black ring-opacity-5 flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+            <SignInButton className="block mt-3 sm:mt-0 sm:ml-3 rounded-md shadow ring-1 ring-black ring-opacity-5 flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-red-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
               Sign In
             </SignInButton>
           </div>
@@ -82,7 +82,7 @@ const HomePage = () => {
           <div className="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
             <button
               type="button"
-              className="relative block w-full bg-white rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="relative block w-full bg-white rounded-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
             >
               <img
                 className="w-full"

@@ -10,17 +10,17 @@ const LeaderboardPage = () => {
   return (
     <>
       <MetaTags title="Leaderboard" description="Leaderboard page" />
-      <section className="divide-y">
+      <section className="divide-y text-gray-300">
         <section className="py-4">
-          <h1 className="text-xl font-bold mb-4">Leaderboard</h1>
+          <h1 className="text-xl font-bold mb-4 text-gray-300">Leaderboard</h1>
           <p>How do you rank?</p>
         </section>
         <section className="py-4">
-          <h2 className="text-xl font-bold mb-4">Me</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-300">Me</h2>
           <LeaderboardWindowCell playerId={playerContext.state.playerId} />
         </section>
         <section className="py-4">
-          <h2 className="text-xl font-bold mb-4">World</h2>
+          <h2 className="text-xl font-bold mb-4 text-gray-300">World</h2>
           <LeaderboardCell />
         </section>
       </section>

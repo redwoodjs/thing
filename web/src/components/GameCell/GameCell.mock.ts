@@ -179,4 +179,67 @@ export const standard = (/* vars, { ctx, req } */) => ({
       },
     ],
   },
+  skipped: {
+    id: 'd6b6704a-68d2-44b0-ac77-c5b27fb4ba67',
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+    playerId: 1,
+    player: {
+      id: '1',
+    },
+    correctness: null,
+    answeredMovieId: null,
+    answeredMovie: null,
+    correctMovieId: '3cf9467b-3194-4627-98fc-847cfb9a675c',
+    correctMovie: {
+      id: '3cf9467b-3194-4627-98fc-847cfb9a675c',
+      title: 'Big Trouble in Little China',
+      overview:
+        "When trucker Jack Burton agreed to take his friend, Wang Chi, to pick up his fiancee at the airport, he never expected to get involved in a supernatural battle between good and evil. Wang's fiancee has emerald green eyes, which make her a perfect target for immortal sorcerer Lo Pan and his three invincible cronies. Lo Pan must marry a girl with green eyes so he can regain his physical form.",
+      releasedOn: '1986-05-30T04:00:00.000Z',
+      photoPath: '/vWtOXvlcXCpb74GGfqYAnSbnm0L.jpg',
+    },
+    possibleMovies: [
+      {
+        movie: {
+          id: 'd42c846f-1eae-4785-9092-8184e15e52f7',
+          title: 'City on Fire',
+          releasedOn: '1987-02-13T05:00:00.000Z',
+          photoPath: '/zO2MFwAiFoHC2mGjfxTc5JFlXGU.jpg',
+        },
+      },
+      {
+        movie: {
+          id: '1040746c-ac78-41a0-8c97-2164541ea799',
+          title: 'Valmont',
+          releasedOn: '1989-11-17T05:00:00.000Z',
+          photoPath: '/gKBCV6VzThjoVjO9GypqZMJix4J.jpg',
+        },
+      },
+      {
+        movie: {
+          id: 'ebfef61a-e35a-4559-94b9-f8272f448e21',
+          title: 'Jurassic Park',
+          releasedOn: '1993-06-11T04:00:00.000Z',
+          photoPath: '/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg',
+        },
+      },
+      {
+        movie: {
+          id: '3cf9467b-3194-4627-98fc-847cfb9a675c',
+          title: 'Big Trouble in Little China',
+          releasedOn: '1986-05-30T04:00:00.000Z',
+          photoPath: '/vWtOXvlcXCpb74GGfqYAnSbnm0L.jpg',
+        },
+      },
+      {
+        movie: {
+          id: 'efcfb4a3-3890-4522-9b88-38198b839c20',
+          title: 'Stakeout',
+          releasedOn: '1987-08-05T04:00:00.000Z',
+          photoPath: '/zclBzn3FBzF4i774z0mZjFQw66q.jpg',
+        },
+      },
+    ],
+  },
 })

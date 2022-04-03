@@ -39,13 +39,13 @@ const PlayPage = () => {
     <>
       <MetaTags title="Play" description="Play page" />
 
-      <div>
+      <div className="bg-gray-800 rounded-lg">
         {showPrevious && (
-          <div>
+          <div className="p-8">
             <AnsweredGame play={answeredGame} />
             <div className="text-center p-4">
               <button
-                className="px-12 py-2 bg-indigo-500 text-white rounded-md"
+                className="px-12 py-2 bg-red-500 text-white rounded-md"
                 onClick={() => {
                   clearTimeout(t.current)
                   setShowPrevious(false)

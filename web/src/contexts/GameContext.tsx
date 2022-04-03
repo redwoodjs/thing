@@ -2,7 +2,7 @@ import React, { useReducer, createContext, useCallback } from 'react'
 import { useInterval } from 'src/hooks/useInterval'
 
 export const COUNTDOWN_SECONDS = 17
-export const CONTINUE_PLAY_SECONDS = 7
+export const CONTINUE_PLAY_SECONDS = 3
 
 export interface GameState {
   isPlaying: boolean

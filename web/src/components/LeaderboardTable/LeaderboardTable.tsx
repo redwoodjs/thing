@@ -10,7 +10,7 @@ const LeaderboardTable = ({
 }) => {
   return (
     <div>
-      <div className="grid grid-cols-6 gap-1 font-bold bg-gray-100 p-2">
+      <div className="grid grid-cols-6 gap-1 font-bold bg-gray-500 p-2">
         <div>
           <span className="inline-flex items-center px-2.5 py-0.5">
             <span>Place</span>

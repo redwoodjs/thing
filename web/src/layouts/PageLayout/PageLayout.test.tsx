@@ -2,6 +2,7 @@ import { ClerkProvider, withClerk } from '@clerk/clerk-react'
 import { render } from '@redwoodjs/testing/web'
 
 import PageLayout from './PageLayout'
+import { PlayerContextProvider } from 'src/contexts/PlayerContext'
 
 const ClerkAuthConsumer = withClerk(({ children, clerk }) => {
   return React.cloneElement(children as React.ReactElement, {
@@ -27,7 +28,9 @@ describe('PageLayout', () => {
     expect(() => {
       render(
         <ClerkAuthProvider>
-          <PageLayout />
+          <PlayerContextProvider>
+            <PageLayout />
+          </PlayerContextProvider>
         </ClerkAuthProvider>
       )
     }).not.toThrow()

@@ -1,6 +1,7 @@
 import { ClerkProvider, withClerk } from '@clerk/clerk-react'
 
 import PageLayout from './PageLayout'
+import { PlayerContextProvider } from 'src/contexts/PlayerContext'
 
 const ClerkAuthConsumer = withClerk(({ children, clerk }) => {
   return React.cloneElement(children as React.ReactElement, {
@@ -23,7 +24,9 @@ const ClerkAuthProvider = ({ children }) => {
 export const generated = () => {
   return (
     <ClerkAuthProvider>
-      <PageLayout />
+      <PlayerContextProvider>
+        <PageLayout />
+      </PlayerContextProvider>
     </ClerkAuthProvider>
   )
 }

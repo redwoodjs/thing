@@ -4,7 +4,7 @@ const GameStats = ({ gameStats }) => {
   // const gameContext = useGameContext()
 
   return (
-    <div className="p-4">
+    <div className="m-4 p-4 rounded-lg border-8 border-dotted border-gray-500 bg-gray-100">
       <div className="grid grid-cols-3 gap-1 font-bold bg-gray-100 p-2">
         <div className="text-center">
           <span className="inline-flex items-center px-2.5 py-0.5">
@@ -60,7 +60,7 @@ const GameStats = ({ gameStats }) => {
                 d="M13 10V3L4 14h7v7l9-11h-7z"
               ></path>
             </svg>
-            <span className="pl-2">Streak</span>
+            <span className="pl-2">Longest Streak</span>
           </span>
         </div>
       </div>
