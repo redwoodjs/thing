@@ -9,11 +9,11 @@ const ProfileButton = () => {
   const playerContext = usePlayerContext()
 
   return (
-    <div className="relative group">
+    <div className="relative group m-3 md:m-0">
       <div className="absolute -inset-1 bg-gradient-to-r from-yellow-300 to-blue-200 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
 
       {!isAuthenticated ? (
-        <SignInButton className="relative px-4 py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600">
+        <SignInButton className="relative w-full md:w-unset px-4 py-3 md:py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600">
           <span className="flex items-center space-x-5">
             {playerContext.state.playerId ? (
               <PlayerNameCell id={playerContext.state.playerId} />
@@ -26,22 +26,22 @@ const ProfileButton = () => {
         </SignInButton>
       ) : playerContext.state.playerId ? (
         <NavLink
-          activeClassName=""
           to={routes.profile()}
-          className="relative px-4 py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
+          className="relative w-full md:w-unset px-4 py-3 md:py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
+          activeClassName="relative w-full md:w-unset px-4 py-3 md:py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
         >
           <PlayerNameCell id={playerContext.state.playerId} />
         </NavLink>
       ) : (
         <button
-          className="relative px-4 py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
+          className="relative w-full md:w-unset px-4 py-3 md:py-2 bg-black rounded-lg leading-none flex items-center divide-x divide-gray-600"
           onClick={() => {
             playerContext.setState({ playerId: undefined })
             logOut()
           }}
         >
           <span className="flex items-center space-x-5">
-            <span className="text-indigo-400 group-hover:text-gray-100 transition duration-200">
+            <span className="text-indigo-400 group-hover:text-gray-100 transition duration-200 w-full md:w-unset">
               Sign Out
             </span>
           </span>
