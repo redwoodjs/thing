@@ -15,7 +15,7 @@ const MovieButton = ({ movie, onClick }) => {
         />
       </div>
 
-      <h3 className="py-4 text-indigo-400 font-semibold lg:text-xl md:text-lg text-md group-hover:text-gray-100 transition duration-100">
+      <h3 className="py-4 text-indigo-400 font-semibold lg:text-xl md:text-md text-md group-hover:text-gray-100 transition duration-100 overflow-hidden text-ellipsis">
         {movie.title}
       </h3>
     </button>
