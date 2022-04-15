@@ -18,8 +18,11 @@ interface CreatePlayerArgs {
 }
 
 export const createPlayer = ({ input }: CreatePlayerArgs) => {
+  // If the user is already logged in when creating the player we will
+  // associate the user id with the player here. Otherwise that will happen
+  // when the user signs up/logs in
   return db.player.create({
-    data: input,
+    data: { ...input, clerkId: context.currentUser?.id },
   })
 }
 

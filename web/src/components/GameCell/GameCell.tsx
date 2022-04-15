@@ -125,6 +125,8 @@ export const Success = ({
 
   useEffect(() => {
     if (!playerContext.state.playerId) {
+      // Created a new player
+
       playerContext.setState({ playerId: game.playerId })
     }
   }, [playerContext, game])

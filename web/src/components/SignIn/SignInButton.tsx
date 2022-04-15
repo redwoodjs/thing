@@ -44,9 +44,20 @@ const SignInButton = ({ className, children }: Props) => {
         (session) => session.id === data.createdSessionId
       )
 
-      if (!session?.user.id || !playerId) {
-        // Reload window to update auth
-        window.location.reload()
+      if (!session?.user.id) {
+        // TODO: If this happens something is very wrong and things will break
+        // here because the clerk user id will never be associated with the
+        // player. Need to handle this somehow
+
+        console.error('No user id in session', JSON.stringify(session, null, 2))
+        return
+      }
+
+      setIsOpen(false)
+
+      if (!playerId) {
+        // Probably haven't started playing yet, so no playerId available
+        return
       }
 
       updatePlayer({
