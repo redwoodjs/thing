@@ -11,9 +11,9 @@ const ProfilePage = () => {
     <>
       <MetaTags title="Profile" description="Profile page" />
 
-      <h1>ProfilePage</h1>
+      <h1 className="text-yellow-300">ProfilePage</h1>
       <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
-        <p className="text-base font-medium text-gray-900">
+        <p className="text-base font-medium text-gray-200">
           Sign up to get notified when it&apos;s ready.
         </p>
         <form action="#" method="POST" className="mt-3 sm:flex">
@@ -34,11 +34,11 @@ const ProfilePage = () => {
             Notify me
           </button>
         </form>
-        <p className="mt-3 text-sm text-gray-500">
+        <p className="mt-3 text-sm text-gray-400">
           We care about the protection of your data. Read our{' '}
           <Link
             to={routes.home()}
-            className="font-medium text-gray-900 underline"
+            className="font-medium text-gray-200 underline"
           >
             Privacy Policy
           </Link>
@@ -46,6 +46,7 @@ const ProfilePage = () => {
         </p>
       </div>
       <button
+        className="text-gray-200 underline"
         onClick={() => {
           playerContext.setState({ playerId: undefined })
           logOut()
