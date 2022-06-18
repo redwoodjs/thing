@@ -1365,12 +1365,12 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@clerk/backend-core@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-0.7.0.tgz#7b7ca59b401a0422120e178f897e8bbc520f5148"
-  integrity sha512-lTUm8mig9w2KPDDpVFfMKeb/8VI5Ogc+gJY9ZnxgNsIHAYY1Ioz3PO4C2D30s0DHvxw1rKRomAXrPa6jbQnUjg==
+"@clerk/backend-core@^1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@clerk/backend-core/-/backend-core-1.9.2.tgz#700f9d56d4b63d8ea5bae8ff60a6ad1615c3b9c8"
+  integrity sha512-E2quh+GKqvYxoNXiuJwvJjcn+6wH5fGeCe7SWdREcFoG0mto5SGkDxhZfKLZV8GbJKJQTgbU+/xCL10DkU0Kaw==
   dependencies:
-    camelcase-keys "^7.0.1"
+    "@clerk/types" "^2.16.0"
     query-string "^7.0.1"
     snakecase-keys "^5.1.2"
     tslib "^2.3.1"
@@ -1383,12 +1383,13 @@
     "@clerk/types" "^1.29.3"
     tslib "^2.3.1"
 
-"@clerk/clerk-sdk-node@^2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-2.10.0.tgz#6dac5247241058ded762dcfd4774521cd73d99e0"
-  integrity sha512-imtaXFk6kpedHA1+rGxOvVBHP0+ee4/7bSosP0B1XJy+aiyX1ngk3a3IJsD8xeIX+U+SyLkv3Dc7bNmoV6WFeQ==
+"@clerk/clerk-sdk-node@3.6.2":
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/@clerk/clerk-sdk-node/-/clerk-sdk-node-3.6.2.tgz#317ddc16a8a43d716ce218d94d2267c4effbe511"
+  integrity sha512-YF4UqNgYjLfV6X46Eq0dPtuqp2n86AkDG/ns7IWyOROfCn3Su3TBnEhlNOXzANAEJlzhyQF5zHdYkJVj9+4oAw==
   dependencies:
-    "@clerk/backend-core" "^0.7.0"
+    "@clerk/backend-core" "^1.9.2"
+    "@clerk/types" "^2.16.0"
     "@peculiar/webcrypto" "^1.2.3"
     camelcase-keys "^6.2.2"
     cookies "^0.8.0"
@@ -1403,6 +1404,11 @@
   version "1.29.3"
   resolved "https://registry.yarnpkg.com/@clerk/types/-/types-1.29.3.tgz#7566d209b37900bcfdd3f02ac5b2c063e3ea2bc7"
   integrity sha512-8mR25zF+USqLFJo7dAaiWwYAtuTdVy+rDPWSE529FAgp1oCpBjjzys2GpHhDBmhXAXquQ/DEi7z9ErIrvT5l8A==
+
+"@clerk/types@^2.16.0":
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/@clerk/types/-/types-2.16.0.tgz#6ac684a6efd88056a3748a7b9a32840d283cacf1"
+  integrity sha512-gO6936V+pMppzVOydQelzlG8irMa5xpc0B74YYdfrR3UrRYlXuLB/vvUlMQeoweKRs7jWQlIC6c4lQodNgRVfw==
 
 "@discoveryjs/json-ext@^0.5.0", "@discoveryjs/json-ext@^0.5.3":
   version "0.5.7"
@@ -6394,17 +6400,7 @@ camelcase-keys@^6.2.2:
     map-obj "^4.0.0"
     quick-lru "^4.0.1"
 
-camelcase-keys@^7.0.1:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/camelcase-keys/-/camelcase-keys-7.0.2.tgz#d048d8c69448745bb0de6fc4c1c52a30dfbe7252"
-  integrity sha512-Rjs1H+A9R+Ig+4E/9oyB66UC5Mj9Xq3N//vcLf2WzgdTi/3gUu3Z9KoqmlrEG4VuuLK8wJHofxzdQXz/knhiYg==
-  dependencies:
-    camelcase "^6.3.0"
-    map-obj "^4.1.0"
-    quick-lru "^5.1.1"
-    type-fest "^1.2.1"
-
-camelcase@6.3.0, camelcase@^6.2.0, camelcase@^6.3.0:
+camelcase@6.3.0, camelcase@^6.2.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
@@ -16994,7 +16990,7 @@ type-fest@^0.8.0, type-fest@^0.8.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
-type-fest@^1.2.1, type-fest@^1.2.2:
+type-fest@^1.2.2:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
   integrity sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==
